@@ -1,0 +1,128 @@
+/* ValidationResults - Validation report display */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.summary {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-iron);
+}
+
+.status {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.status[data-valid='true'] {
+  color: var(--color-success);
+}
+
+.status[data-valid='false'] {
+  color: var(--color-error);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.metricLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-zinc);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.metricValue {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-platinum);
+}
+
+.issues {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sectionHeader {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  padding: var(--space-2) 0;
+}
+
+.sectionHeader[data-severity='error'] {
+  color: var(--color-error);
+}
+
+.sectionHeader[data-severity='warning'] {
+  color: var(--color-warning);
+}
+
+.sectionHeader[data-severity='info'] {
+  color: var(--color-info);
+}
+
+.issuesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.issue {
+  padding: var(--space-3);
+  background: var(--color-steel);
+  border-left: 3px solid;
+}
+
+.issue[data-severity='error'] {
+  border-color: var(--color-error);
+}
+
+.issue[data-severity='warning'] {
+  border-color: var(--color-warning);
+}
+
+.issue[data-severity='info'] {
+  border-color: var(--color-info);
+}
+
+.issueLocation {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-zinc);
+  margin-bottom: var(--space-1);
+}
+
+.issueMessage {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-platinum);
+  line-height: var(--leading-base);
+}

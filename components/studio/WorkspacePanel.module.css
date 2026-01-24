@@ -72,3 +72,16 @@
   font-size: var(--text-sm);
   font-style: italic;
 }
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.tip {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-zinc);
+  line-height: var(--leading-base);
+}

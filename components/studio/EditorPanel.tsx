@@ -1,13 +1,46 @@
 'use client';
 
+import { useCallback } from 'react';
 import styles from './EditorPanel.module.css';
 import type { Mode } from './StudioShell';
+import { MonacoEditor } from './MonacoEditor';
+import { useStudioStore } from '@/lib/store';
+import { formatJSON } from '@/lib/utils/format';
 
 interface EditorPanelProps {
   mode: Mode;
 }
 
 export function EditorPanel({ mode }: EditorPanelProps) {
+  const {
+    jsonA,
+    jsonB,
+    jsonSource,
+    jsonpathQuery,
+    setJsonA,
+    setJsonB,
+    setJsonSource,
+    setJsonpathQuery,
+    executeDiff,
+    executeJsonPath,
+    executeValidation,
+    clearAll,
+    processing,
+  } = useStudioStore();
+
+  const handleFormat = useCallback(() => {
+    try {
+      if (mode === 'diff') {
+        if (jsonA) setJsonA(formatJSON(jsonA));
+        if (jsonB) setJsonB(formatJSON(jsonB));
+      } else {
+        if (jsonSource) setJsonSource(formatJSON(jsonSource));
+      }
+    } catch (error) {
+      console.error('Format error:', error);
+    }
+  }, [mode, jsonA, jsonB, jsonSource, setJsonA, setJsonB, setJsonSource]);
+
   return (
     <div className={styles.panel}>
       {mode === 'diff' && (
@@ -16,13 +49,11 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             <div className={styles.editorHeader}>
               <span className={styles.editorLabel}>JSON A</span>
             </div>
-            <div className={styles.editorPlaceholder}>
-              <div className={styles.placeholderContent}>
-                <span className={styles.placeholderIcon}>←</span>
-                <p className={styles.placeholderText}>Paste or upload your first JSON</p>
-                <p className={styles.placeholderHint}>Cmd+V to paste</p>
-              </div>
-            </div>
+            <MonacoEditor
+              value={jsonA}
+              onChange={setJsonA}
+              placeholder="Paste or upload your first JSON"
+            />
           </div>
 
           <div className={styles.divider}></div>
@@ -31,13 +62,11 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             <div className={styles.editorHeader}>
               <span className={styles.editorLabel}>JSON B</span>
             </div>
-            <div className={styles.editorPlaceholder}>
-              <div className={styles.placeholderContent}>
-                <span className={styles.placeholderIcon}>←</span>
-                <p className={styles.placeholderText}>Paste or upload your second JSON</p>
-                <p className={styles.placeholderHint}>Cmd+V to paste</p>
-              </div>
-            </div>
+            <MonacoEditor
+              value={jsonB}
+              onChange={setJsonB}
+              placeholder="Paste or upload your second JSON"
+            />
           </div>
         </div>
       )}
@@ -53,6 +82,13 @@ export function EditorPanel({ mode }: EditorPanelProps) {
                 type="text"
                 className={styles.queryField}
                 placeholder="$.users[?(@.age > 25)].name"
+                value={jsonpathQuery}
+                onChange={(e) => setJsonpathQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                    executeJsonPath();
+                  }
+                }}
               />
             </div>
           </div>
@@ -61,12 +97,11 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             <div className={styles.editorHeader}>
               <span className={styles.editorLabel}>JSON Source</span>
             </div>
-            <div className={styles.editorPlaceholder}>
-              <div className={styles.placeholderContent}>
-                <span className={styles.placeholderIcon}>⌘</span>
-                <p className={styles.placeholderText}>Paste your JSON to query</p>
-              </div>
-            </div>
+            <MonacoEditor
+              value={jsonSource}
+              onChange={setJsonSource}
+              placeholder="Paste your JSON to query"
+            />
           </div>
         </div>
       )}
@@ -77,29 +112,49 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             <div className={styles.editorHeader}>
               <span className={styles.editorLabel}>JSON Document</span>
             </div>
-            <div className={styles.editorPlaceholder}>
-              <div className={styles.placeholderContent}>
-                <span className={styles.placeholderIcon}>✓</span>
-                <p className={styles.placeholderText}>Paste JSON to validate</p>
-                <p className={styles.placeholderHint}>Real-time validation & linting</p>
-              </div>
-            </div>
+            <MonacoEditor
+              value={jsonSource}
+              onChange={setJsonSource}
+              placeholder="Paste JSON to validate"
+            />
           </div>
         </div>
       )}
 
       <div className={styles.actionBar}>
         {mode === 'diff' && (
-          <button className={styles.primaryButton}>Compare</button>
+          <button
+            className={styles.primaryButton}
+            onClick={executeDiff}
+            disabled={processing || !jsonA || !jsonB}
+          >
+            {processing ? 'Processing...' : 'Compare'}
+          </button>
         )}
         {mode === 'jsonpath' && (
-          <button className={styles.primaryButton}>Execute Query</button>
+          <button
+            className={styles.primaryButton}
+            onClick={executeJsonPath}
+            disabled={processing || !jsonSource || !jsonpathQuery}
+          >
+            {processing ? 'Processing...' : 'Execute Query'}
+          </button>
         )}
         {mode === 'validate' && (
-          <button className={styles.primaryButton}>Analyze</button>
+          <button
+            className={styles.primaryButton}
+            onClick={executeValidation}
+            disabled={processing || !jsonSource}
+          >
+            {processing ? 'Processing...' : 'Analyze'}
+          </button>
         )}
-        <button className={styles.secondaryButton}>Format</button>
-        <button className={styles.secondaryButton}>Clear</button>
+        <button className={styles.secondaryButton} onClick={handleFormat}>
+          Format
+        </button>
+        <button className={styles.secondaryButton} onClick={clearAll}>
+          Clear
+        </button>
       </div>
     </div>
   );

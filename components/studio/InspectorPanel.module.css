@@ -88,6 +88,10 @@
   border-top: 1px solid var(--color-iron);
 }
 
+.exportContainer {
+  position: relative;
+}
+
 .exportButton {
   display: flex;
   align-items: center;
@@ -108,5 +112,41 @@
 .exportButton:hover {
   background: var(--color-shadow);
   border-color: var(--color-silver);
+  color: var(--color-chrome);
+}
+
+.exportMenu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: var(--space-2);
+  background: var(--color-steel);
+  border: 1px solid var(--color-iron);
+  box-shadow: var(--shadow-panel);
+  display: flex;
+  flex-direction: column;
+  z-index: var(--z-overlay);
+}
+
+.exportMenu button {
+  padding: var(--space-3);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-iron);
+  color: var(--color-platinum);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.exportMenu button:last-child {
+  border-bottom: none;
+}
+
+.exportMenu button:hover {
+  background: var(--color-shadow);
   color: var(--color-chrome);
 }
