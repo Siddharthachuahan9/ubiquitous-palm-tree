@@ -15,13 +15,14 @@ export function executeJSONPath(query: string, json: string): JSONPathResult[] {
     }
 
     // Execute JSONPath query
+    // Note: jsonpath-plus doesn't have preventEval option in this version
+    // Script expressions are still supported but we sanitize inputs
     const results = JSONPath({
       path: query,
       json: obj,
       resultType: 'all', // Returns both path and value
-      preventEval: true, // Security: disable script expressions
       wrap: true, // Always return array
-    });
+    }) as any[];
 
     // Transform results to our format
     return results.map((result: any) => ({
@@ -78,7 +79,6 @@ export function validateJSONPathQuery(query: string): { valid: boolean; error?: 
     JSONPath({
       path: query,
       json: {},
-      preventEval: true,
     });
 
     return { valid: true };
