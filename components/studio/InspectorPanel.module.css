@@ -1,0 +1,112 @@
+/* InspectorPanel - Right sidebar */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-iron);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-chrome);
+  letter-spacing: var(--tracking-tight);
+}
+
+.content {
+  flex: 1;
+  padding: var(--space-4);
+  overflow-y: auto;
+}
+
+/* Mode selector */
+.modeSelector {
+  display: flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-6);
+  background: var(--color-steel);
+  padding: var(--space-1);
+  border: 1px solid var(--color-iron);
+}
+
+.modeBtn,
+.modeBtnActive {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: none;
+  color: var(--color-silver);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.modeBtn:hover {
+  color: var(--color-platinum);
+}
+
+.modeBtnActive {
+  background: var(--color-abyss);
+  color: var(--color-chrome);
+}
+
+/* Empty state */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  color: var(--color-zinc);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-4);
+  opacity: 0.5;
+}
+
+.emptyState p {
+  font-size: var(--text-sm);
+  line-height: var(--leading-base);
+}
+
+/* Footer */
+.footer {
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-iron);
+}
+
+.exportButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--color-steel);
+  border: 1px solid var(--color-iron);
+  color: var(--color-platinum);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.exportButton:hover {
+  background: var(--color-shadow);
+  border-color: var(--color-silver);
+  color: var(--color-chrome);
+}

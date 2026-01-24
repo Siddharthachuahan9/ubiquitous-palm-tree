@@ -1,0 +1,141 @@
+/* Dark Industrial Theme - Variables */
+
+:root {
+  /* ========================================
+     BASE COLORS - Deep blacks with subtle variations
+     ======================================== */
+  --color-void: #0a0a0a;           /* Deepest background */
+  --color-abyss: #121214;          /* Primary background */
+  --color-shadow: #1a1a1e;         /* Elevated surfaces */
+  --color-steel: #242429;          /* Panels, cards */
+  --color-iron: #2d2d35;           /* Borders, dividers */
+
+  /* ========================================
+     ACCENT COLORS - Industrial metals
+     ======================================== */
+  --color-zinc: #505058;           /* Muted text */
+  --color-silver: #88889a;         /* Secondary text */
+  --color-platinum: #c9c9d8;       /* Primary text */
+  --color-chrome: #e8e8f0;         /* Bright text, headings */
+
+  /* ========================================
+     SEMANTIC COLORS - Technical precision
+     ======================================== */
+  --color-diff-add: #00ff88;       /* Bright neon green */
+  --color-diff-remove: #ff0066;    /* Hot magenta */
+  --color-diff-change: #ffaa00;    /* Industrial yellow */
+  --color-diff-move: #00ccff;      /* Electric cyan */
+
+  --color-success: #00ff88;
+  --color-error: #ff0066;
+  --color-warning: #ffaa00;
+  --color-info: #00ccff;
+
+  /* ========================================
+     JSONPATH HIGHLIGHTS
+     ======================================== */
+  --color-match-glow: #00ff88;     /* Pulse effect */
+  --color-match-bg: rgba(0, 255, 136, 0.12);
+
+  /* ========================================
+     SHADOWS - Depth through layering
+     ======================================== */
+  --shadow-panel:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+
+  --shadow-elevated:
+    0 16px 64px rgba(0, 0, 0, 0.7),
+    0 4px 16px rgba(0, 0, 0, 0.5);
+
+  --shadow-command:
+    0 24px 96px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* ========================================
+     GLOWS - Functional highlights
+     ======================================== */
+  --glow-match:
+    0 0 20px rgba(0, 255, 136, 0.4),
+    0 0 40px rgba(0, 255, 136, 0.2);
+
+  --glow-error:
+    0 0 20px rgba(255, 0, 102, 0.3);
+
+  /* ========================================
+     SPACING SYSTEM - 4px base unit
+     ======================================== */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+
+  /* ========================================
+     LAYOUT-SPECIFIC DIMENSIONS
+     ======================================== */
+  --panel-padding: var(--space-6);
+  --toolbar-height: 48px;
+  --statusbar-height: 32px;
+  --sidebar-width: 280px;
+  --inspector-width: 360px;
+
+  /* ========================================
+     TYPOGRAPHY SCALE - Technical precision (1.25 ratio)
+     ======================================== */
+  --text-xs: 0.64rem;     /* 10.24px - Metadata, hints */
+  --text-sm: 0.8rem;      /* 12.8px - Labels, captions */
+  --text-base: 1rem;      /* 16px - Body text */
+  --text-lg: 1.25rem;     /* 20px - Subheadings */
+  --text-xl: 1.563rem;    /* 25px - Section headers */
+  --text-2xl: 1.953rem;   /* 31.25px - Page titles */
+  --text-3xl: 2.441rem;   /* 39px - Hero text */
+
+  /* ========================================
+     LINE HEIGHTS
+     ======================================== */
+  --leading-tight: 1.2;   /* Headings */
+  --leading-base: 1.5;    /* Body */
+  --leading-code: 1.6;    /* Code blocks */
+
+  /* ========================================
+     LETTER SPACING
+     ======================================== */
+  --tracking-tight: -0.02em;  /* Large headings */
+  --tracking-base: 0;         /* Body */
+  --tracking-wide: 0.05em;    /* Uppercase labels */
+
+  /* ========================================
+     ANIMATION DURATIONS
+     ======================================== */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+
+  /* ========================================
+     ANIMATION EASINGS - Industrial feel
+     ======================================== */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* Sharp exit */
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);       /* Sharp entry */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* Mechanical bounce */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);    /* Material-like */
+
+  /* ========================================
+     Z-INDEX LAYERS
+     ======================================== */
+  --z-base: 0;
+  --z-panel: 10;
+  --z-elevated: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-command: 60;
+}

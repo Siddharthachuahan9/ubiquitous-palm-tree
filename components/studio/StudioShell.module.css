@@ -1,0 +1,72 @@
+/* StudioShell - Main Layout */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: var(--color-void);
+  overflow: hidden;
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr var(--inspector-width);
+  flex: 1;
+  overflow: hidden;
+  gap: 0;
+}
+
+/* Asymmetric panel layout */
+.leftPanel {
+  background: var(--color-abyss);
+  border-right: 1px solid var(--color-iron);
+  overflow-y: auto;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.centerPanel {
+  background: var(--color-shadow);
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+}
+
+.rightPanel {
+  background: var(--color-abyss);
+  border-left: 1px solid var(--color-iron);
+  overflow-y: auto;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .mainContent {
+    grid-template-columns: 240px 1fr 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+  }
+
+  .leftPanel,
+  .rightPanel {
+    position: absolute;
+    top: 0;
+    bottom: var(--statusbar-height);
+    z-index: var(--z-panel);
+    width: 280px;
+  }
+
+  .leftPanel {
+    left: 0;
+    box-shadow: var(--shadow-panel);
+  }
+
+  .rightPanel {
+    right: 0;
+    box-shadow: var(--shadow-panel);
+  }
+}

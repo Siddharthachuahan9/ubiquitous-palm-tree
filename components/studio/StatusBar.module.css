@@ -1,0 +1,72 @@
+/* StatusBar - Bottom metrics bar */
+
+.statusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--statusbar-height);
+  background: var(--color-abyss);
+  border-top: 1px solid var(--color-iron);
+  padding: 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-zinc);
+  z-index: var(--z-panel);
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.separator {
+  color: var(--color-iron);
+}
+
+.icon {
+  font-size: var(--text-sm);
+}
+
+.statusIndicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.statusIndicator[data-status='ready'] {
+  background: var(--color-success);
+}
+
+.statusIndicator[data-status='error'] {
+  background: var(--color-error);
+}
+
+.statusIndicator[data-status='warning'] {
+  background: var(--color-warning);
+}
+
+.statusIndicator[data-status='processing'] {
+  background: var(--color-info);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .statusBar {
+    font-size: var(--text-xs);
+    padding: 0 var(--space-2);
+  }
+
+  .separator {
+    display: none;
+  }
+}
