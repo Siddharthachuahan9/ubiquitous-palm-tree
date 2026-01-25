@@ -1,10 +1,18 @@
 # Deployment Guide - JSON Exploration Studio
 
-## ✅ Build Status
-- **Build**: ✓ Successful (101 kB First Load JS)
+## ✅ Build Status (Latest: Monaco Editor Fixes)
+- **Build**: ✓ Successful (103 kB First Load JS)
 - **TypeScript**: ✓ No errors
 - **ESLint**: ✓ Warnings only (unused imports)
 - **Git**: ✓ Committed and pushed to `claude/build-fullstack-app-9Kk9i`
+- **Monaco**: ✓ Fixed with dynamic imports + CDN workers for Vercel compatibility
+
+## 🔧 Recent Fixes (Latest Commit)
+**Fix Monaco Editor for Vercel deployment:**
+- Added dynamic imports with `ssr: false` to prevent SSR hydration issues
+- Configured Monaco to use CDN workers (jsDelivr) for better Vercel compatibility
+- Added webpack fallbacks for client-side libraries
+- **This fixes the JSON diff functionality not working on Vercel**
 
 ## 🚀 Deploy to Vercel
 
@@ -46,7 +54,7 @@ vercel --prod
 
 ```
 Route (app)                              Size     First Load JS
-┌ ○ /                                    13.1 kB         101 kB
+┌ ○ /                                    15.2 kB         103 kB
 └ ○ /_not-found                          873 B          88.3 kB
 + First Load JS shared by all            87.5 kB
 ```
