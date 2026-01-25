@@ -81,6 +81,12 @@ export interface StudioState {
   fileSize: number;
   processingTime: number | null;
 
+  // Toast notifications
+  toastMessage: string | null;
+  toastType: 'error' | 'success' | 'info' | 'warning' | null;
+  showToast: (message: string, type: 'error' | 'success' | 'info' | 'warning') => void;
+  clearToast: () => void;
+
   // Actions
   executeDiff: () => void;
   executeJsonPath: () => void;

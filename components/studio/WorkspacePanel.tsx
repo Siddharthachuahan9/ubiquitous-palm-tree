@@ -6,7 +6,7 @@ import { useStudioStore } from '@/lib/store';
 import { useFileUpload } from '@/hooks/useFileUpload';
 
 export function WorkspacePanel() {
-  const { mode, setJsonA, setJsonB, setJsonSource, clearAll } = useStudioStore();
+  const { mode, setJsonA, setJsonB, setJsonSource, clearAll, showToast } = useStudioStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { handleInputChange } = useFileUpload({
@@ -29,7 +29,7 @@ export function WorkspacePanel() {
       }
     },
     onError: (error) => {
-      alert(error);
+      showToast(error, 'error');
     },
   });
 

@@ -7,6 +7,7 @@ import { StatusBar } from './StatusBar';
 import { WorkspacePanel } from './WorkspacePanel';
 import { EditorPanel } from './EditorPanel';
 import { InspectorPanel } from './InspectorPanel';
+import { Toast } from './Toast';
 
 export type Mode = 'diff' | 'jsonpath' | 'validate';
 
@@ -43,6 +44,7 @@ export function StudioShell() {
       </div>
 
       <StatusBar />
+      <Toast />
     </div>
   );
 }

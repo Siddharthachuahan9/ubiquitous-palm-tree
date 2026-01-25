@@ -19,23 +19,31 @@
   --color-chrome: #e8e8f0;         /* Bright text, headings */
 
   /* ========================================
-     SEMANTIC COLORS - Technical precision
+     SEMANTIC COLORS - Friendly and approachable
      ======================================== */
-  --color-diff-add: #00ff88;       /* Bright neon green */
-  --color-diff-remove: #ff0066;    /* Hot magenta */
-  --color-diff-change: #ffaa00;    /* Industrial yellow */
-  --color-diff-move: #00ccff;      /* Electric cyan */
+  --color-diff-add: #34d399;       /* Emerald green */
+  --color-diff-add-soft: #6ee7b7;  /* Light emerald */
+  --color-diff-remove: #f87171;    /* Coral red */
+  --color-diff-remove-soft: #fca5a5; /* Light coral */
+  --color-diff-change: #fbbf24;    /* Warm amber */
+  --color-diff-change-soft: #fcd34d; /* Light amber */
+  --color-diff-move: #60a5fa;      /* Sky blue */
+  --color-diff-move-soft: #93c5fd; /* Light sky blue */
 
-  --color-success: #00ff88;
-  --color-error: #ff0066;
-  --color-warning: #ffaa00;
-  --color-info: #00ccff;
+  --color-success: #34d399;
+  --color-success-soft: #6ee7b7;
+  --color-error: #f87171;
+  --color-error-soft: #fca5a5;
+  --color-warning: #fbbf24;
+  --color-warning-soft: #fcd34d;
+  --color-info: #60a5fa;
+  --color-info-soft: #93c5fd;
 
   /* ========================================
      JSONPATH HIGHLIGHTS
      ======================================== */
-  --color-match-glow: #00ff88;     /* Pulse effect */
-  --color-match-bg: rgba(0, 255, 136, 0.12);
+  --color-match-glow: #34d399;     /* Pulse effect */
+  --color-match-bg: rgba(52, 211, 153, 0.12);
 
   /* ========================================
      SHADOWS - Depth through layering
@@ -56,11 +64,17 @@
      GLOWS - Functional highlights
      ======================================== */
   --glow-match:
-    0 0 20px rgba(0, 255, 136, 0.4),
-    0 0 40px rgba(0, 255, 136, 0.2);
+    0 0 20px rgba(52, 211, 153, 0.4),
+    0 0 40px rgba(52, 211, 153, 0.2);
 
   --glow-error:
-    0 0 20px rgba(255, 0, 102, 0.3);
+    0 0 20px rgba(248, 113, 113, 0.3);
+
+  --glow-warning:
+    0 0 20px rgba(251, 191, 36, 0.3);
+
+  --glow-info:
+    0 0 20px rgba(96, 165, 250, 0.3);
 
   /* ========================================
      SPACING SYSTEM - 4px base unit

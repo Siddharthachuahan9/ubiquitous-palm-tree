@@ -34,8 +34,24 @@
   color: var(--color-success);
 }
 
+.logoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .logoText {
   letter-spacing: var(--tracking-tight);
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+
+.logoTagline {
+  font-size: var(--text-2xs);
+  color: var(--color-silver);
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  line-height: 1;
 }
 
 /* Mode tabs */
@@ -109,7 +125,7 @@
 
 /* Responsive - Tablet */
 @media (max-width: 900px) {
-  .logoText {
+  .logoTagline {
     display: none;
   }
 
@@ -174,11 +190,12 @@
   }
 
   .logoText {
+    display: block;
     font-size: var(--text-sm);
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  }
+
+  .logoTagline {
+    display: none;
   }
 
   /* Smaller tabs on very small screens */

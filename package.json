@@ -1,7 +1,7 @@
 {
-  "name": "json-exploration-studio",
+  "name": "json0-dev",
   "version": "1.0.0",
-  "description": "A distinctive, production-grade JSON manipulation tool with Dark Industrial Interface aesthetic",
+  "description": "Fast, friendly JSON tools. Compare, query, and validate JSON - all in your browser. Privacy-first, no data leaves your device.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

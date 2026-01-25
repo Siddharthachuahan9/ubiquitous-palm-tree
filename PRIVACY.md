@@ -1,4 +1,4 @@
-# Privacy Policy - JSON Exploration Studio
+# Privacy Policy - json0.dev
 
 ## Data Handling Summary
 

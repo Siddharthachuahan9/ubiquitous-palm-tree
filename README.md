@@ -1,12 +1,15 @@
-# JSON Exploration Studio
+# json0.dev
 
-A distinctive, production-grade JSON manipulation tool with **Dark Industrial Interface** aesthetic.
+Fast, friendly JSON tools that run entirely in your browser.
 
-This is not a dashboard. This is a developer instrument — something engineers enjoy inhabiting, not just using.
+**Website:** https://json0.dev
+**Tagline:** json tools, zero hassle
+
+Privacy-first JSON tools for developers. Compare, query, and validate JSON with zero data transmission.
 
 ## Vision
 
-JSON Exploration Studio is a hybrid between:
+json0 is a hybrid between:
 
 - **A developer instrument** — precise, technical, powerful
 - **A data visualization lab** — visual diffs, query exploration
@@ -75,14 +78,12 @@ Neon accents:     #00ff88 (green) | #ff0066 (magenta) | #ffaa00 (yellow) | #00cc
 - **Animation**: Framer Motion (functional, not decorative)
 - **Styling**: CSS Modules + CSS Variables (zero runtime, full control)
 
-### Backend (Planned)
-- **API Routes**: Next.js Edge functions
-- **Endpoints**:
-  - `POST /api/diff` — Structural + semantic diff
-  - `POST /api/query` — JSONPath execution
-  - `POST /api/analyze` — Performance + integrity analysis
-  - `POST /api/snapshot` — Create shareable link
-- **Storage**: Vercel KV (shareable snapshots, 30-day TTL)
+### Privacy & Performance
+- **100% Client-Side**: All JSON processing happens in your browser
+- **No Data Transmission**: Your JSON never leaves your device
+- **No Registration**: Start using immediately, no signup required
+- **Fast**: Instant results with Monaco Editor and efficient diffing
+- **Secure**: Safe for sensitive data, GDPR/CCPA/HIPAA compliant
 
 ## Project Structure
 

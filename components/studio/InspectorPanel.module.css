@@ -82,6 +82,35 @@
   line-height: var(--leading-base);
 }
 
+.emptyTitle {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-platinum);
+  margin-bottom: var(--space-2);
+}
+
+.emptyHint {
+  font-size: var(--text-sm);
+  color: var(--color-silver);
+  line-height: var(--leading-base);
+  max-width: 280px;
+  margin-bottom: var(--space-2);
+}
+
+.emptyExample {
+  font-size: var(--text-xs);
+  color: var(--color-zinc);
+  background: var(--color-steel);
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-info-soft);
+  margin-top: var(--space-3);
+}
+
+.emptyExample code {
+  color: var(--color-info);
+  font-family: var(--font-mono);
+}
+
 /* Footer */
 .footer {
   padding: var(--space-4);

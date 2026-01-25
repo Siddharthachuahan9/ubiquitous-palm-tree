@@ -164,4 +164,10 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   }),
 
   clearError: () => set({ error: null }),
+
+  // Toast notifications
+  toastMessage: null,
+  toastType: null,
+  showToast: (message, type) => set({ toastMessage: message, toastType: type }),
+  clearToast: () => set({ toastMessage: null, toastType: null }),
 }));

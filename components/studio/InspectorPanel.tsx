@@ -46,9 +46,9 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
     <div className={styles.panel}>
       <div className={styles.header}>
         <h2 className={styles.title}>
-          {mode === 'diff' && 'Diff Results'}
+          {mode === 'diff' && 'Comparison Results'}
           {mode === 'jsonpath' && 'Query Results'}
-          {mode === 'validate' && 'Integrity Report'}
+          {mode === 'validate' && 'Validation Results'}
         </h2>
       </div>
 
@@ -60,7 +60,10 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
             ) : (
               <div className={styles.emptyState}>
                 <span className={styles.emptyIcon}>◬</span>
-                <p>Compare two JSON files to see differences</p>
+                <p className={styles.emptyTitle}>Ready to compare</p>
+                <p className={styles.emptyHint}>
+                  Paste two JSONs in the Before/After panels, then click Compare
+                </p>
               </div>
             )}
           </>
@@ -73,7 +76,13 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
             ) : (
               <div className={styles.emptyState}>
                 <span className={styles.emptyIcon}>🔍</span>
-                <p>Execute a query to see matching nodes</p>
+                <p className={styles.emptyTitle}>Ready to query</p>
+                <p className={styles.emptyHint}>
+                  Write a JSONPath expression and click &quot;Run Query&quot;
+                </p>
+                <p className={styles.emptyExample}>
+                  Example: <code>$.users[?(@.age &gt; 25)].name</code>
+                </p>
               </div>
             )}
           </>
@@ -86,7 +95,10 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
             ) : (
               <div className={styles.emptyState}>
                 <span className={styles.emptyIcon}>✓</span>
-                <p>Paste JSON to see validation results</p>
+                <p className={styles.emptyTitle}>Ready to validate</p>
+                <p className={styles.emptyHint}>
+                  Paste JSON in the panel and click &quot;Check JSON&quot;
+                </p>
               </div>
             )}
           </>

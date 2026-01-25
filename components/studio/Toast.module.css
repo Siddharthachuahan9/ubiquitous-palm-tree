@@ -1,0 +1,126 @@
+/* Toast Notification */
+
+.toast {
+  position: fixed;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-steel);
+  border: 1px solid var(--color-iron);
+  box-shadow: var(--shadow-elevated);
+  animation: slideUp 0.3s ease-out;
+  min-width: 320px;
+  max-width: 500px;
+  border-radius: 4px;
+}
+
+.icon {
+  font-size: var(--text-lg);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.message {
+  flex: 1;
+  color: var(--color-platinum);
+  font-size: var(--text-sm);
+  line-height: var(--leading-base);
+}
+
+.close {
+  background: transparent;
+  border: none;
+  color: var(--color-silver);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.close:hover {
+  color: var(--color-chrome);
+}
+
+/* Toast variants */
+.toast.error {
+  border-color: var(--color-error-soft);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.toast.error .icon {
+  color: var(--color-error);
+}
+
+.toast.success {
+  border-color: var(--color-success-soft);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.toast.success .icon {
+  color: var(--color-success);
+}
+
+.toast.warning {
+  border-color: var(--color-warning-soft);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.toast.warning .icon {
+  color: var(--color-warning);
+}
+
+.toast.info {
+  border-color: var(--color-info-soft);
+  background: rgba(96, 165, 250, 0.1);
+}
+
+.toast.info .icon {
+  color: var(--color-info);
+}
+
+/* Animation */
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .toast {
+    min-width: auto;
+    max-width: calc(100% - var(--space-8));
+    left: var(--space-4);
+    right: var(--space-4);
+    transform: none;
+    bottom: var(--space-6);
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

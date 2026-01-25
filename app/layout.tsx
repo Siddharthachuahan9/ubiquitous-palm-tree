@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'JSON Exploration Studio',
-  description: 'A distinctive, production-grade JSON manipulation tool with Dark Industrial Interface aesthetic',
+  title: 'json0 - JSON Tools Online',
+  description: 'Fast, friendly JSON tools. Compare, query, and validate JSON - all in your browser. Privacy-first, no data leaves your device.',
   viewport: 'width=device-width, initial-scale=1',
 };
 

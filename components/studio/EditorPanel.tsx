@@ -47,12 +47,12 @@ export function EditorPanel({ mode }: EditorPanelProps) {
         <div className={styles.diffMode}>
           <div className={styles.editorContainer}>
             <div className={styles.editorHeader}>
-              <span className={styles.editorLabel}>JSON A</span>
+              <span className={styles.editorLabel}>Before</span>
             </div>
             <MonacoEditor
               value={jsonA}
               onChange={setJsonA}
-              placeholder="Paste or upload your first JSON"
+              placeholder="Paste your first JSON here, or click Upload"
             />
           </div>
 
@@ -60,12 +60,12 @@ export function EditorPanel({ mode }: EditorPanelProps) {
 
           <div className={styles.editorContainer}>
             <div className={styles.editorHeader}>
-              <span className={styles.editorLabel}>JSON B</span>
+              <span className={styles.editorLabel}>After</span>
             </div>
             <MonacoEditor
               value={jsonB}
               onChange={setJsonB}
-              placeholder="Paste or upload your second JSON"
+              placeholder="Paste your second JSON here to compare"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             onClick={executeJsonPath}
             disabled={processing || !jsonSource || !jsonpathQuery}
           >
-            {processing ? 'Processing...' : 'Execute Query'}
+            {processing ? 'Finding matches...' : 'Run Query'}
           </button>
         )}
         {mode === 'validate' && (
@@ -146,7 +146,7 @@ export function EditorPanel({ mode }: EditorPanelProps) {
             onClick={executeValidation}
             disabled={processing || !jsonSource}
           >
-            {processing ? 'Processing...' : 'Analyze'}
+            {processing ? 'Checking...' : 'Check JSON'}
           </button>
         )}
         <button className={styles.secondaryButton} onClick={handleFormat}>

@@ -16,7 +16,10 @@ export function Toolbar({ mode, onModeChange, onToggleLeftPanel, onToggleRightPa
       <div className={styles.left}>
         <div className={styles.logo}>
           <span className={styles.logoIcon}>◬</span>
-          <span className={styles.logoText}>JSON Studio</span>
+          <div className={styles.logoContent}>
+            <span className={styles.logoText}>json0</span>
+            <span className={styles.logoTagline}>json tools, zero hassle</span>
+          </div>
         </div>
 
         <nav className={styles.modeTabs}>
