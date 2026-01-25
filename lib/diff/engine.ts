@@ -19,8 +19,8 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
       recursiveEqual: true,
     });
 
-    // Compute diff
-    const diff = differ.diff(objA, objB);
+    // Compute diff - returns tuple: [leftSideChanges[], rightSideChanges[]]
+    const [leftChanges, rightChanges] = differ.diff(objA, objB);
 
     // Process diff results
     const changes: DiffChange[] = [];
@@ -29,44 +29,38 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     let modifications = 0;
     let moves = 0;
 
-    // Extract changes from diff result
-    if (Array.isArray(diff)) {
-      diff.forEach((change: any) => {
-        const changeType = change.type || change.op;
+    // Combine both arrays and iterate through actual DiffResult objects
+    const allChanges = [...leftChanges, ...rightChanges];
 
-        if (changeType === 'add' || changeType === 'added') {
-          additions++;
-          changes.push({
-            type: 'add',
-            path: change.path || change.key || '',
-            newValue: change.value || change.rhs,
-          });
-        } else if (changeType === 'remove' || changeType === 'removed') {
-          deletions++;
-          changes.push({
-            type: 'remove',
-            path: change.path || change.key || '',
-            oldValue: change.value || change.lhs,
-          });
-        } else if (changeType === 'modify' || changeType === 'modified' || changeType === 'replace') {
-          modifications++;
-          changes.push({
-            type: 'modify',
-            path: change.path || change.key || '',
-            oldValue: change.oldValue || change.lhs,
-            newValue: change.newValue || change.rhs,
-          });
-        } else if (changeType === 'move') {
-          moves++;
-          changes.push({
-            type: 'move',
-            path: change.path || change.key || '',
-            oldValue: change.from,
-            newValue: change.to,
-          });
-        }
-      });
-    }
+    allChanges.forEach((change: any) => {
+      // json-diff-kit returns objects with: type, text, level, lineNumber
+      const changeType = change.type;
+
+      if (changeType === 'add') {
+        additions++;
+        changes.push({
+          type: 'add',
+          path: `Line ${change.lineNumber || 0}`,
+          newValue: change.text,
+        });
+      } else if (changeType === 'remove') {
+        deletions++;
+        changes.push({
+          type: 'remove',
+          path: `Line ${change.lineNumber || 0}`,
+          oldValue: change.text,
+        });
+      } else if (changeType === 'modify') {
+        modifications++;
+        changes.push({
+          type: 'modify',
+          path: `Line ${change.lineNumber || 0}`,
+          oldValue: change.text,
+          newValue: change.text,
+        });
+      }
+      // Skip 'equal' type - those represent unchanged lines
+    });
 
     // Generate JSON Patch (RFC 6902)
     const patch = generateJSONPatch(changes);
