@@ -59,14 +59,69 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+/* Credit line */
+.credit {
+  font-size: var(--text-2xs);
+  color: var(--color-slate);
+  font-weight: 400;
+  opacity: 0.6;
+  transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.credit:hover {
+  opacity: 1;
+  color: var(--color-platinum);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
   .statusBar {
     font-size: var(--text-xs);
-    padding: 0 var(--space-2);
+    padding: 0 var(--space-3);
+    flex-wrap: wrap;
+    min-height: 36px;
+    height: auto;
+  }
+
+  /* Hide less important items */
+  .cursorPosition,
+  .encoding {
+    display: none;
   }
 
   .separator {
     display: none;
+  }
+
+  /* Priority: validation, file size, processing time */
+  .item {
+    margin: var(--space-1) var(--space-2);
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  /* Only show critical info on small phones */
+  .statusBar {
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  .fileSize {
+    display: none; /* Hide file size on very small screens */
+  }
+
+  /* Hide credit on very small screens */
+  .credit {
+    display: none;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
   }
 }

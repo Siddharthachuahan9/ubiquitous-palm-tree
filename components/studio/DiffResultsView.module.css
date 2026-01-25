@@ -169,3 +169,90 @@
   border: 1px solid var(--color-iron);
   overflow: hidden;
 }
+
+/* Character-level diff highlighting (for Phase 3) */
+.added {
+  background-color: rgba(0, 255, 136, 0.2);
+  color: var(--color-success);
+  padding: 0 2px;
+}
+
+.removed {
+  background-color: rgba(255, 0, 102, 0.2);
+  color: var(--color-error);
+  text-decoration: line-through;
+  padding: 0 2px;
+}
+
+.unchanged {
+  color: var(--color-platinum);
+}
+
+/* Path breadcrumb (for Phase 3) */
+.pathBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.pathPart {
+  color: var(--color-info);
+  font-weight: 600;
+}
+
+.pathSeparator {
+  color: var(--color-zinc);
+  margin: 0 var(--space-1);
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .change {
+    padding: var(--space-4);
+    border-left-width: 4px; /* Thicker indicator */
+  }
+
+  .changePath {
+    font-size: var(--text-sm);
+    word-break: break-all; /* Prevent overflow */
+  }
+
+  .changeValue pre {
+    font-size: var(--text-xs);
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .content {
+    padding: var(--space-3);
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: 1fr; /* Single column on phone */
+  }
+
+  .modeSelector {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .modeBtn,
+  .modeBtnActive {
+    width: 100%;
+    min-height: var(--touch-target-min);
+  }
+
+  .statValue {
+    font-size: var(--text-xl);
+  }
+}

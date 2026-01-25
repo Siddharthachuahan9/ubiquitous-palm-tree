@@ -31,6 +31,14 @@ body {
   height: 100%;
 }
 
+/* Mobile - allow scrolling if needed */
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+}
+
 /* ========================================
    TYPOGRAPHY RESET
    ======================================== */

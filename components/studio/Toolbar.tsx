@@ -48,10 +48,11 @@ export function Toolbar({ mode, onModeChange, onToggleLeftPanel, onToggleRightPa
         <button className={styles.iconButton} onClick={onToggleRightPanel} title="Toggle inspector panel">
           <span>◨</span>
         </button>
-        <button className={styles.iconButton} title="Share workspace (Cmd+S)">
+        {/* Hidden on mobile - incomplete features */}
+        <button className={`${styles.iconButton} ${styles.shareButton}`} title="Share workspace (Cmd+S)" style={{ display: 'none' }}>
           <span>↗</span>
         </button>
-        <button className={styles.commandButton} title="Command palette (Cmd+K)">
+        <button className={styles.commandButton} title="Command palette (Cmd+K)" style={{ display: 'none' }}>
           <span>⌘K</span>
         </button>
       </div>

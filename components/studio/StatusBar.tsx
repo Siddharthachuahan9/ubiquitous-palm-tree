@@ -68,6 +68,10 @@ export function StatusBar() {
             <span>{processingTime}ms</span>
           </span>
         )}
+        <span className={styles.separator}>|</span>
+        <span className={styles.item}>
+          <span className={styles.credit}>created by sidheart</span>
+        </span>
       </div>
     </div>
   );

@@ -107,7 +107,7 @@
   padding: var(--space-2) var(--space-3);
 }
 
-/* Responsive */
+/* Responsive - Tablet */
 @media (max-width: 900px) {
   .logoText {
     display: none;
@@ -120,5 +120,75 @@
   .left,
   .right {
     gap: var(--space-3);
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .toolbar {
+    padding: var(--space-2);
+    height: auto;
+    min-height: 56px; /* Taller on mobile for touch */
+    flex-wrap: wrap;
+  }
+
+  /* Touch-friendly icon buttons */
+  .iconButton,
+  .commandButton {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    padding: var(--space-3);
+  }
+
+  .commandButton {
+    width: auto;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Touch-friendly tabs */
+  .tab,
+  .tabActive {
+    min-height: var(--touch-target-min);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+  }
+
+  /* Hide share and command palette on mobile */
+  .shareButton,
+  .commandButton {
+    display: none;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .toolbar {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .left,
+  .right {
+    gap: var(--space-2);
+  }
+
+  .logoText {
+    font-size: var(--text-sm);
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Smaller tabs on very small screens */
+  .tab,
+  .tabActive {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .modeTabs {
+    gap: var(--space-1);
   }
 }
