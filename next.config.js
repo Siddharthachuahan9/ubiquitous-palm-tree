@@ -1,11 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable Monaco web workers
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Font loading
     config.module.rules.push({
       test: /\.woff2$/,
       type: 'asset/resource',
     });
+
+    // Monaco Editor worker configuration - prevent SSR issues
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        module: false,
+        path: false,
+      };
+    }
+
     return config;
   },
 

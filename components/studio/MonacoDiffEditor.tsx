@@ -1,9 +1,34 @@
 'use client';
 
 import { useRef } from 'react';
-import { DiffEditor, DiffOnMount } from '@monaco-editor/react';
+import dynamic from 'next/dynamic';
+import type { DiffOnMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
 import { registerDarkIndustrialTheme } from '@/lib/monaco-theme';
+
+// Dynamic import with SSR disabled - critical for Next.js 14 + Vercel
+const DiffEditor = dynamic(
+  () => import('@monaco-editor/react').then((mod) => mod.DiffEditor),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#1a1a1e',
+          color: '#88889a',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: '13px',
+        }}
+      >
+        Loading diff editor...
+      </div>
+    )
+  }
+);
 
 interface MonacoDiffEditorProps {
   original: string;

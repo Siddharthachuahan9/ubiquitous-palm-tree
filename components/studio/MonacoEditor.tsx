@@ -1,9 +1,44 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import Editor, { OnMount } from '@monaco-editor/react';
+import { useRef } from 'react';
+import dynamic from 'next/dynamic';
+import type { OnMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
 import { registerDarkIndustrialTheme } from '@/lib/monaco-theme';
+import { loader } from '@monaco-editor/react';
+
+// Configure Monaco to use CDN workers (more reliable on Vercel)
+if (typeof window !== 'undefined') {
+  loader.config({
+    paths: {
+      vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs'
+    }
+  });
+}
+
+// Dynamic import with SSR disabled - critical for Next.js 14 + Vercel
+const Editor = dynamic(
+  () => import('@monaco-editor/react').then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#1a1a1e',
+          color: '#88889a',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: '13px',
+        }}
+      >
+        Loading editor...
+      </div>
+    )
+  }
+);
 
 interface MonacoEditorProps {
   value: string;
