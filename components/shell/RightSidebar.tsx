@@ -22,34 +22,56 @@ const quickTips = [
   {
     title: 'Keyboard Shortcuts',
     tips: [
-      'Cmd+K - Command Palette',
-      'Cmd+Enter - Execute',
-      'Cmd+Shift+F - Format',
-      'Cmd+/ - Toggle Sidebar',
+      'Cmd/Ctrl + K → Open Command Palette',
+      'Cmd/Ctrl + / → Toggle Sidebar',
+      'Cmd/Ctrl + Enter → Execute/Analyze',
+      'Arrow Keys → Navigate command palette',
+      'Esc → Close modal/palette',
     ],
   },
   {
-    title: 'JSON Diff',
+    title: 'JSON Tools',
     tips: [
-      'Use "Before/After" labels for clarity',
-      'Switch between Visual, Tree, and Patch views',
-      'Export as JSON Patch (RFC 6902)',
+      'Diff: Compare two JSON documents side-by-side',
+      'Query: Use JSONPath like $.users[*].name',
+      'Validate: Check JSON syntax and structure',
+      'All JSON processing happens locally',
     ],
   },
   {
-    title: 'JSONPath Query',
+    title: 'Network Tools',
     tips: [
-      'Use $.users[*].name to get all names',
-      'Filter with $.users[?(@.age > 25)]',
-      'Match counts shown in real-time',
+      'IP Inspector: RFC-compliant IPv4/IPv6 classification',
+      'Ping: Test reachability via HTTPS (browser-safe)',
+      'Works with domains and full URLs',
+      'Continuous mode for monitoring',
+    ],
+  },
+  {
+    title: 'Encoding Tools',
+    tips: [
+      'Base64: Auto-detects encode vs decode',
+      'JWT: Decode tokens locally (no verification)',
+      'UTF-8 safe encoding/decoding',
+      'Shows metadata and expiry info',
     ],
   },
   {
     title: 'Privacy First',
     tips: [
-      'All processing happens in your browser',
-      'No data is sent to servers',
+      '100% client-side processing',
+      'No data sent to any servers',
       'Safe for sensitive information',
+      'No tracking or analytics',
+    ],
+  },
+  {
+    title: 'Pro Tips',
+    tips: [
+      'Use Command Palette (Cmd+K) for quick tool switching',
+      'Theme toggle in top-right corner',
+      'All tools support mobile devices',
+      'Try example data to explore features',
     ],
   },
 ];
