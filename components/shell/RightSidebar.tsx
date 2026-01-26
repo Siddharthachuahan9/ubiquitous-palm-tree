@@ -2,16 +2,11 @@
 
 import { useState } from 'react';
 import { formatRelativeTime } from '@/lib/utils/formatters';
+import { useSessionStore } from '@/lib/sessionStore';
+import { SessionSettings } from './SessionSettings';
 import styles from './RightSidebar.module.css';
 
 type SidebarTab = 'session' | 'history' | 'tips';
-
-interface Session {
-  id: string;
-  tool: string;
-  timestamp: Date;
-  data: any;
-}
 
 interface RightSidebarProps {
   isOpen: boolean;
@@ -78,7 +73,7 @@ const quickTips = [
 
 export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>('tips');
-  const [sessions] = useState<Session[]>([]);
+  const { history, sessionEnabled } = useSessionStore();
 
   if (!isOpen) return null;
 
@@ -120,34 +115,42 @@ export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
       <div className={styles.content}>
         {activeTab === 'session' && (
           <div className={styles.section}>
-            <div className={styles.emptyState}>
-              <span className={styles.emptyIcon}>📋</span>
-              <p className={styles.emptyTitle}>No active session</p>
-              <p className={styles.emptyText}>
-                Sessions will appear here when you start working
-              </p>
-            </div>
+            <SessionSettings />
           </div>
         )}
 
         {activeTab === 'history' && (
           <div className={styles.section}>
-            {sessions.length === 0 ? (
+            {!sessionEnabled ? (
+              <div className={styles.emptyState}>
+                <span className={styles.emptyIcon}>🔒</span>
+                <p className={styles.emptyTitle}>History disabled</p>
+                <p className={styles.emptyText}>
+                  Enable session storage in the Session tab to track your activity history
+                </p>
+              </div>
+            ) : history.length === 0 ? (
               <div className={styles.emptyState}>
                 <span className={styles.emptyIcon}>🕒</span>
                 <p className={styles.emptyTitle}>No history yet</p>
                 <p className={styles.emptyText}>
-                  Your recent activities will appear here
+                  Your recent activities will appear here as you use tools
                 </p>
               </div>
             ) : (
               <div className={styles.historyList}>
-                {sessions.map((session) => (
-                  <div key={session.id} className={styles.historyItem}>
-                    <div className={styles.historyTool}>{session.tool}</div>
-                    <div className={styles.historyTime}>
-                      {formatRelativeTime(session.timestamp)}
+                {history.slice(0, 20).map((entry) => (
+                  <div key={entry.id} className={styles.historyItem}>
+                    <div className={styles.historyHeader}>
+                      <span className={styles.historyTool}>{entry.tool}</span>
+                      <span className={styles.historyTime}>
+                        {formatRelativeTime(new Date(entry.timestamp))}
+                      </span>
                     </div>
+                    <div className={styles.historyAction}>{entry.action}</div>
+                    {entry.preview && (
+                      <div className={styles.historyPreview}>{entry.preview}</div>
+                    )}
                   </div>
                 ))}
               </div>
