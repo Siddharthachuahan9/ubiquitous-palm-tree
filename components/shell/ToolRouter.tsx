@@ -2,6 +2,9 @@
 
 import { Tool } from './TopBar';
 import { IPInspector } from '@/components/tools/IPInspector';
+import { Base64Tool } from '@/components/tools/Base64Tool';
+import { JWTDecoder } from '@/components/tools/JWTDecoder';
+import { PingTool } from '@/components/tools/PingTool';
 
 interface ToolRouterProps {
   currentTool: Tool;
@@ -38,28 +41,13 @@ export function ToolRouter({ currentTool }: ToolRouterProps) {
         return <IPInspector />;
 
       case 'ping':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>Ping Tool</h2>
-            <p>Test network reachability via HTTPS</p>
-          </div>
-        );
+        return <PingTool />;
 
       case 'base64':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>Base64 Encoder/Decoder</h2>
-            <p>Encode and decode Base64 strings with UTF-8 support</p>
-          </div>
-        );
+        return <Base64Tool />;
 
       case 'jwt':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>JWT Decoder</h2>
-            <p>Decode and inspect JWT tokens locally</p>
-          </div>
-        );
+        return <JWTDecoder />;
 
       default:
         return (
