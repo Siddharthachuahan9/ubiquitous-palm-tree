@@ -1,6 +1,7 @@
 'use client';
 
 import { useTheme } from './ThemeProvider';
+import { PrivacyBadge } from './PrivacyBadge';
 import styles from './TopBar.module.css';
 
 export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt';
@@ -9,6 +10,7 @@ interface TopBarProps {
   currentTool: Tool;
   onToolChange: (tool: Tool) => void;
   onCommandPaletteOpen: () => void;
+  onPrivacyModalOpen: () => void;
 }
 
 const tools: Array<{ id: Tool; label: string; icon: string }> = [
@@ -21,7 +23,7 @@ const tools: Array<{ id: Tool; label: string; icon: string }> = [
   { id: 'jwt', label: 'JWT', icon: '🔐' },
 ];
 
-export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen }: TopBarProps) {
+export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPrivacyModalOpen }: TopBarProps) {
   const { theme, toggleTheme } = useTheme();
 
   return (
@@ -52,6 +54,16 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen }: TopB
 
       {/* Actions */}
       <div className={styles.actions}>
+        {/* Desktop Privacy Badge */}
+        <div className={styles.desktopOnly}>
+          <PrivacyBadge variant="full" onOpenModal={onPrivacyModalOpen} />
+        </div>
+
+        {/* Mobile Privacy Badge */}
+        <div className={styles.mobileOnly}>
+          <PrivacyBadge variant="compact" onOpenModal={onPrivacyModalOpen} />
+        </div>
+
         <button
           className={styles.iconButton}
           onClick={onCommandPaletteOpen}

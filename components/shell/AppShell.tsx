@@ -5,12 +5,15 @@ import { TopBar, Tool } from './TopBar';
 import { RightSidebar } from './RightSidebar';
 import { ToolRouter } from './ToolRouter';
 import { CommandPalette } from './CommandPalette';
+import { PrivacyModal } from './PrivacyModal';
+import { CreditLine } from './CreditLine';
 import styles from './AppShell.module.css';
 
 export function AppShell() {
   const [currentTool, setCurrentTool] = useState<Tool>('diff');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   const handleToolChange = (tool: Tool) => {
     setCurrentTool(tool);
@@ -50,6 +53,7 @@ export function AppShell() {
         currentTool={currentTool}
         onToolChange={handleToolChange}
         onCommandPaletteOpen={handleCommandPaletteOpen}
+        onPrivacyModalOpen={() => setPrivacyModalOpen(true)}
       />
 
       <div className={styles.main}>
@@ -70,6 +74,17 @@ export function AppShell() {
         onSelectTool={handleToolChange}
         currentTool={currentTool}
       />
+
+      {/* Privacy Modal */}
+      <PrivacyModal
+        isOpen={privacyModalOpen}
+        onClose={() => setPrivacyModalOpen(false)}
+      />
+
+      {/* Credit Line */}
+      <div className={styles.footer}>
+        <CreditLine onOpenPrivacyModal={() => setPrivacyModalOpen(true)} />
+      </div>
     </div>
   );
 }
