@@ -46,8 +46,21 @@
   --color-match-bg: rgba(52, 211, 153, 0.12);
 
   /* ========================================
-     SHADOWS - Depth through layering
+     SHADOWS - Modern soft shadows
      ======================================== */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.35);
+
+  /* Colored shadows for accents */
+  --shadow-success: 0 8px 24px rgba(52, 211, 153, 0.25);
+  --shadow-error: 0 8px 24px rgba(248, 113, 113, 0.25);
+  --shadow-info: 0 8px 24px rgba(96, 165, 250, 0.25);
+  --shadow-warning: 0 8px 24px rgba(251, 191, 36, 0.25);
+
+  /* Legacy shadows (deprecated) */
   --shadow-panel:
     0 8px 32px rgba(0, 0, 0, 0.6),
     0 2px 8px rgba(0, 0, 0, 0.4);
@@ -168,4 +181,33 @@
   --z-modal: 40;
   --z-toast: 50;
   --z-command: 60;
+
+  /* ========================================
+     MODERN BORDER RADIUS - Contemporary feel
+     ======================================== */
+  --radius-sm: 6px;       /* Small elements (badges, chips) */
+  --radius-md: 8px;       /* Buttons, small cards */
+  --radius-lg: 12px;      /* Cards, inputs */
+  --radius-xl: 16px;      /* Large cards, modals */
+  --radius-2xl: 20px;     /* Hero sections */
+  --radius-full: 9999px;  /* Pills, avatars */
+
+  /* ========================================
+     GRADIENTS - Modern accents
+     ======================================== */
+  --gradient-success: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  --gradient-info: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  --gradient-warning: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --gradient-error: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  --gradient-premium: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+
+  /* ========================================
+     GLASSMORPHISM - Frosted glass effects
+     ======================================== */
+  --glass-light: rgba(255, 255, 255, 0.05);
+  --glass-medium: rgba(255, 255, 255, 0.08);
+  --glass-heavy: rgba(255, 255, 255, 0.12);
+  --blur-light: blur(10px);
+  --blur-medium: blur(20px);
+  --blur-heavy: blur(40px);
 }

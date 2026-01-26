@@ -5,10 +5,12 @@
   align-items: center;
   justify-content: space-between;
   height: var(--toolbar-height);
-  background: var(--color-abyss);
-  border-bottom: 1px solid var(--color-iron);
+  background: rgba(18, 18, 20, 0.8);
+  backdrop-filter: var(--blur-medium);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0 var(--space-4);
   z-index: var(--z-panel);
+  box-shadow: var(--shadow-sm);
 }
 
 .left,
@@ -69,45 +71,41 @@
   color: var(--color-silver);
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .tab:hover {
   color: var(--color-platinum);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-light);
+  transform: translateY(-1px);
 }
 
 .tabActive {
-  color: var(--color-chrome);
-  background: rgba(52, 211, 153, 0.1);
+  color: #0a0a0a;
+  background: var(--gradient-success);
+  box-shadow: var(--shadow-success);
 }
 
-.tabActive::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: var(--space-2);
-  right: var(--space-2);
-  height: 2px;
-  background: var(--color-success);
-  border-radius: 1px;
+.tabActive:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.35);
 }
 
 /* Icon buttons */
 .iconButton,
 .commandButton {
   padding: var(--space-2);
-  background: transparent;
-  border: 1.5px solid var(--color-iron);
-  border-radius: 6px;
+  background: var(--glass-light);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
   color: var(--color-silver);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 36px;
   height: 36px;
   display: flex;
@@ -117,16 +115,17 @@
 
 .iconButton:hover,
 .commandButton:hover {
-  background: var(--color-steel);
+  background: var(--glass-medium);
   color: var(--color-chrome);
-  border-color: var(--color-silver);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .iconButton:active,
 .commandButton:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.96);
+  transition-duration: 0.1s;
 }
 
 .commandButton {
