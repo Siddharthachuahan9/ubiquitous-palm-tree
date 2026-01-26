@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TopBar, Tool } from './TopBar';
 import { RightSidebar } from './RightSidebar';
 import { ToolRouter } from './ToolRouter';
+import { CommandPalette } from './CommandPalette';
 import styles from './AppShell.module.css';
 
 export function AppShell() {
@@ -22,6 +23,26 @@ export function AppShell() {
   const handleCommandPaletteClose = () => {
     setCommandPaletteOpen(false);
   };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd+K / Ctrl+K - Command Palette
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen(true);
+      }
+
+      // Cmd+/ / Ctrl+/ - Toggle Sidebar
+      if ((e.metaKey || e.ctrlKey) && e.key === '/') {
+        e.preventDefault();
+        setSidebarOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div className={styles.shell}>
@@ -42,26 +63,13 @@ export function AppShell() {
         )}
       </div>
 
-      {/* Command Palette - Placeholder */}
-      {commandPaletteOpen && (
-        <div className={styles.commandPaletteOverlay} onClick={handleCommandPaletteClose}>
-          <div className={styles.commandPalette} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.commandPaletteHeader}>
-              <input
-                type="text"
-                placeholder="Type a command..."
-                className={styles.commandPaletteInput}
-                autoFocus
-              />
-            </div>
-            <div className={styles.commandPaletteContent}>
-              <p style={{ padding: '16px', color: 'var(--text-secondary)' }}>
-                Command palette coming soon...
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Command Palette */}
+      <CommandPalette
+        isOpen={commandPaletteOpen}
+        onClose={handleCommandPaletteClose}
+        onSelectTool={handleToolChange}
+        currentTool={currentTool}
+      />
     </div>
   );
 }

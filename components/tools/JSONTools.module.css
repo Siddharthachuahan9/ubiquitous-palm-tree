@@ -1,0 +1,146 @@
+/* JSON Tools Wrapper */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Mode Selector */
+.modeSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6);
+  background: var(--surface-secondary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.modeButton,
+.modeActive {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.modeButton:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.modeActive {
+  background: var(--interactive-primary);
+  color: var(--text-on-brand);
+  border-color: var(--brand-600);
+}
+
+.modeIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.modeLabel {
+  line-height: 1;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.panelToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.panelToggle:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+/* Main Content */
+.mainContent {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.leftPanel {
+  width: 280px;
+  background: var(--surface-panel);
+  border-right: 1px solid var(--border-default);
+  overflow-y: auto;
+}
+
+.centerPanel {
+  flex: 1;
+  overflow: hidden;
+}
+
+.rightPanel {
+  width: 320px;
+  background: var(--surface-panel);
+  border-left: 1px solid var(--border-default);
+  overflow-y: auto;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 900px) {
+  .leftPanel {
+    width: 240px;
+  }
+
+  .rightPanel {
+    width: 280px;
+  }
+
+  .modeLabel {
+    display: none;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .modeSelector {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .leftPanel,
+  .rightPanel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 320px;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .leftPanel {
+    left: 0;
+  }
+
+  .rightPanel {
+    right: 0;
+  }
+}

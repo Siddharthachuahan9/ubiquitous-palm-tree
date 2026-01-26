@@ -1,6 +1,7 @@
 'use client';
 
 import { Tool } from './TopBar';
+import { JSONTools } from '@/components/tools/JSONTools';
 import { IPInspector } from '@/components/tools/IPInspector';
 import { Base64Tool } from '@/components/tools/Base64Tool';
 import { JWTDecoder } from '@/components/tools/JWTDecoder';
@@ -14,28 +15,13 @@ export function ToolRouter({ currentTool }: ToolRouterProps) {
   const renderTool = () => {
     switch (currentTool) {
       case 'diff':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>JSON Diff Tool</h2>
-            <p>Compare two JSON documents side-by-side</p>
-          </div>
-        );
+        return <JSONTools initialMode="diff" />;
 
       case 'jsonpath':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>JSONPath Query Tool</h2>
-            <p>Query JSON data using JSONPath expressions</p>
-          </div>
-        );
+        return <JSONTools initialMode="jsonpath" />;
 
       case 'validate':
-        return (
-          <div style={{ padding: '24px' }}>
-            <h2>JSON Validation Tool</h2>
-            <p>Validate JSON syntax and structure</p>
-          </div>
-        );
+        return <JSONTools initialMode="validate" />;
 
       case 'ip':
         return <IPInspector />;
