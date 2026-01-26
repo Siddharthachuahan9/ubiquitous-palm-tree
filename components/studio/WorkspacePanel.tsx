@@ -72,6 +72,15 @@ export function WorkspacePanel() {
             <p className={styles.tip}>• Format JSON with Format button</p>
           </div>
         </section>
+
+        <section className={styles.section}>
+          <div className={styles.privacyNotice}>
+            <span className={styles.privacyIcon}>🔒</span>
+            <p className={styles.privacyText}>
+              Your data never leaves this browser
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );

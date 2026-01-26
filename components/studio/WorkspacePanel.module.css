@@ -85,3 +85,26 @@
   color: var(--color-zinc);
   line-height: var(--leading-base);
 }
+
+/* Privacy Notice */
+.privacyNotice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: rgba(52, 211, 153, 0.05);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.privacyIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.privacyText {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}

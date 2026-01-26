@@ -64,6 +64,9 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
                 <p className={styles.emptyHint}>
                   Paste two JSONs in the Before/After panels, then click Compare
                 </p>
+                <p className={styles.privacyNote}>
+                  🔒 Your data never leaves this browser
+                </p>
               </div>
             )}
           </>
@@ -83,6 +86,9 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
                 <p className={styles.emptyExample}>
                   Example: <code>$.users[?(@.age &gt; 25)].name</code>
                 </p>
+                <p className={styles.privacyNote}>
+                  🔒 Your data never leaves this browser
+                </p>
               </div>
             )}
           </>
@@ -98,6 +104,9 @@ export function InspectorPanel({ mode }: InspectorPanelProps) {
                 <p className={styles.emptyTitle}>Ready to validate</p>
                 <p className={styles.emptyHint}>
                   Paste JSON in the panel and click &quot;Check JSON&quot;
+                </p>
+                <p className={styles.privacyNote}>
+                  🔒 Your data never leaves this browser
                 </p>
               </div>
             )}
