@@ -1,0 +1,221 @@
+/* TopBar Component */
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  height: 64px;
+  padding: 0 var(--space-6);
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border-default);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.logoIcon {
+  font-size: 24px;
+  color: var(--brand-500);
+  line-height: 1;
+}
+
+.logoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.logoTagline {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* Tool Switcher */
+.toolSwitcher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  justify-content: center;
+  max-width: 700px;
+}
+
+.tool,
+.toolActive {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.tool:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.toolActive {
+  background: var(--interactive-primary);
+  color: var(--text-on-brand);
+  border-color: var(--brand-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.toolActive:hover {
+  background: var(--brand-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.toolIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.toolLabel {
+  line-height: 1;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.iconButton:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.iconButton:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: var(--duration-instant);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 900px) {
+  .topBar {
+    padding: 0 var(--space-4);
+  }
+
+  .logoTagline {
+    display: none;
+  }
+
+  .toolSwitcher {
+    gap: var(--space-1);
+  }
+
+  .tool,
+  .toolActive {
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
+  }
+
+  .toolLabel {
+    display: none;
+  }
+
+  .toolIcon {
+    font-size: 18px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .topBar {
+    height: 56px;
+    padding: 0 var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .logoText {
+    font-size: 16px;
+  }
+
+  .toolSwitcher {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: none;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .toolSwitcher::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tool,
+  .toolActive {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Hide command palette button on mobile */
+  .iconButton:first-child {
+    display: none;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .topBar {
+    padding: 0 var(--space-2);
+  }
+
+  .logoIcon {
+    font-size: 20px;
+  }
+
+  .logoText {
+    font-size: 14px;
+  }
+}

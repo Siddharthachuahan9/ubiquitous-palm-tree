@@ -1,5 +1,6 @@
-/* Global Styles - JSON Exploration Studio */
+/* Global Styles - json0.dev */
 
+@import '../styles/tokens.css';
 @import '../styles/variables.css';
 @import '../styles/typography.css';
 @import '../styles/animations.css';

@@ -1,7 +1,7 @@
 'use client';
 
-import { StudioShell } from '@/components/studio/StudioShell';
+import { AppShell } from '@/components/shell/AppShell';
 
 export default function Home() {
-  return <StudioShell />;
+  return <AppShell />;
 }

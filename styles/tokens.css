@@ -1,0 +1,190 @@
+/* Design Tokens - json0 Production Design System */
+
+:root {
+  /* ========================================
+     PRIMITIVES - Base Color Palette
+     ======================================== */
+
+  /* Neutral Scale */
+  --neutral-0: #FFFFFF;
+  --neutral-50: #F8FAFC;
+  --neutral-100: #F1F5F9;
+  --neutral-200: #E2E8F0;
+  --neutral-300: #CBD5E1;
+  --neutral-400: #94A3B8;
+  --neutral-500: #64748B;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1E293B;
+  --neutral-900: #0F172A;
+  --neutral-1000: #020617;
+
+  /* Brand Scale */
+  --brand-50: #EFF6FF;
+  --brand-100: #DBEAFE;
+  --brand-200: #BFDBFE;
+  --brand-300: #93C5FD;
+  --brand-400: #60A5FA;
+  --brand-500: #3B82F6;
+  --brand-600: #2563EB;
+  --brand-700: #1D4ED8;
+  --brand-800: #1E40AF;
+  --brand-900: #1E3A8A;
+
+  /* Status Colors */
+  --status-success: #16A34A;
+  --status-success-soft: #6EE7B7;
+  --status-warning: #F59E0B;
+  --status-warning-soft: #FCD34D;
+  --status-error: #DC2626;
+  --status-error-soft: #FCA5A5;
+  --status-info: #0EA5E9;
+  --status-info-soft: #93C5FD;
+
+  /* ========================================
+     SEMANTIC TOKENS - Light Theme
+     ======================================== */
+
+  /* Surfaces */
+  --surface-page: var(--neutral-50);
+  --surface-panel: var(--neutral-0);
+  --surface-elevated: var(--neutral-100);
+  --surface-overlay: rgba(15, 23, 42, 0.4);
+
+  /* Borders */
+  --border-default: var(--neutral-200);
+  --border-subtle: var(--neutral-100);
+  --border-strong: var(--neutral-300);
+  --border-focus: var(--brand-500);
+
+  /* Text */
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: var(--neutral-500);
+  --text-inverse: var(--neutral-0);
+
+  /* Interactive */
+  --interactive-default: var(--brand-600);
+  --interactive-hover: var(--brand-700);
+  --interactive-active: var(--brand-800);
+  --interactive-disabled: var(--neutral-300);
+
+  /* ========================================
+     SPACING SCALE
+     ======================================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 56px;
+
+  /* ========================================
+     TYPOGRAPHY SCALE
+     ======================================== */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+  --line-height-loose: 1.75;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+
+  /* ========================================
+     MOTION
+     ======================================== */
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --duration-slow: 240ms;
+
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ========================================
+     LAYOUT
+     ======================================== */
+  --topbar-height: 56px;
+  --sidebar-width: 320px;
+  --panel-padding: var(--space-6);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --z-base: 0;
+  --z-panel: 10;
+  --z-dropdown: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-command: 60;
+}
+
+/* ========================================
+   DARK THEME
+   ======================================== */
+[data-theme="dark"] {
+  /* Surfaces */
+  --surface-page: var(--neutral-900);
+  --surface-panel: var(--neutral-800);
+  --surface-elevated: var(--neutral-700);
+  --surface-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Borders */
+  --border-default: var(--neutral-700);
+  --border-subtle: var(--neutral-800);
+  --border-strong: var(--neutral-600);
+  --border-focus: var(--brand-400);
+
+  /* Text */
+  --text-primary: var(--neutral-50);
+  --text-secondary: var(--neutral-300);
+  --text-tertiary: var(--neutral-400);
+  --text-inverse: var(--neutral-900);
+
+  /* Interactive */
+  --interactive-default: var(--brand-500);
+  --interactive-hover: var(--brand-400);
+  --interactive-active: var(--brand-300);
+  --interactive-disabled: var(--neutral-600);
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

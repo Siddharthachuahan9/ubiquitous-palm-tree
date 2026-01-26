@@ -1,0 +1,109 @@
+/* AppShell Component */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: var(--surface-page);
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Command Palette Overlay */
+.commandPaletteOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  animation: fadeIn var(--duration-fast) var(--ease-smooth);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.commandPalette {
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: slideDown var(--duration-normal) var(--ease-bounce);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.commandPaletteHeader {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.commandPaletteInput {
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  outline: none;
+  transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.commandPaletteInput:focus {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+}
+
+.commandPaletteInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.commandPaletteContent {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .commandPaletteOverlay {
+    padding-top: 80px;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .commandPalette {
+    max-width: 100%;
+  }
+}
