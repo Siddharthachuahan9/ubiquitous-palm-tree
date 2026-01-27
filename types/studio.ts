@@ -19,6 +19,8 @@ export interface DiffChange {
   path: string;
   oldValue?: any;
   newValue?: any;
+  lineA?: number; // Line number in Before (jsonA)
+  lineB?: number; // Line number in After (jsonB)
 }
 
 export interface JSONPatchOperation {

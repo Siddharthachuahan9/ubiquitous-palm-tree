@@ -47,6 +47,7 @@ interface MonacoEditorProps {
   readOnly?: boolean;
   height?: string;
   placeholder?: string;
+  editorRef?: React.MutableRefObject<editor.IStandaloneCodeEditor | null>;
 }
 
 export function MonacoEditor({
@@ -56,8 +57,10 @@ export function MonacoEditor({
   readOnly = false,
   height = '100%',
   placeholder,
+  editorRef: externalEditorRef,
 }: MonacoEditorProps) {
-  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const internalEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const editorRef = externalEditorRef || internalEditorRef;
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;

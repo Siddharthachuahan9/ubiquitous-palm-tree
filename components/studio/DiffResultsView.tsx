@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { diffChars } from 'diff';
 import styles from './DiffResultsView.module.css';
 import type { DiffResult, DiffMode } from '@/types/studio';
 import { MonacoEditor } from './MonacoEditor';
+import { useEditorContext } from '@/lib/contexts/EditorContext';
+import { useStudioStore } from '@/lib/store';
 
 interface DiffResultsViewProps {
   results: DiffResult;
@@ -68,6 +70,26 @@ function formatPath(path: string) {
 
 export function DiffResultsView({ results }: DiffResultsViewProps) {
   const [viewMode, setViewMode] = useState<DiffMode>('visual');
+  const { navigateToBoth, highlightLine } = useEditorContext();
+  const { showToast } = useStudioStore();
+
+  /**
+   * Handle clicking a change entry - navigate both editors to the change location
+   */
+  const handleChangeClick = useCallback((change: any, index: number) => {
+    const lineA = change.lineA ?? 0;
+    const lineB = change.lineB ?? 0;
+
+    // Navigate both editors to the change location
+    navigateToBoth(lineA, lineB);
+
+    // Highlight the lines
+    highlightLine('A', lineA);
+    highlightLine('B', lineB);
+
+    // Show toast notification
+    showToast('Navigated to mismatch', 'info');
+  }, [navigateToBoth, highlightLine, showToast]);
 
   return (
     <div className={styles.container}>
@@ -124,9 +146,29 @@ export function DiffResultsView({ results }: DiffResultsViewProps) {
       <div className={styles.content}>
         {viewMode === 'visual' && (
           <div className={styles.changesList}>
+            {results.changes.length === 0 && (
+              <div className={styles.noChanges}>
+                <span className={styles.noChangesIcon}>✓</span>
+                <p>No differences found. JSONs are identical!</p>
+              </div>
+            )}
             {results.changes.map((change, index) => (
-              <div key={index} className={`${styles.change} ${styles[change.type]}`}>
-                <div className={styles.changeType}>{change.type.toUpperCase()}</div>
+              <div
+                key={index}
+                className={`${styles.change} ${styles[change.type]} ${styles.clickable}`}
+                onClick={() => handleChangeClick(change, index)}
+                title="Click to navigate to this change in editors"
+              >
+                <div className={styles.changeHeader}>
+                  <div className={styles.changeType}>{change.type.toUpperCase()}</div>
+                  <div className={styles.changeLocation}>
+                    {change.lineA !== undefined && change.lineB !== undefined && (
+                      <span className={styles.lineInfo}>
+                        Before: Line {change.lineA + 1} • After: Line {change.lineB + 1}
+                      </span>
+                    )}
+                  </div>
+                </div>
                 <div className={styles.changePath}>{formatPath(change.path)}</div>
 
                 {change.type === 'modify' ? (

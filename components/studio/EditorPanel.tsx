@@ -6,6 +6,7 @@ import type { Mode } from './StudioShell';
 import { MonacoEditor } from './MonacoEditor';
 import { useStudioStore } from '@/lib/store';
 import { formatJSON } from '@/lib/utils/format';
+import { useEditorContext } from '@/lib/contexts/EditorContext';
 
 interface EditorPanelProps {
   mode: Mode;
@@ -27,6 +28,9 @@ export function EditorPanel({ mode }: EditorPanelProps) {
     clearAll,
     processing,
   } = useStudioStore();
+
+  // Get editor refs from context (always call hook, use conditionally)
+  const editorContext = useEditorContext();
 
   const handleFormat = useCallback(() => {
     try {
@@ -53,6 +57,7 @@ export function EditorPanel({ mode }: EditorPanelProps) {
               value={jsonA}
               onChange={setJsonA}
               placeholder="Paste your first JSON here, or click Upload"
+              editorRef={editorContext?.editorA}
             />
           </div>
 
@@ -66,6 +71,7 @@ export function EditorPanel({ mode }: EditorPanelProps) {
               value={jsonB}
               onChange={setJsonB}
               placeholder="Paste your second JSON here to compare"
+              editorRef={editorContext?.editorB}
             />
           </div>
         </div>

@@ -108,13 +108,49 @@
   box-shadow: var(--shadow-panel);
 }
 
+/* Clickable state - indicates interactive changes */
+.change.clickable {
+  cursor: pointer;
+}
+
+.change.clickable:hover {
+  transform: translateX(4px);
+}
+
+.change.clickable:active {
+  transform: scale(0.98);
+}
+
+/* Change header - contains type and line info */
+.changeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  flex-wrap: wrap;
+}
+
 .changeType {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--space-2);
+}
+
+/* Line information display */
+.lineInfo {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-zinc);
+  white-space: nowrap;
+}
+
+.changeLocation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .change.add .changeType {

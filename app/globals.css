@@ -165,3 +165,47 @@ table {
 .monaco-editor .minimap {
   background: var(--color-shadow) !important;
 }
+
+/* ========================================
+   DIFF HIGHLIGHT ANIMATIONS
+   ======================================== */
+
+/* Highlight line when navigating to diff changes */
+.diff-highlight-line {
+  background-color: rgba(251, 191, 36, 0.15) !important;
+  border-left: 3px solid var(--color-warning) !important;
+  animation: diffHighlightFade 1s ease-out forwards;
+}
+
+/* Glyph margin indicator */
+.diff-highlight-glyph {
+  background-color: var(--color-warning) !important;
+  width: 4px !important;
+  margin-left: 2px !important;
+  border-radius: 2px;
+  animation: diffGlyphFade 1s ease-out forwards;
+}
+
+/* Fade out animation for highlight */
+@keyframes diffHighlightFade {
+  0% {
+    background-color: rgba(251, 191, 36, 0.25);
+    border-left-color: var(--color-warning);
+  }
+  100% {
+    background-color: transparent;
+    border-left-color: transparent;
+  }
+}
+
+/* Fade out animation for glyph */
+@keyframes diffGlyphFade {
+  0% {
+    background-color: var(--color-warning);
+    opacity: 1;
+  }
+  100% {
+    background-color: transparent;
+    opacity: 0;
+  }
+}

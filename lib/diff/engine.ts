@@ -1,14 +1,19 @@
 import { Differ } from 'json-diff-kit';
 import type { DiffResult, DiffChange, JSONPatchOperation } from '@/types/studio';
+import { mapPathsToLines, findLineForPath, extractPathFromChange } from '@/lib/utils/pathToLine';
 
 /**
- * Compute diff between two JSON strings
+ * Compute diff between two JSON strings with enhanced line number tracking
  */
 export function computeDiff(jsonA: string, jsonB: string): DiffResult {
   try {
     // Parse JSON strings
     const objA = JSON.parse(jsonA);
     const objB = JSON.parse(jsonB);
+
+    // Create path-to-line mappings for both JSONs
+    const pathMapA = mapPathsToLines(jsonA);
+    const pathMapB = mapPathsToLines(jsonB);
 
     // Create differ instance with configuration
     const differ = new Differ({
@@ -29,37 +34,73 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     let modifications = 0;
     let moves = 0;
 
-    // Combine both arrays and iterate through actual DiffResult objects
-    const allChanges = [...leftChanges, ...rightChanges];
+    // Track paths we've seen to avoid duplicates
+    const seenPaths = new Set<string>();
 
-    allChanges.forEach((change: any) => {
-      // json-diff-kit returns objects with: type, text, level, lineNumber
-      const changeType = change.type;
+    // Process left-side changes (deletions/modifications in A)
+    leftChanges.forEach((change: any) => {
+      const path = extractPathFromChange(change);
+      const changeKey = `${change.type}-${path}`;
 
-      if (changeType === 'add') {
-        additions++;
-        changes.push({
-          type: 'add',
-          path: `Line ${change.lineNumber || 0}`,
-          newValue: change.text,
-        });
-      } else if (changeType === 'remove') {
+      // Skip if we've already processed this path
+      if (seenPaths.has(changeKey)) return;
+      seenPaths.add(changeKey);
+
+      const lineA = findLineForPath(pathMapA, path) ?? 0;
+      const lineB = findLineForPath(pathMapB, path) ?? 0;
+
+      if (change.type === 'remove') {
         deletions++;
         changes.push({
           type: 'remove',
-          path: `Line ${change.lineNumber || 0}`,
+          path,
           oldValue: change.text,
+          lineA,
+          lineB,
         });
-      } else if (changeType === 'modify') {
+      } else if (change.type === 'modify') {
+        // Handle on right side
+      }
+    });
+
+    // Process right-side changes (additions/modifications in B)
+    rightChanges.forEach((change: any) => {
+      const path = extractPathFromChange(change);
+      const changeKey = `${change.type}-${path}`;
+
+      // Skip if we've already processed this path
+      if (seenPaths.has(changeKey)) return;
+      seenPaths.add(changeKey);
+
+      const lineA = findLineForPath(pathMapA, path) ?? 0;
+      const lineB = findLineForPath(pathMapB, path) ?? 0;
+
+      if (change.type === 'add') {
+        additions++;
+        changes.push({
+          type: 'add',
+          path,
+          newValue: change.text,
+          lineA,
+          lineB,
+        });
+      } else if (change.type === 'modify') {
         modifications++;
+        // Find corresponding left change for old value
+        const leftChange = leftChanges.find((lc: any) => {
+          const lPath = extractPathFromChange(lc);
+          return lPath === path && lc.type === 'modify';
+        });
+
         changes.push({
           type: 'modify',
-          path: `Line ${change.lineNumber || 0}`,
-          oldValue: change.text,
+          path,
+          oldValue: leftChange?.text ?? change.text,
           newValue: change.text,
+          lineA,
+          lineB,
         });
       }
-      // Skip 'equal' type - those represent unchanged lines
     });
 
     // Generate JSON Patch (RFC 6902)
