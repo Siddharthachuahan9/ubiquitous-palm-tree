@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { classifyIP, IPClassification } from '@/lib/utils/ipClassifier';
+import { ShareButton } from '@/components/common/ShareButton';
 import styles from './IPInspector.module.css';
 
 export function IPInspector() {
@@ -43,10 +44,15 @@ export function IPInspector() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>IP Inspector</h2>
-          <p className={styles.subtitle}>
-            Classify IPv4 and IPv6 addresses by RFC standards
-          </p>
+          <div>
+            <h2 className={styles.title}>IP Inspector</h2>
+            <p className={styles.subtitle}>
+              Classify IPv4 and IPv6 addresses by RFC standards
+            </p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton tool="ip" data={{ ipInput, result }} />
+          </div>
         </div>
 
         <div className={styles.inputGroup}>

@@ -18,8 +18,15 @@
 
 .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.headerActions {
+  display: flex;
   gap: var(--space-2);
+  align-items: center;
 }
 
 .title {

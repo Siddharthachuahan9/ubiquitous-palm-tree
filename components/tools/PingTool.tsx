@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { pingHost, PingResult } from '@/lib/utils/networkCheck';
 import { formatTime } from '@/lib/utils/formatters';
+import { ShareButton } from '@/components/common/ShareButton';
 import styles from './PingTool.module.css';
 
 export function PingTool() {
@@ -94,10 +95,15 @@ export function PingTool() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Ping Tool</h2>
-          <p className={styles.subtitle}>
-            Test network reachability via HTTPS (browser-safe)
-          </p>
+          <div>
+            <h2 className={styles.title}>Ping Tool</h2>
+            <p className={styles.subtitle}>
+              Test network reachability via HTTPS (browser-safe)
+            </p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton tool="ping" data={{ host, interval, results }} />
+          </div>
         </div>
 
         <div className={styles.inputGroup}>

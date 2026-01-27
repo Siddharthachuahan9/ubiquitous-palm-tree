@@ -7,6 +7,7 @@ import {
   detectInputType,
   Base64Result,
 } from '@/lib/utils/base64';
+import { ShareButton } from '@/components/common/ShareButton';
 import styles from './Base64Tool.module.css';
 
 type Mode = 'encode' | 'decode' | 'auto';
@@ -75,10 +76,15 @@ export function Base64Tool() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Base64 Encoder/Decoder</h2>
-          <p className={styles.subtitle}>
-            Encode and decode Base64 strings with proper UTF-8 support
-          </p>
+          <div>
+            <h2 className={styles.title}>Base64 Encoder/Decoder</h2>
+            <p className={styles.subtitle}>
+              Encode and decode Base64 strings with proper UTF-8 support
+            </p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton tool="base64" data={{ mode, input, result }} />
+          </div>
         </div>
 
         <div className={styles.modeSelector}>

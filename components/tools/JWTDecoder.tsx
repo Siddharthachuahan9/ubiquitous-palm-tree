@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { decodeJWT, JWTDecoded } from '@/lib/utils/jwt';
 import { formatJSON } from '@/lib/utils/formatters';
+import { ShareButton } from '@/components/common/ShareButton';
 import styles from './JWTDecoder.module.css';
 
 export function JWTDecoder() {
@@ -44,10 +45,15 @@ export function JWTDecoder() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>JWT Decoder</h2>
-          <p className={styles.subtitle}>
-            Decode and inspect JWT tokens locally without verification
-          </p>
+          <div>
+            <h2 className={styles.title}>JWT Decoder</h2>
+            <p className={styles.subtitle}>
+              Decode and inspect JWT tokens locally without verification
+            </p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton tool="jwt" data={{ token, result }} />
+          </div>
         </div>
 
         <div className={styles.inputGroup}>

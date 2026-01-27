@@ -8,6 +8,7 @@ import {
   UUIDResult,
   UUIDVersion,
 } from '@/lib/utils/uuidGenerator';
+import { ShareButton } from '@/components/common/ShareButton';
 import styles from './UUIDGenerator.module.css';
 
 export function UUIDGenerator() {
@@ -42,8 +43,13 @@ export function UUIDGenerator() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>UUID Generator</h2>
-          <p className={styles.subtitle}>Generate unique identifiers (v4, v1-like, nil)</p>
+          <div>
+            <h2 className={styles.title}>UUID Generator</h2>
+            <p className={styles.subtitle}>Generate unique identifiers (v4, v1-like, nil)</p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton tool="uuid" data={{ version, count, results, format }} />
+          </div>
         </div>
 
         <div className={styles.inputGroup}>
