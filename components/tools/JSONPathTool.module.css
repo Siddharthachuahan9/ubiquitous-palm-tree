@@ -3,9 +3,9 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-6);
+  gap: var(--space-8);
   height: 100%;
-  padding: var(--space-6);
+  padding: var(--space-8);
   overflow: auto;
 }
 
@@ -25,7 +25,7 @@
 
 .headerActions {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-3);
   align-items: center;
 }
 
@@ -350,18 +350,20 @@
 /* Actions */
 .actions {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-4);
+  flex-wrap: wrap;
 }
 
 .primaryButton {
   flex: 1;
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-8);
+  min-height: 44px;
   background: var(--interactive-primary);
   border: none;
   border-radius: var(--radius-md);
   color: var(--text-on-brand);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
@@ -386,12 +388,13 @@
 
 .secondaryButton {
   padding: var(--space-4) var(--space-6);
+  min-height: 44px;
   background: var(--surface-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
@@ -399,6 +402,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-2);
+  white-space: nowrap;
 }
 
 .secondaryButton:hover {
@@ -640,6 +645,7 @@
   .container {
     grid-template-columns: 1fr;
     gap: var(--space-8);
+    padding: var(--space-6);
   }
 
   .header {
@@ -653,15 +659,41 @@
   }
 
   .actions {
-    flex-wrap: wrap;
+    width: 100%;
+    gap: var(--space-3);
   }
 
   .secondaryButton {
-    flex: 1;
-    min-width: 120px;
+    flex: 1 1 auto;
+    min-width: 110px;
   }
 
   .primaryButton {
+    flex: 1 1 100%;
     width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-4);
+  }
+
+  .inputPanel {
+    gap: var(--space-5);
+  }
+
+  .actions {
+    gap: var(--space-2);
+  }
+
+  .secondaryButton {
+    font-size: 14px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .primaryButton {
+    font-size: 14px;
+    padding: var(--space-3) var(--space-6);
   }
 }
