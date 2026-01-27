@@ -22,8 +22,11 @@
 
 .logoIcon {
   font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-mono);
   color: var(--brand-500);
   line-height: 1;
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
 }
 
 .logoContent {

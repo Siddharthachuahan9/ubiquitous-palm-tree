@@ -2,9 +2,10 @@
  * Share State Utility
  * Generate shareable URLs using hash fragments (no backend required)
  * Privacy-first: State is encoded in URL, not sent to servers
+ * Optimized compression for shorter URLs
  */
 
-import { compress, decompress } from 'lz-string';
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
 export interface ShareableState {
   tool: string;
@@ -16,6 +17,7 @@ const CURRENT_VERSION = '1.0';
 
 /**
  * Encode state into URL hash
+ * Uses optimized compression for shorter URLs
  */
 export function encodeStateToHash(tool: string, data: any): string {
   try {
@@ -26,10 +28,10 @@ export function encodeStateToHash(tool: string, data: any): string {
     };
 
     const json = JSON.stringify(state);
-    const compressed = compress(json);
-    const encoded = encodeURIComponent(compressed);
+    // compressToEncodedURIComponent combines compression + encoding for shorter URLs
+    const compressed = compressToEncodedURIComponent(json);
 
-    return `#share=${encoded}`;
+    return `#s=${compressed}`;
   } catch (error) {
     console.error('Failed to encode state:', error);
     throw new Error('Failed to create shareable link');
@@ -41,12 +43,12 @@ export function encodeStateToHash(tool: string, data: any): string {
  */
 export function decodeStateFromHash(hash: string): ShareableState | null {
   try {
-    // Remove '#share=' prefix
-    const encoded = hash.replace(/^#share=/, '');
+    // Remove '#s=' prefix (new format) or '#share=' (legacy format)
+    const encoded = hash.replace(/^#(s|share)=/, '');
     if (!encoded) return null;
 
-    const decoded = decodeURIComponent(encoded);
-    const decompressed = decompress(decoded);
+    // decompressFromEncodedURIComponent handles both compression + decoding
+    const decompressed = decompressFromEncodedURIComponent(encoded);
     if (!decompressed) return null;
 
     const state: ShareableState = JSON.parse(decompressed);
@@ -88,9 +90,11 @@ export async function copyShareableURL(tool: string, data: any): Promise<boolean
 
 /**
  * Check if current URL has shareable state
+ * Supports both new (#s=) and legacy (#share=) formats
  */
 export function hasShareableState(): boolean {
-  return window.location.hash.startsWith('#share=');
+  const hash = window.location.hash;
+  return hash.startsWith('#s=') || hash.startsWith('#share=');
 }
 
 /**

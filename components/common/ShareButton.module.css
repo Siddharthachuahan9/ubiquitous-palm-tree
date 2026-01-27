@@ -2,26 +2,29 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  background: var(--surface-panel);
-  border: 1px solid var(--border-default);
+  padding: var(--space-2) var(--space-4);
+  background: var(--brand-500);
+  border: 1px solid var(--brand-600);
   border-radius: var(--radius-md);
-  color: var(--text-primary);
+  color: white;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2);
 }
 
 .shareButton:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-strong);
+  background: var(--brand-600);
+  border-color: var(--brand-700);
   transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .shareButton:active {
   transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2);
 }
 
 /* Warning Modal */
@@ -44,8 +47,8 @@
   background: var(--surface-primary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  max-width: 520px;
   width: 100%;
   overflow: hidden;
 }
@@ -54,30 +57,32 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-6);
-  background: var(--surface-secondary);
+  padding: var(--space-6) var(--space-6);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
   border-bottom: 1px solid var(--border-default);
 }
 
 .warningIcon {
-  font-size: 28px;
+  font-size: 32px;
   line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .warningHeader h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .warningContent {
-  padding: var(--space-6);
+  padding: var(--space-6) var(--space-6);
 }
 
 .warningContent p {
-  margin: 0 0 var(--space-4) 0;
+  margin: 0 0 var(--space-5) 0;
   line-height: 1.6;
+  font-size: 15px;
   color: var(--text-secondary);
 }
 
@@ -86,14 +91,16 @@
 }
 
 .warningTip {
-  padding: var(--space-4);
-  background: var(--surface-secondary);
+  padding: var(--space-5);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
   border-radius: var(--radius-md);
-  border-left: 3px solid var(--brand-500);
+  border-left: 4px solid var(--brand-500);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
 }
 
 .warningTip strong {
-  color: var(--text-primary);
+  color: var(--brand-500);
+  font-size: 16px;
 }
 
 .warningActions {

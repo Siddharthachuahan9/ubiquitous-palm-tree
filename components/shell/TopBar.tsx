@@ -32,7 +32,7 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPriv
     <header className={styles.topBar}>
       {/* Logo */}
       <div className={styles.logo}>
-        <span className={styles.logoIcon}>◬</span>
+        <span className={styles.logoIcon}>{'{0}'}</span>
         <div className={styles.logoContent}>
           <span className={styles.logoText}>json0</span>
           <span className={styles.logoTagline}>json tools, zero hassle</span>

@@ -72,14 +72,19 @@ export function ShareButton({ tool, data, onShare }: ShareButtonProps) {
 
             <div className={styles.warningContent}>
               <p>
-                Your input may contain sensitive information like emails, tokens, API keys, or UUIDs.
+                Detected sensitive data: emails, tokens, API keys, or UUIDs.
               </p>
               <p>
-                The share link will include this data in the URL. Anyone with the link can see it.
+                The share link will encode this data in the URL. Anyone with the link can view it.
               </p>
-              <p className={styles.warningTip}>
-                💡 <strong>Tip:</strong> Enable &ldquo;Hide sensitive data&rdquo; before sharing to redact sensitive information.
-              </p>
+              <div className={styles.warningTip}>
+                <p>
+                  <strong>💡 Enable &ldquo;Hide sensitive data&rdquo; first</strong>
+                </p>
+                <p style={{ fontSize: '14px', marginTop: '8px', marginBottom: 0 }}>
+                  Go to Settings (Cmd+/) → Session → Privacy Controls to redact sensitive information before sharing.
+                </p>
+              </div>
             </div>
 
             <div className={styles.warningActions}>
