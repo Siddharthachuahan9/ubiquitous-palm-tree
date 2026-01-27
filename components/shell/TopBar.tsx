@@ -2,6 +2,8 @@
 
 import { useTheme } from './ThemeProvider';
 import { PrivacyBadge } from './PrivacyBadge';
+import { RedactionToggle } from '@/components/common/RedactionToggle';
+import { useRedactionStore } from '@/lib/redactionStore';
 import styles from './TopBar.module.css';
 
 export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt' | 'hash' | 'uuid';
@@ -27,6 +29,7 @@ const tools: Array<{ id: Tool; label: string; icon: string }> = [
 
 export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPrivacyModalOpen }: TopBarProps) {
   const { theme, toggleTheme } = useTheme();
+  const { enabled: redactionEnabled, toggleRedaction } = useRedactionStore();
 
   return (
     <header className={styles.topBar}>
@@ -56,6 +59,9 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPriv
 
       {/* Actions */}
       <div className={styles.actions}>
+        {/* Redaction Toggle */}
+        <RedactionToggle enabled={redactionEnabled} onToggle={toggleRedaction} />
+
         {/* Desktop Privacy Badge */}
         <div className={styles.desktopOnly}>
           <PrivacyBadge variant="full" onOpenModal={onPrivacyModalOpen} />
