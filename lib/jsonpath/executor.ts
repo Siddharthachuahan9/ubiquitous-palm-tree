@@ -4,7 +4,11 @@ import type { JSONPathResult } from '@/types/studio';
 /**
  * Execute a JSONPath query against JSON data
  */
-export function executeJSONPath(query: string, json: string): JSONPathResult[] {
+export function executeJSONPath(
+  query: string,
+  json: string,
+  outputPaths: boolean = false
+): JSONPathResult[] {
   try {
     // Parse JSON string
     const obj = JSON.parse(json);
@@ -15,29 +19,36 @@ export function executeJSONPath(query: string, json: string): JSONPathResult[] {
     }
 
     // Execute JSONPath query
-    // Note: jsonpath-plus doesn't have preventEval option in this version
-    // Script expressions are still supported but we sanitize inputs
+    // When outputPaths is true, use 'path' resultType to show paths
+    // When false, use 'value' resultType to show values
+    const resultType = outputPaths ? 'path' : 'value';
+
     const results = JSONPath({
       path: query,
       json: obj,
-      resultType: 'all', // Returns both path and value
+      resultType: 'all', // Always use 'all' to get both path and value
       wrap: true, // Always return array
     }) as any[];
+
+    // If no results, return empty array
+    if (!results || results.length === 0) {
+      return [];
+    }
 
     // Transform results to our format
     return results.map((result: any) => ({
       path: result.path || result.pointer || '',
-      value: result.value,
+      value: outputPaths ? result.path : result.value,
       type: getValueType(result.value),
       pointer: result.pointer || result.path || '',
     }));
   } catch (error) {
     if (error instanceof Error) {
       // Provide more helpful error messages
-      if (error.message.includes('Unexpected')) {
+      if (error.message.includes('Unexpected') || error.message.includes('Parse error')) {
         throw new Error(`Invalid JSONPath syntax: ${error.message}`);
       }
-      if (error.message.includes('JSON')) {
+      if (error.message.includes('JSON') && !error.message.includes('JSONPath')) {
         throw new Error(`Invalid JSON: ${error.message}`);
       }
       throw new Error(`JSONPath execution failed: ${error.message}`);

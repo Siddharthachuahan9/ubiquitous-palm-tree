@@ -38,6 +38,8 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   // JSONPath query
   jsonpathQuery: '',
   setJsonpathQuery: (query) => set({ jsonpathQuery: query }),
+  jsonpathOutputPaths: false,
+  setJsonpathOutputPaths: (outputPaths) => set({ jsonpathOutputPaths: outputPaths }),
 
   // Results
   diffResults: null,
@@ -101,7 +103,11 @@ export const useStudioStore = create<StudioState>((set, get) => ({
 
     try {
       const { executeJSONPath } = await import('@/lib/jsonpath/executor');
-      const results = executeJSONPath(state.jsonpathQuery, state.jsonSource);
+      const results = executeJSONPath(
+        state.jsonpathQuery,
+        state.jsonSource,
+        state.jsonpathOutputPaths || false
+      );
 
       const endTime = performance.now();
       const processingTime = Math.round(endTime - startTime);

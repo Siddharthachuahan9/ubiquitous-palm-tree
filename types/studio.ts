@@ -69,6 +69,8 @@ export interface StudioState {
   // JSONPath query
   jsonpathQuery: string;
   setJsonpathQuery: (query: string) => void;
+  jsonpathOutputPaths: boolean;
+  setJsonpathOutputPaths: (outputPaths: boolean) => void;
 
   // Results
   diffResults: DiffResult | null;

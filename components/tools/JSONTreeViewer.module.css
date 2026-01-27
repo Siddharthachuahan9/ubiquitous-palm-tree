@@ -1,0 +1,123 @@
+.container {
+  padding: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.empty {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 13px;
+}
+
+.node {
+  position: relative;
+}
+
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.expandButton {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-size: 10px;
+  flex-shrink: 0;
+  padding: 0;
+  transition: color var(--duration-fast);
+}
+
+.expandButton:hover {
+  color: var(--brand-600);
+}
+
+.nodeButton {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast);
+  flex: 1;
+  min-width: 0;
+}
+
+.nodeButton:hover {
+  background: var(--brand-50);
+}
+
+.nodeButton:active {
+  background: var(--brand-100);
+}
+
+.key {
+  color: var(--brand-700);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.separator {
+  color: var(--gray-400);
+  margin: 0 var(--space-1);
+}
+
+.value {
+  color: var(--gray-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.value.string {
+  color: #16a34a;
+}
+
+.value.number {
+  color: #0284c7;
+}
+
+.value.boolean {
+  color: #7c3aed;
+}
+
+.value.null {
+  color: #dc2626;
+  font-style: italic;
+}
+
+.type {
+  color: var(--gray-500);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.children {
+  margin-left: var(--space-4);
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--gray-200);
+}
+
+/* Hover effect for tree lines */
+.children:hover {
+  border-left-color: var(--brand-300);
+}

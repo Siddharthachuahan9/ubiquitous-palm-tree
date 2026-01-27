@@ -2,6 +2,7 @@
 
 import { Tool } from './TopBar';
 import { JSONTools } from '@/components/tools/JSONTools';
+import { JSONPathTool } from '@/components/tools/JSONPathTool';
 import { IPInspector } from '@/components/tools/IPInspector';
 import { Base64Tool } from '@/components/tools/Base64Tool';
 import { JWTDecoder } from '@/components/tools/JWTDecoder';
@@ -20,7 +21,7 @@ export function ToolRouter({ currentTool }: ToolRouterProps) {
         return <JSONTools initialMode="diff" />;
 
       case 'jsonpath':
-        return <JSONTools initialMode="jsonpath" />;
+        return <JSONPathTool />;
 
       case 'validate':
         return <JSONTools initialMode="validate" />;
