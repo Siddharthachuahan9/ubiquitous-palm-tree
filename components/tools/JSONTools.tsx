@@ -5,6 +5,8 @@ import { WorkspacePanel } from '@/components/studio/WorkspacePanel';
 import { EditorPanel } from '@/components/studio/EditorPanel';
 import { InspectorPanel } from '@/components/studio/InspectorPanel';
 import { Toast } from '@/components/studio/Toast';
+import { ShareButton } from '@/components/common/ShareButton';
+import { useStudioStore } from '@/lib/store';
 import styles from './JSONTools.module.css';
 
 export type JSONToolMode = 'diff' | 'jsonpath' | 'validate';
@@ -17,24 +19,44 @@ export function JSONTools({ initialMode = 'diff' }: JSONToolsProps) {
   const [leftPanelOpen, setLeftPanelOpen] = useState(true);
   const [rightPanelOpen, setRightPanelOpen] = useState(true);
 
+  // Get current state for sharing
+  const { jsonA, jsonB, jsonSource, jsonpathQuery } = useStudioStore();
+
+  // Prepare share data based on mode
+  const getShareData = () => {
+    if (initialMode === 'diff') {
+      return { jsonA, jsonB };
+    } else if (initialMode === 'jsonpath') {
+      return { jsonSource, query: jsonpathQuery };
+    } else {
+      return { jsonSource };
+    }
+  };
+
   return (
     <div className={styles.container}>
-      {/* Panel Controls - Single toolbar for panel toggles only */}
+      {/* Panel Controls and Actions */}
       <div className={styles.toolbar}>
-        <button
-          className={styles.panelToggle}
-          onClick={() => setLeftPanelOpen(!leftPanelOpen)}
-          title="Toggle workspace panel"
-        >
-          📁
-        </button>
-        <button
-          className={styles.panelToggle}
-          onClick={() => setRightPanelOpen(!rightPanelOpen)}
-          title="Toggle inspector panel"
-        >
-          📊
-        </button>
+        <div className={styles.panelToggles}>
+          <button
+            className={styles.panelToggle}
+            onClick={() => setLeftPanelOpen(!leftPanelOpen)}
+            title="Toggle workspace panel"
+          >
+            📁
+          </button>
+          <button
+            className={styles.panelToggle}
+            onClick={() => setRightPanelOpen(!rightPanelOpen)}
+            title="Toggle inspector panel"
+          >
+            📊
+          </button>
+        </div>
+
+        <div className={styles.toolbarActions}>
+          <ShareButton tool={initialMode} data={getShareData()} />
+        </div>
       </div>
 
       {/* Main Content */}

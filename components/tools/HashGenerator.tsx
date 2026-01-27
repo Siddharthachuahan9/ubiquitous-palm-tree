@@ -8,6 +8,8 @@ import {
   HashResult,
   HashAlgorithm,
 } from '@/lib/utils/hashGenerator';
+import { ShareButton } from '@/components/common/ShareButton';
+import { CopyButton } from '@/components/common/CopyButton';
 import styles from './HashGenerator.module.css';
 
 export function HashGenerator() {
@@ -52,10 +54,18 @@ export function HashGenerator() {
       {/* Input Panel */}
       <div className={styles.inputPanel}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Hash Generator</h2>
-          <p className={styles.subtitle}>
-            Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512)
-          </p>
+          <div>
+            <h2 className={styles.title}>Hash Generator</h2>
+            <p className={styles.subtitle}>
+              Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512)
+            </p>
+          </div>
+          <div className={styles.headerActions}>
+            <ShareButton
+              tool="hash"
+              data={{ input, results, uppercase }}
+            />
+          </div>
         </div>
 
         <div className={styles.inputGroup}>
