@@ -1,155 +1,129 @@
 # json0.dev
 
-Fast, friendly JSON tools that run entirely in your browser.
+**Fast, friendly JSON tools that run entirely in your browser.**
 
 **Website:** https://json0.dev
 **Tagline:** json tools, zero hassle
 
-Privacy-first JSON tools for developers. Compare, query, and validate JSON with zero data transmission.
+Privacy-first JSON tools for developers. Compare, query, validate JSON, decode JWT, generate hashes and UUIDs—all locally in your browser with zero data transmission.
 
-## Vision
+---
 
-json0 is a hybrid between:
+## 🚀 Features
 
-- **A developer instrument** — precise, technical, powerful
-- **A data visualization lab** — visual diffs, query exploration
-- **A creative coding canvas** — JSONPath as a query language
+### JSON Tools
+- **JSON Diff** - Compare two JSON documents with visual highlighting
+- **JSON Validate** - Validate JSON syntax with detailed error messages
+- **JSONPath Query** - Query JSON using JSONPath expressions
 
-## Core Features
+### Developer Tools
+- **JWT Decoder** - Decode and inspect JWT tokens
+- **Base64 Encoder/Decoder** - Encode and decode Base64 strings
+- **Hash Generator** - Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes
+- **UUID Generator** - Generate UUIDs (v4, v1-like, nil) with bulk support
+- **IP Inspector** - Inspect IP addresses and get detailed information
+- **Ping Tool** - Test network connectivity and response times
 
-### 1. JSON Diff Engine
-- Compare two JSON structures visually and semantically
-- Support deep nesting, arrays, reordered keys, type changes
-- Three visualization modes:
-  - **Visual**: Color-coded tree view with highlights
-  - **Tree**: Hierarchical structural representation
-  - **Patch**: RFC 6902 JSON Patch format
+### Universal Features
+- 🔒 **Privacy-First** - All processing happens locally in your browser
+- 🔗 **Shareable Links** - Share tool state via URL hash (no server storage)
+- 📋 **Copy Everywhere** - Copy results with one click
+- 🎨 **Modern UI** - Clean, console-like interface with dark theme
+- ⌨️ **Keyboard Shortcuts** - Command palette (Cmd+K) and shortcuts
+- 📱 **Mobile Responsive** - Works on desktop, tablet, and mobile
+- 🌐 **Works Offline** - All tools work without internet (except ping/IP)
 
-### 2. JSONPath Playground
-- Live query execution with syntax highlighting
-- Matching nodes pulse and glow
-- Full path, type, and size information
-- Query history and examples
+---
 
-### 3. Data Integrity Tools
-- Real-time validation
-- Structural linting (duplicate keys, invalid types, malformed arrays)
-- Performance warnings for massive payloads (10MB+)
-- Smart formatting modes: Human-readable, Diff-friendly, Machine-compact
+## 🔐 Privacy Statement
 
-## Design Philosophy
+**json0.dev is privacy-first by design:**
 
-### Dark Industrial Aesthetic
+- ✅ **No user content leaves your browser** - All JSON processing, validation, diffing, and tool operations happen locally
+- ✅ **No server storage** - We don't store, log, or transmit your data
+- ✅ **No analytics on user input** - We never see what you paste
+- ✅ **No accounts required** - Start using immediately, no signup
+- ✅ **Safe for production data** - Paste sensitive data, API keys, tokens safely
+- ✅ **GDPR/CCPA/HIPAA compliant** - No data collection means compliance by design
 
-**Reject generic patterns:**
-- ❌ Centered cards, startup gradients, SaaS dashboards
-- ❌ Default Tailwind/MUI/ShadCN layouts
-- ❌ Inter, Roboto, system font stacks
+**How sharing works:**
+- Share links encode tool state in URL hash fragments (`#share=...`)
+- Hash fragments are **never sent to servers** (they stay client-side)
+- Opening a share link restores the tool state in your browser
+- Sensitive data warning: We'll warn you before sharing potentially sensitive content
 
-**Embrace precision and craft:**
-- ✅ Layered depth through shadows
-- ✅ Asymmetric panel layouts
-- ✅ Functional motion (queries "travel", diffs "emerge")
-- ✅ Technical but human typography
-- ✅ No rounded corners — industrial precision
+**Open source:**
+- Full codebase transparency
+- Verify our privacy claims by inspecting the code
+- Network tab will show **zero requests** for your JSON data
 
-### Color System
+---
 
-```
-Deep blacks:      #0a0a0a (void) → #1a1a1e (shadow) → #2d2d35 (iron)
-Industrial metals: #505058 (zinc) → #88889a (silver) → #e8e8f0 (chrome)
-Neon accents:     #00ff88 (green) | #ff0066 (magenta) | #ffaa00 (yellow) | #00ccff (cyan)
-```
+## 🗺️ Routes
 
-### Typography
+All tools have dedicated routes for easy bookmarking and sharing:
 
-- **Display**: Space Grotesk (geometric, technical, distinctive)
-- **Code**: JetBrains Mono (ligatures, clear at small sizes)
-- **Body**: Manrope (rounded geometric, modern)
+- **/** - Homepage (defaults to JSON Diff)
+- **/json-diff** - JSON Diff tool
+- **/json-validate** - JSON Validator
+- **/jsonpath** - JSONPath Query tool
+- **/jwt** - JWT Decoder
+- **/base64** - Base64 Encoder/Decoder
+- **/hash** - Hash Generator (SHA)
+- **/uuid** - UUID Generator
+- **/ping** - Ping Tool
+- **/ip** - IP Inspector
 
-## Technical Architecture
+Each route is statically generated and SEO-optimized.
 
-### Frontend
-- **Framework**: Next.js 14 (App Router) + TypeScript
-- **Editor**: Monaco (VS Code engine)
-- **Diff**: json-diff-kit (modern, TypeScript-native)
-- **JSONPath**: jsonpath-plus (most complete implementation)
-- **Virtualization**: @tanstack/react-virtual (for 10MB+ files)
-- **Animation**: Framer Motion (functional, not decorative)
-- **Styling**: CSS Modules + CSS Variables (zero runtime, full control)
+---
 
-### Privacy & Performance
-- **100% Client-Side**: All JSON processing happens in your browser
-- **No Data Transmission**: Your JSON never leaves your device
-- **No Registration**: Start using immediately, no signup required
-- **Fast**: Instant results with Monaco Editor and efficient diffing
-- **Secure**: Safe for sensitive data, GDPR/CCPA/HIPAA compliant
+## ⌨️ Keyboard Shortcuts
 
-## Project Structure
+- **Cmd+K / Ctrl+K** - Open command palette (quick tool switcher)
+- **Cmd+/ / Ctrl+/** - Toggle settings sidebar
+- **Esc** - Close modals and dialogs
 
-```
-/
-├── app/
-│   ├── layout.tsx           # Root layout with font preloading
-│   ├── page.tsx             # Main studio interface
-│   ├── globals.css          # Global styles + design system imports
-│   └── api/                 # Edge API routes (TODO)
-│
-├── components/
-│   └── studio/
-│       ├── StudioShell.tsx      # Main layout orchestrator
-│       ├── Toolbar.tsx          # Mode switcher + panel toggles
-│       ├── StatusBar.tsx        # Bottom metrics bar
-│       ├── WorkspacePanel.tsx   # Left sidebar (sessions, snapshots)
-│       ├── EditorPanel.tsx      # Center workspace (mode-specific)
-│       └── InspectorPanel.tsx   # Right sidebar (results, analysis)
-│
-├── styles/
-│   ├── variables.css        # Colors, spacing, typography, animations
-│   ├── typography.css       # Font loading + utility classes
-│   ├── animations.css       # Motion primitives
-│   └── themes/
-│       └── dark-industrial.css  # Core theme definitions
-│
-└── public/
-    └── fonts/               # Self-hosted fonts (TODO: download)
-```
+### Tool-Specific Shortcuts (Planned)
+- **Cmd+S** - Save snapshot to browser storage
+- **Cmd+Shift+F** - Format JSON
+- **Cmd+Enter** - Execute query/operation
 
-## Current Status
+---
 
-### ✅ Completed
-- [x] Next.js 14 project initialization with TypeScript
-- [x] Dark Industrial design system (CSS variables, typography, animations)
-- [x] UI shell with three-panel asymmetric layout
-- [x] Toolbar with mode switching (Diff/JSONPath/Validate)
-- [x] StatusBar with metrics display
-- [x] WorkspacePanel, EditorPanel, InspectorPanel components
-- [x] Responsive grid layout with collapsible panels
-- [x] Mode-specific UI layouts (split view for diff, query input for JSONPath)
+## 🛠️ Tech Stack
 
-### 🚧 In Progress
-- [ ] Font downloads and self-hosting
-- [ ] Monaco editor integration with Dark Industrial theme
-- [ ] JSON validation layer
+### Framework & Build
+- **Next.js 14** (App Router) with TypeScript
+- **React 18** with hooks and server components
+- **CSS Modules** + CSS Variables (zero runtime, full control)
 
-### 📋 TODO
-- [ ] Install npm dependencies (Monaco, Framer Motion, diff libraries)
-- [ ] Download fonts: Space Grotesk, JetBrains Mono, Manrope
-- [ ] Implement JSON diff engine + API route
-- [ ] Build JSONPath playground with live matching
-- [ ] Create export system (HTML, Patch, Markdown)
-- [ ] Add command palette (Cmd+K)
-- [ ] Implement keyboard shortcuts
-- [ ] Add Vercel KV integration for snapshots
-- [ ] Deploy to Vercel
+### JSON Processing
+- **Monaco Editor** (VS Code engine) for syntax highlighting
+- **json-diff-kit** for diffing
+- **jsonpath-plus** for JSONPath queries
+- **Zustand** for state management
 
-## Getting Started
+### Developer Tools
+- **Web Crypto API** for hash generation (SHA-1/256/384/512)
+- **lz-string** for URL hash compression (shareable links)
+- **Network APIs** for ping and IP inspection
+
+### Privacy & Security
+- 100% client-side processing
+- No backend except static hosting
+- Network guard utility (development mode) prevents accidental data transmission
+- Redaction utility for sensitive data detection
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
+- npm, yarn, or pnpm
 
-### Installation
+### Local Development
 
 ```bash
 # Install dependencies
@@ -161,67 +135,85 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-### Environment Variables
+### Build for Production
 
-```env
-# Vercel KV (for shareable snapshots)
-KV_REST_API_URL=
-KV_REST_API_TOKEN=
-```
-
-## Development
-
-### Running Tests
 ```bash
-npm test              # Unit tests (Vitest)
-npm run test:e2e      # E2E tests (Playwright)
-```
-
-### Type Checking
-```bash
+# Type check
 npm run type-check
-```
 
-### Linting
-```bash
+# Lint
 npm run lint
+
+# Build
+npm run build
+
+# Start production server
+npm run start
 ```
 
-## Design Principles
+### Project Structure
 
-1. **Spatial Design**: Use depth, layers, panels, and tension
-2. **Asymmetry**: Left sidebar (280px), flexible center, right inspector (360px)
-3. **Intentional Space**: Empty space feels designed, not unused
-4. **Functional Motion**: Queries "travel", diffs "emerge", panels feel physically docked
-5. **Technical Precision**: No rounded corners, exact spacing, industrial feel
+```
+/
+├── app/
+│   ├── layout.tsx              # Root layout, fonts, metadata
+│   ├── page.tsx                # Homepage (default: JSON Diff)
+│   └── [tool]/
+│       ├── page.tsx            # Dynamic route for all tools
+│       └── not-found.tsx       # 404 for invalid tools
+│
+├── components/
+│   ├── shell/                  # App shell, navigation, modals
+│   │   ├── AppShell.tsx        # Main app container
+│   │   ├── TopBar.tsx          # Tool navigation bar
+│   │   ├── CommandPalette.tsx  # Cmd+K tool switcher
+│   │   ├── PrivacyModal.tsx    # Privacy explanation modal
+│   │   └── PrivacyBadge.tsx    # "Runs locally" badge
+│   │
+│   ├── tools/                  # Individual tool components
+│   │   ├── JSONTools.tsx       # Diff, Validate, JSONPath
+│   │   ├── JWTDecoder.tsx
+│   │   ├── Base64Tool.tsx
+│   │   ├── HashGenerator.tsx
+│   │   ├── UUIDGenerator.tsx
+│   │   ├── PingTool.tsx
+│   │   └── IPInspector.tsx
+│   │
+│   ├── studio/                 # Editor panels for JSON tools
+│   │   ├── EditorPanel.tsx
+│   │   ├── InspectorPanel.tsx
+│   │   ├── WorkspacePanel.tsx
+│   │   └── MonacoEditor.tsx
+│   │
+│   └── common/                 # Reusable components
+│       ├── ShareButton.tsx     # Share via URL hash
+│       └── CopyButton.tsx      # Copy to clipboard
+│
+├── lib/
+│   ├── routing.ts              # Route mapping for tools
+│   ├── sessionStore.ts         # Local session storage
+│   ├── seo/
+│   │   └── jsonld.ts           # JSON-LD structured data
+│   └── utils/
+│       ├── shareState.ts       # URL hash encoding/decoding
+│       ├── redaction.ts        # Sensitive data detection
+│       ├── hashGenerator.ts    # SHA hash generation
+│       ├── uuidGenerator.ts    # UUID generation
+│       └── networkGuard.ts     # Privacy enforcement (dev mode)
+│
+└── public/
+    ├── favicon.svg             # json0 logo (curly brace + 0)
+    ├── site.webmanifest        # PWA manifest
+    ├── robots.txt              # SEO: allow all crawlers
+    └── sitemap.xml             # SEO: all tool routes
+```
 
-## Keyboard Shortcuts (Planned)
+---
 
-- `Cmd+K` — Command palette
-- `Cmd+S` — Save snapshot
-- `Cmd+D` — Toggle diff mode
-- `Cmd+J` — Focus JSONPath
-- `Cmd+Shift+F` — Format JSON
-- `Cmd+Enter` — Execute query
-- `Esc` — Close panels/dialogs
+## 📦 Deployment to Vercel
 
-## Performance
+### Quick Deploy
 
-### Large File Support (10MB+)
-- Web Workers for JSON parsing and diff computation
-- Virtual scrolling with @tanstack/react-virtual
-- Progressive rendering (load visible chunks)
-- Monaco chunked loading
-
-### Security
-- Zod validation for API inputs
-- Max payload: 10MB (Edge function limit)
-- Timeouts: 10s for diff, 5s for query
-- Disable script expressions in JSONPath (prevent eval injection)
-
-## Deployment
-
-### Vercel (Recommended)
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -230,21 +222,117 @@ npm i -g vercel
 vercel
 ```
 
-### Environment Setup
-1. Create Vercel KV database
-2. Add environment variables
-3. Deploy edge functions to optimized regions
+### Vercel Configuration
 
-## Contributing
+The app is configured for **static export** (no server required):
 
-This is a focused, opinionated product. Contributions should align with the Dark Industrial aesthetic and avoid generic UI patterns.
+1. **Output:** Static HTML export
+2. **Routing:** Client-side routing with Next.js
+3. **Build:** `npm run build`
+4. **Output Directory:** `.next/` (automatically handled by Vercel)
 
-## License
+### Environment Variables
 
-MIT
+**None required!** The app is 100% client-side with no backend.
+
+### Custom Domain Setup
+
+1. Go to Vercel project settings
+2. Add your domain (e.g., `json0.dev`)
+3. Configure DNS records as instructed
+4. SSL is automatic via Vercel
 
 ---
 
-**Built with intent, character, precision, and craft.**
+## 🧪 Development Guidelines
 
-This is a tool a senior engineer would bookmark, not a demo someone forgets.
+### Git Workflow
+
+**IMPORTANT:** Configure git at the start of every session:
+
+```bash
+git config user.name "Siddharthachuahan9"
+git config user.email "siddharthachauhan304@gmail.com"
+```
+
+### Commit Guidelines
+
+- **Author:** Always commit as "Siddharthachuahan9" (single author)
+- **No co-authors:** Do not add "Co-authored-by" trailers
+- **Messages:** Clear, descriptive commit messages
+
+### Privacy Enforcement
+
+The project includes a network guard utility (`lib/utils/networkGuard.ts`) that:
+- Runs in development mode only
+- Monitors `fetch()` and `XMLHttpRequest` calls
+- Throws errors if user data is sent to servers
+- Whitelist for framework needs (Next.js internals, static assets)
+
+### Code Quality
+
+```bash
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+
+# Build test
+npm run build
+```
+
+---
+
+## 🎨 Design System
+
+### Colors
+
+```
+Brand:          #10b981 (emerald)
+Background:     #0a0f1a (deep black)
+Surfaces:       #1a1f2e (panels)
+Borders:        #2d3748
+Text:           #e8e8f0 (light grey)
+```
+
+### Typography
+
+- **Headings:** Space Grotesk (geometric, technical)
+- **Code:** JetBrains Mono (monospace with ligatures)
+- **Body:** Manrope (rounded, modern)
+
+### Spacing & Layout
+
+- Consistent 8px grid system via CSS variables (`--space-1` to `--space-10`)
+- Responsive breakpoints: 480px (mobile), 768px (tablet), 900px+ (desktop)
+
+---
+
+## 📝 License
+
+MIT License - see LICENSE file for details
+
+---
+
+## 🙏 Attribution
+
+**Created by:** Siddharthachuahan9 (sidheart❤️)
+
+**Built with:**
+- Next.js, React, TypeScript
+- Monaco Editor (Microsoft)
+- json-diff-kit, jsonpath-plus
+- Web Crypto API, lz-string
+
+---
+
+## 🔗 Links
+
+- **Website:** https://json0.dev
+- **Repository:** https://github.com/Siddharthachuahan9/ubiquitous-palm-tree
+- **Report Issues:** https://github.com/Siddharthachuahan9/ubiquitous-palm-tree/issues
+
+---
+
+**json0.dev** - json tools, zero hassle 🚀
