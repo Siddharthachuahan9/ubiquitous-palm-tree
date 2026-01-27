@@ -1,0 +1,10 @@
+# json0.dev - Robots.txt
+# Privacy-first JSON tools
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://json0.dev/sitemap.xml
+
+# Disallow bot-specific paths if any (none for now)

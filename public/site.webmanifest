@@ -1,0 +1,55 @@
+{
+  "name": "json0 - JSON Tools Online",
+  "short_name": "json0",
+  "description": "Fast, friendly JSON tools. Compare, query, and validate JSON - all in your browser. Privacy-first, no data leaves your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "JSON Diff",
+      "short_name": "Diff",
+      "description": "Compare two JSON documents",
+      "url": "/json-diff",
+      "icons": [{ "src": "/icon-192.png.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "JSON Validate",
+      "short_name": "Validate",
+      "description": "Validate JSON syntax",
+      "url": "/json-validate",
+      "icons": [{ "src": "/icon-192.png.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "JSONPath Query",
+      "short_name": "Query",
+      "description": "Query JSON with JSONPath",
+      "url": "/jsonpath",
+      "icons": [{ "src": "/icon-192.png.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "JWT Decoder",
+      "short_name": "JWT",
+      "description": "Decode JWT tokens",
+      "url": "/jwt",
+      "icons": [{ "src": "/icon-192.png.svg", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" fill="#0a0f1a"/>
+
+  <!-- Curly brace + 0 mark (scaled up) -->
+  <!-- Left curly brace -->
+  <path d="M72 36C72 32.6863 69.3137 30 66 30H54C47.3726 30 42 35.3726 42 42V72C42 78.6274 36.6274 84 30 84C36.6274 84 42 89.3726 42 96V126C42 132.627 47.3726 138 54 138H66C69.3137 138 72 135.314 72 132" stroke="#10b981" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Zero (0) -->
+  <ellipse cx="120" cy="84" rx="36" ry="54" stroke="#10b981" stroke-width="12" fill="none"/>
+  <circle cx="120" cy="84" r="18" fill="#10b981" opacity="0.2"/>
+</svg>

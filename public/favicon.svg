@@ -1,0 +1,9 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Curly brace + 0 combined mark for json0 -->
+  <!-- Left curly brace -->
+  <path d="M12 6C12 5.44772 11.5523 5 11 5H9C7.89543 5 7 5.89543 7 7V12C7 13.1046 6.10457 14 5 14C6.10457 14 7 14.8954 7 16V21C7 22.1046 7.89543 23 9 23H11C11.5523 23 12 22.5523 12 22" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Zero (0) integrated with brace -->
+  <ellipse cx="20" cy="14" rx="6" ry="9" stroke="#10b981" stroke-width="2" fill="none"/>
+  <circle cx="20" cy="14" r="3" fill="#10b981" opacity="0.2"/>
+</svg>

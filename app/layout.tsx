@@ -16,6 +16,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Favicon and App Icons */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png.svg" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Theme Color */}
+        <meta name="theme-color" content="#10b981" />
+        <meta name="msapplication-TileColor" content="#10b981" />
+
         {/* Preload critical fonts */}
         <link
           rel="preload"

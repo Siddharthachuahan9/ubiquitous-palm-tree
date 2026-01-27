@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { AppShell } from '@/components/shell/AppShell';
 import { getToolFromSlug, getRouteMetadata, getAllRouteSlugs } from '@/lib/routing';
+import { generateToolSchema, generateBreadcrumbSchema } from '@/lib/seo/jsonld';
 import { notFound } from 'next/navigation';
 
 interface ToolPageProps {
@@ -70,5 +72,31 @@ export default function ToolPage({ params }: ToolPageProps) {
     notFound();
   }
 
-  return <AppShell initialTool={toolId} />;
+  const route = getRouteMetadata(toolId);
+
+  if (!route) {
+    return <AppShell initialTool={toolId} />;
+  }
+
+  // Generate JSON-LD structured data
+  const toolSchema = generateToolSchema(toolId, route.title, route.description);
+  const breadcrumbSchema = generateBreadcrumbSchema(toolId, route.title);
+
+  return (
+    <>
+      {/* JSON-LD Structured Data for SEO */}
+      <Script
+        id="tool-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <AppShell initialTool={toolId} />
+    </>
+  );
 }
