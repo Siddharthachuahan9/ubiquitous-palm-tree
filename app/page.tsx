@@ -3,5 +3,5 @@
 import { AppShell } from '@/components/shell/AppShell';
 
 export default function Home() {
-  return <AppShell />;
+  return <AppShell initialTool="diff" />;
 }

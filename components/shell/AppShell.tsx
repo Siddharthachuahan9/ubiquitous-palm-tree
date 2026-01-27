@@ -1,22 +1,42 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { TopBar, Tool } from './TopBar';
 import { RightSidebar } from './RightSidebar';
 import { ToolRouter } from './ToolRouter';
 import { CommandPalette } from './CommandPalette';
 import { PrivacyModal } from './PrivacyModal';
 import { CreditLine } from './CreditLine';
+import { getSlugFromTool } from '@/lib/routing';
 import styles from './AppShell.module.css';
 
-export function AppShell() {
-  const [currentTool, setCurrentTool] = useState<Tool>('diff');
+interface AppShellProps {
+  initialTool?: Tool;
+}
+
+export function AppShell({ initialTool = 'diff' }: AppShellProps) {
+  const [currentTool, setCurrentTool] = useState<Tool>(initialTool);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Sync currentTool with initialTool when route changes
+  useEffect(() => {
+    setCurrentTool(initialTool);
+  }, [initialTool]);
 
   const handleToolChange = (tool: Tool) => {
     setCurrentTool(tool);
+    // Navigate to the tool's route
+    const slug = getSlugFromTool(tool);
+    if (pathname === '/') {
+      router.push(`/${slug}`);
+    } else {
+      router.push(`/${slug}`);
+    }
   };
 
   const handleCommandPaletteOpen = () => {
