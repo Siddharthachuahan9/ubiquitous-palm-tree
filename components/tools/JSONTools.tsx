@@ -14,38 +14,13 @@ interface JSONToolsProps {
 }
 
 export function JSONTools({ initialMode = 'diff' }: JSONToolsProps) {
-  const [mode, setMode] = useState<JSONToolMode>(initialMode);
   const [leftPanelOpen, setLeftPanelOpen] = useState(true);
   const [rightPanelOpen, setRightPanelOpen] = useState(true);
 
   return (
     <div className={styles.container}>
-      {/* Mode Selector */}
-      <div className={styles.modeSelector}>
-        <button
-          className={mode === 'diff' ? styles.modeActive : styles.modeButton}
-          onClick={() => setMode('diff')}
-        >
-          <span className={styles.modeIcon}>⚖️</span>
-          <span className={styles.modeLabel}>Diff</span>
-        </button>
-        <button
-          className={mode === 'jsonpath' ? styles.modeActive : styles.modeButton}
-          onClick={() => setMode('jsonpath')}
-        >
-          <span className={styles.modeIcon}>🔍</span>
-          <span className={styles.modeLabel}>Query</span>
-        </button>
-        <button
-          className={mode === 'validate' ? styles.modeActive : styles.modeButton}
-          onClick={() => setMode('validate')}
-        >
-          <span className={styles.modeIcon}>✓</span>
-          <span className={styles.modeLabel}>Validate</span>
-        </button>
-
-        <div className={styles.spacer}></div>
-
+      {/* Panel Controls - Single toolbar for panel toggles only */}
+      <div className={styles.toolbar}>
         <button
           className={styles.panelToggle}
           onClick={() => setLeftPanelOpen(!leftPanelOpen)}
@@ -71,12 +46,12 @@ export function JSONTools({ initialMode = 'diff' }: JSONToolsProps) {
         )}
 
         <main className={styles.centerPanel}>
-          <EditorPanel mode={mode} />
+          <EditorPanel mode={initialMode} />
         </main>
 
         {rightPanelOpen && (
           <aside className={styles.rightPanel}>
-            <InspectorPanel mode={mode} />
+            <InspectorPanel mode={initialMode} />
           </aside>
         )}
       </div>

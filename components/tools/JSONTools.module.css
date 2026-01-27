@@ -7,55 +7,15 @@
   overflow: hidden;
 }
 
-/* Mode Selector */
-.modeSelector {
+/* Toolbar - Panel toggle controls only */
+.toolbar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-2);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-4);
   background: var(--surface-secondary);
   border-bottom: 1px solid var(--border-default);
-}
-
-.modeButton,
-.modeActive {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-.modeButton:hover {
-  background: var(--surface-hover);
-  color: var(--text-primary);
-}
-
-.modeActive {
-  background: var(--interactive-primary);
-  color: var(--text-on-brand);
-  border-color: var(--brand-600);
-}
-
-.modeIcon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.modeLabel {
-  line-height: 1;
-}
-
-.spacer {
-  flex: 1;
 }
 
 .panelToggle {
@@ -113,16 +73,12 @@
   .rightPanel {
     width: 280px;
   }
-
-  .modeLabel {
-    display: none;
-  }
 }
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
-  .modeSelector {
-    padding: var(--space-3) var(--space-4);
+  .toolbar {
+    padding: var(--space-2) var(--space-3);
   }
 
   .leftPanel,
