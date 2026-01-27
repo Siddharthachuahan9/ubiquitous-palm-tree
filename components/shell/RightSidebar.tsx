@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { formatRelativeTime } from '@/lib/utils/formatters';
 import { useSessionStore } from '@/lib/sessionStore';
+import { useRedactionStore } from '@/lib/redactionStore';
 import { SessionSettings } from './SessionSettings';
+import { RedactionToggle } from '@/components/common/RedactionToggle';
 import styles from './RightSidebar.module.css';
 
 type SidebarTab = 'session' | 'history' | 'tips';
@@ -74,6 +76,7 @@ const quickTips = [
 export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>('tips');
   const { history, sessionEnabled } = useSessionStore();
+  const { enabled: redactionEnabled, toggleRedaction } = useRedactionStore();
 
   if (!isOpen) return null;
 
@@ -116,6 +119,17 @@ export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
         {activeTab === 'session' && (
           <div className={styles.section}>
             <SessionSettings />
+
+            {/* Redaction Settings */}
+            <div className={styles.settingsGroup}>
+              <h3 className={styles.settingsTitle}>Privacy Controls</h3>
+              <div className={styles.settingsItem}>
+                <RedactionToggle enabled={redactionEnabled} onToggle={toggleRedaction} />
+              </div>
+              <p className={styles.settingsDescription}>
+                Automatically hide sensitive data like emails, tokens, API keys, UUIDs, and IPs from display, clipboard, and share links.
+              </p>
+            </div>
           </div>
         )}
 
