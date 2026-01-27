@@ -4,7 +4,7 @@ import { useTheme } from './ThemeProvider';
 import { PrivacyBadge } from './PrivacyBadge';
 import styles from './TopBar.module.css';
 
-export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt';
+export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt' | 'hash' | 'uuid';
 
 interface TopBarProps {
   currentTool: Tool;
@@ -21,6 +21,8 @@ const tools: Array<{ id: Tool; label: string; icon: string }> = [
   { id: 'ping', label: 'Ping', icon: '📡' },
   { id: 'base64', label: 'Base64', icon: '🔤' },
   { id: 'jwt', label: 'JWT', icon: '🔐' },
+  { id: 'hash', label: 'Hash', icon: '🔒' },
+  { id: 'uuid', label: 'UUID', icon: '🆔' },
 ];
 
 export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPrivacyModalOpen }: TopBarProps) {

@@ -6,6 +6,8 @@ import { IPInspector } from '@/components/tools/IPInspector';
 import { Base64Tool } from '@/components/tools/Base64Tool';
 import { JWTDecoder } from '@/components/tools/JWTDecoder';
 import { PingTool } from '@/components/tools/PingTool';
+import { HashGenerator } from '@/components/tools/HashGenerator';
+import { UUIDGenerator } from '@/components/tools/UUIDGenerator';
 
 interface ToolRouterProps {
   currentTool: Tool;
@@ -34,6 +36,12 @@ export function ToolRouter({ currentTool }: ToolRouterProps) {
 
       case 'jwt':
         return <JWTDecoder />;
+
+      case 'hash':
+        return <HashGenerator />;
+
+      case 'uuid':
+        return <UUIDGenerator />;
 
       default:
         return (

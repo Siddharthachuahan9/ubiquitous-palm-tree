@@ -69,6 +69,20 @@ const commands: Command[] = [
     icon: '🔐',
     keywords: ['jwt', 'token', 'decode', 'json', 'web', 'auth'],
   },
+  {
+    id: 'hash',
+    label: 'Hash Generator',
+    description: 'Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512)',
+    icon: '🔒',
+    keywords: ['hash', 'sha', 'crypto', 'checksum', 'digest', 'security'],
+  },
+  {
+    id: 'uuid',
+    label: 'UUID Generator',
+    description: 'Generate unique identifiers (v4, v1-like, nil)',
+    icon: '🆔',
+    keywords: ['uuid', 'guid', 'unique', 'identifier', 'id', 'generate'],
+  },
 ];
 
 function fuzzyMatch(query: string, text: string): boolean {
