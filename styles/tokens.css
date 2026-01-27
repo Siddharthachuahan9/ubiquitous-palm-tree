@@ -179,6 +179,48 @@
 }
 
 /* ========================================
+   TERMINAL GREEN THEME
+   ======================================== */
+[data-theme="terminal"] {
+  /* Terminal green color palette */
+  --terminal-black: #0C0C0C;
+  --terminal-green: #00FF41;
+  --terminal-green-dim: #00CC33;
+  --terminal-green-bright: #33FF66;
+  --terminal-green-dark: #009922;
+  --terminal-bg: #001100;
+  --terminal-surface: #002200;
+
+  /* Surfaces */
+  --surface-page: var(--terminal-bg);
+  --surface-panel: var(--terminal-black);
+  --surface-elevated: var(--terminal-surface);
+  --surface-overlay: rgba(0, 17, 0, 0.9);
+
+  /* Borders */
+  --border-default: var(--terminal-green-dark);
+  --border-subtle: rgba(0, 255, 65, 0.1);
+  --border-strong: var(--terminal-green);
+  --border-focus: var(--terminal-green-bright);
+
+  /* Text */
+  --text-primary: var(--terminal-green);
+  --text-secondary: var(--terminal-green-dim);
+  --text-tertiary: var(--terminal-green-dark);
+  --text-inverse: var(--terminal-black);
+
+  /* Interactive */
+  --interactive-default: var(--terminal-green);
+  --interactive-hover: var(--terminal-green-bright);
+  --interactive-active: var(--terminal-green-dim);
+  --interactive-disabled: var(--terminal-green-dark);
+
+  /* Terminal glow effects */
+  --terminal-glow: 0 0 10px rgba(0, 255, 65, 0.5);
+  --terminal-glow-strong: 0 0 20px rgba(0, 255, 65, 0.8);
+}
+
+/* ========================================
    REDUCED MOTION
    ======================================== */
 @media (prefers-reduced-motion: reduce) {

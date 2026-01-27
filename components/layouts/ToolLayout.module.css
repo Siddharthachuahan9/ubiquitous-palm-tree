@@ -1,0 +1,122 @@
+/* ToolLayout - Standard container for all tools */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: var(--surface-page);
+  overflow: hidden;
+}
+
+/* ========================================
+   WORKSPACE - Two-panel layout
+   ======================================== */
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 50/50 split on desktop */
+  gap: 0;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0; /* Allow flex children to shrink */
+}
+
+.leftPanel,
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface-panel);
+}
+
+.leftPanel {
+  border-right: 1px solid var(--border-default);
+}
+
+/* ========================================
+   PANEL - Individual panel structure
+   ======================================== */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--surface-elevated);
+  flex-shrink: 0;
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.panelActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.panelContent {
+  flex: 1;
+  overflow: auto;
+  padding: var(--space-6);
+  min-height: 0; /* Allow scrolling */
+}
+
+/* ========================================
+   RESPONSIVE - Mobile
+   ======================================== */
+
+@media (max-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-rows: auto auto; /* Stack panels vertically */
+  }
+
+  .leftPanel {
+    border-right: none;
+    border-bottom: 1px solid var(--border-default);
+    max-height: 50vh; /* Limit height on mobile to see both panels */
+  }
+
+  .rightPanel {
+    max-height: 50vh;
+  }
+
+  .panelContent {
+    padding: var(--space-4); /* Reduced padding on mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .panelHeader {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .panelTitle {
+    font-size: var(--text-base);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.panelContent:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+}

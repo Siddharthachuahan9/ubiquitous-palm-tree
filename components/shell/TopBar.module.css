@@ -52,6 +52,71 @@
   line-height: 1;
 }
 
+/* Command Bar - Primary Navigation */
+.commandBarWrapper {
+  flex: 0 1 480px;
+  max-width: 480px;
+  min-width: 200px;
+}
+
+.commandBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.commandBar:hover {
+  background: var(--surface-page);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.commandBar:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.commandIcon {
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.commandPlaceholder {
+  flex: 1;
+  text-align: left;
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.commandKbd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 22px;
+  padding: 0 var(--space-2);
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1;
+  box-shadow: var(--shadow-xs);
+}
+
 /* Tool Switcher */
 .toolSwitcher {
   display: flex;
@@ -142,6 +207,49 @@
   transition-duration: var(--duration-instant);
 }
 
+/* Theme Selector */
+.themeSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+}
+
+.themeButton,
+.themeActive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.themeButton:hover {
+  background: var(--surface-panel);
+  color: var(--text-primary);
+}
+
+.themeActive {
+  background: var(--interactive-default);
+  color: var(--text-inverse);
+  border-color: var(--interactive-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.themeActive:hover {
+  background: var(--interactive-hover);
+}
+
 /* Responsive - Tablet */
 @media (max-width: 900px) {
   .topBar {
@@ -150,6 +258,11 @@
 
   .logoTagline {
     display: none;
+  }
+
+  .commandBarWrapper {
+    flex: 0 1 320px;
+    min-width: 160px;
   }
 
   .toolSwitcher {
@@ -176,34 +289,33 @@
   .topBar {
     height: 56px;
     padding: 0 var(--space-3);
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
 
   .logoText {
     font-size: 16px;
   }
 
-  .toolSwitcher {
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    max-width: none;
+  .commandBarWrapper {
     flex: 1;
-    justify-content: flex-start;
+    max-width: none;
+    min-width: 120px;
   }
 
-  .toolSwitcher::-webkit-scrollbar {
-    display: none;
+  .commandBar {
+    padding: var(--space-2) var(--space-3);
   }
 
-  .tool,
-  .toolActive {
-    min-width: 44px;
-    min-height: 44px;
+  .commandPlaceholder {
+    display: none; /* Hide full text on mobile */
   }
 
-  /* Hide command palette button on mobile */
-  .iconButton:first-child {
+  .commandKbd {
+    display: none; /* Hide keyboard shortcut on mobile */
+  }
+
+  /* Hide tool switcher on mobile - use BottomNav instead */
+  .toolSwitcher {
     display: none;
   }
 }

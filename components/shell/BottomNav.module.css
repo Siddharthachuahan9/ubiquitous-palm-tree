@@ -1,0 +1,134 @@
+/* BottomNav - Mobile navigation bar */
+
+.nav {
+  display: none; /* Hidden on desktop */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-panel);
+  background: var(--surface-panel);
+  border-top: 1px solid var(--border-default);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  padding-bottom: env(safe-area-inset-bottom); /* iOS safe area */
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  max-width: 100%;
+}
+
+/* ========================================
+   NAVIGATION BUTTONS
+   ======================================== */
+
+.button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+  min-height: 56px; /* Touch-friendly height */
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  position: relative;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 3px;
+  background: var(--interactive-default);
+  border-radius: 0 0 3px 3px;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+/* ========================================
+   ICON AND LABEL
+   ======================================== */
+
+.icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ========================================
+   ACTIVE STATE
+   ======================================== */
+
+.button.active {
+  color: var(--interactive-default);
+}
+
+.button.active::before {
+  opacity: 1;
+}
+
+/* ========================================
+   HOVER STATE (for tablet with pointer)
+   ======================================== */
+
+@media (hover: hover) {
+  .button:hover {
+    color: var(--text-secondary);
+    background: var(--surface-elevated);
+  }
+
+  .button.active:hover {
+    color: var(--interactive-hover);
+  }
+}
+
+/* ========================================
+   RESPONSIVE - Show only on mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  .nav {
+    display: block;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+.button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* Support for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button::before {
+    transition: none;
+  }
+}

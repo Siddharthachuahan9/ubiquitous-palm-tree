@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'light' | 'dark' | 'terminal';
 
 interface ThemeContextType {
   theme: Theme;
@@ -11,6 +11,8 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+const VALID_THEMES: Theme[] = ['light', 'dark', 'terminal'];
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('dark');
@@ -21,7 +23,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     // Load theme from localStorage
     const savedTheme = localStorage.getItem('json0-theme') as Theme;
-    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+    if (savedTheme && VALID_THEMES.includes(savedTheme)) {
       setThemeState(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
     } else {
@@ -37,8 +39,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+    // Cycle through themes: dark → light → terminal → dark
+    const nextTheme: Theme =
+      theme === 'dark' ? 'light' : theme === 'light' ? 'terminal' : 'dark';
+    setTheme(nextTheme);
   };
 
   // Prevent flash of unstyled content
