@@ -1,23 +1,32 @@
-/* TopBar Component */
+/* TopBar - Three-zone grid layout */
 
-.topBar {
-  display: flex;
+/* ========================================
+   HEADER - CSS Grid Layout
+   ======================================== */
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(auto, 280px) 1fr minmax(auto, 400px);
+  grid-template-areas: 'left center right';
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
-  height: 64px;
-  padding: 0 var(--space-8);
+  gap: 32px;
+  min-height: 64px;
+  padding: 0 20px;
   background: var(--surface-panel);
   border-bottom: 1px solid var(--border-default);
-  backdrop-filter: blur(20px);
   z-index: 100;
 }
 
-/* Logo */
-.logo {
+/* ========================================
+   LEFT ZONE - Logo
+   ======================================== */
+
+.leftZone {
+  grid-area: left;
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  white-space: nowrap;
 }
 
 .logoIcon {
@@ -26,7 +35,7 @@
   font-family: var(--font-mono);
   color: var(--brand-500);
   line-height: 1;
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 .logoContent {
@@ -46,17 +55,24 @@
 
 .logoTagline {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   font-weight: 400;
   letter-spacing: 0.02em;
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Command Bar - Primary Navigation */
-.commandBarWrapper {
-  flex: 0 1 480px;
-  max-width: 480px;
-  min-width: 200px;
+/* ========================================
+   CENTER ZONE - Command Bar
+   ======================================== */
+
+.centerZone {
+  grid-area: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .commandBar {
@@ -64,7 +80,9 @@
   align-items: center;
   gap: var(--space-3);
   width: 100%;
-  padding: var(--space-2) var(--space-4);
+  min-width: 320px;
+  max-width: 560px;
+  padding: var(--space-3) var(--space-4);
   background: var(--surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
@@ -82,133 +100,102 @@
 }
 
 .commandBar:focus {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.commandIcon {
+.searchIcon {
   font-size: 16px;
   line-height: 1;
   opacity: 0.6;
+  flex-shrink: 0;
 }
 
-.commandPlaceholder {
+.placeholder {
   flex: 1;
   text-align: left;
   font-weight: 400;
   color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.commandKbd {
+.shortcut {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 28px;
-  height: 22px;
-  padding: 0 var(--space-2);
+  padding: 4px 8px;
   background: var(--surface-panel);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   line-height: 1;
   box-shadow: var(--shadow-xs);
+  flex-shrink: 0;
 }
 
-/* Tool Switcher */
-.toolSwitcher {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex: 1;
-  justify-content: center;
-  max-width: 700px;
-}
-
-.tool,
-.toolActive {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-smooth);
+.shortcutText {
   white-space: nowrap;
 }
 
-.tool:hover {
-  background: var(--surface-hover);
-  color: var(--text-primary);
-}
+/* ========================================
+   RIGHT ZONE - Actions
+   ======================================== */
 
-.toolActive {
-  background: var(--interactive-primary);
-  color: var(--text-on-brand);
-  border-color: var(--brand-600);
-  box-shadow: var(--shadow-sm);
-}
-
-.toolActive:hover {
-  background: var(--brand-600);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.toolIcon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.toolLabel {
-  line-height: 1;
-}
-
-/* Actions */
-.actions {
+.rightZone {
+  grid-area: right;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-3);
 }
 
-.iconButton {
+/* Privacy Badge */
+.privacyBadge {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--surface-secondary);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-elevated);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
+  border-radius: 20px; /* Pill shape */
   color: var(--text-secondary);
-  font-size: 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-smooth);
+  transition: all var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
 }
 
-.iconButton:hover {
-  background: var(--surface-hover);
-  color: var(--text-primary);
+.privacyBadge:hover {
+  background: var(--surface-page);
   border-color: var(--border-strong);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  color: var(--text-primary);
 }
 
-.iconButton:active {
-  transform: translateY(0) scale(0.96);
-  transition-duration: var(--duration-instant);
+.privacyBadge:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }
 
-/* Theme Selector */
-.themeSelector {
+.lockIcon {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.badgeText {
+  line-height: 1;
+}
+
+/* Theme Toggle */
+.themeToggle {
   display: flex;
   align-items: center;
   gap: var(--space-1);
@@ -250,94 +237,114 @@
   background: var(--interactive-hover);
 }
 
-/* Responsive - Tablet */
-@media (max-width: 900px) {
-  .topBar {
-    padding: 0 var(--space-4);
+/* Tool Actions */
+.toolActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Icon Button (Mobile) */
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.iconButton:hover {
+  background: var(--surface-page);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+/* ========================================
+   RESPONSIVE - Tablet (768px - 1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .header {
+    grid-template-columns: minmax(auto, 200px) 1fr minmax(auto, 300px);
+    gap: 24px;
+    padding: 0 16px;
   }
 
-  .logoTagline {
-    display: none;
+  .commandBar {
+    min-width: 240px;
+    max-width: 400px;
   }
 
-  .commandBarWrapper {
-    flex: 0 1 320px;
-    min-width: 160px;
+  .badgeText {
+    display: none; /* Hide text, show icon only */
   }
 
-  .toolSwitcher {
-    gap: var(--space-1);
-  }
-
-  .tool,
-  .toolActive {
-    padding: var(--space-2) var(--space-3);
-    font-size: 13px;
-  }
-
-  .toolLabel {
-    display: none;
-  }
-
-  .toolIcon {
-    font-size: 18px;
+  .privacyBadge {
+    padding: var(--space-2);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
   }
 }
 
-/* Responsive - Mobile */
+@media (max-width: 900px) {
+  .logoTagline {
+    display: none;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - Mobile (<768px)
+   ======================================== */
+
 @media (max-width: 768px) {
-  .topBar {
-    height: 56px;
+  .header {
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-3);
+    min-height: 56px;
     padding: 0 var(--space-3);
-    gap: var(--space-2);
   }
 
   .logoText {
     font-size: 16px;
   }
 
-  .commandBarWrapper {
-    flex: 1;
-    max-width: none;
-    min-width: 120px;
+  .logoTagline {
+    display: none;
   }
 
   .commandBar {
+    min-width: 120px;
+    max-width: none;
     padding: var(--space-2) var(--space-3);
   }
 
-  .commandPlaceholder {
-    display: none; /* Hide full text on mobile */
+  .placeholder {
+    font-size: 13px;
   }
 
-  .commandKbd {
-    display: none; /* Hide keyboard shortcut on mobile */
-  }
-
-  /* Hide tool switcher on mobile - use BottomNav instead */
-  .toolSwitcher {
+  .shortcut {
     display: none;
   }
-}
 
-/* Responsive - Small Mobile */
-@media (max-width: 480px) {
-  .topBar {
-    padding: 0 var(--space-2);
-  }
-
-  .logoIcon {
-    font-size: 20px;
-  }
-
-  .logoText {
-    font-size: 14px;
+  .rightZone {
+    gap: var(--space-2);
   }
 }
 
-/* Visibility utilities */
+/* ========================================
+   VISIBILITY UTILITIES
+   ======================================== */
+
 .desktopOnly {
-  display: block;
+  display: flex;
 }
 
 .mobileOnly {
@@ -350,6 +357,17 @@
   }
 
   .mobileOnly {
-    display: block;
+    display: flex;
   }
+}
+
+/* ========================================
+   FOCUS STATES - Accessibility
+   ======================================== */
+
+.themeButton:focus-visible,
+.iconButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  z-index: 1;
 }

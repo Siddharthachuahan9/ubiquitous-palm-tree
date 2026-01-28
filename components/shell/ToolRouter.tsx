@@ -1,6 +1,6 @@
 'use client';
 
-import { Tool } from './TopBar';
+import { Tool } from './ToolNavigation';
 import { JSONTools } from '@/components/tools/JSONTools';
 import { JSONPathTool } from '@/components/tools/JSONPathTool';
 import { IPInspector } from '@/components/tools/IPInspector';

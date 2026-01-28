@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Tool } from './TopBar';
+import { Tool } from './ToolNavigation';
 import styles from './CommandPalette.module.css';
 
 interface Command {

@@ -3,7 +3,7 @@
  * Provides rich search results for Google and other search engines
  */
 
-import { Tool } from '@/components/shell/TopBar';
+import { Tool } from '@/components/shell/ToolNavigation';
 
 /**
  * Generate WebApplication JSON-LD structured data

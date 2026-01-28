@@ -1,4 +1,4 @@
-import { Tool } from '@/components/shell/TopBar';
+import { Tool } from '@/components/shell/ToolNavigation';
 
 /**
  * Route Configuration

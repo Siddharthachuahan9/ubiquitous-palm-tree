@@ -1,0 +1,105 @@
+/* ToolNavigation - Horizontal tool tabs below header */
+
+.navigation {
+  width: 100%;
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border-default);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.navigation::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.toolList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-8);
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+/* Tool Tab */
+.tool {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  position: relative;
+  white-space: nowrap;
+}
+
+.tool:hover {
+  color: var(--text-primary);
+  background: var(--surface-elevated);
+}
+
+/* Active Tool */
+.toolActive {
+  color: var(--text-primary);
+  font-weight: 600;
+  background: var(--surface-elevated);
+  border-bottom-color: var(--interactive-default);
+}
+
+.toolActive:hover {
+  border-bottom-color: var(--interactive-hover);
+}
+
+/* Tool Icon */
+.toolIcon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Tool Label */
+.toolLabel {
+  line-height: 1;
+}
+
+/* Focus State */
+.tool:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* ========================================
+   RESPONSIVE - Tablet
+   ======================================== */
+
+@media (max-width: 900px) {
+  .toolList {
+    padding: 0 var(--space-4);
+    gap: 0;
+  }
+
+  .tool {
+    padding: var(--space-3);
+    font-size: 13px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  .navigation {
+    display: none; /* Hidden on mobile - use BottomNav instead */
+  }
+}

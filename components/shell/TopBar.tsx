@@ -1,37 +1,38 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { useTheme } from './ThemeProvider';
 import { PrivacyBadge } from './PrivacyBadge';
 import styles from './TopBar.module.css';
 
-export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt' | 'hash' | 'uuid';
-
 interface TopBarProps {
-  currentTool: Tool;
-  onToolChange: (tool: Tool) => void;
   onCommandPaletteOpen: () => void;
   onPrivacyModalOpen: () => void;
+  /** Optional tool-specific actions (e.g., Share button) */
+  actions?: ReactNode;
 }
 
-const tools: Array<{ id: Tool; label: string; icon: string }> = [
-  { id: 'diff', label: 'Diff', icon: '⚖️' },
-  { id: 'jsonpath', label: 'Query', icon: '🔍' },
-  { id: 'validate', label: 'Validate', icon: '✓' },
-  { id: 'ip', label: 'IP', icon: '🌐' },
-  { id: 'ping', label: 'Ping', icon: '📡' },
-  { id: 'base64', label: 'Base64', icon: '🔤' },
-  { id: 'jwt', label: 'JWT', icon: '🔐' },
-  { id: 'hash', label: 'Hash', icon: '🔒' },
-  { id: 'uuid', label: 'UUID', icon: '🆔' },
-];
-
-export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPrivacyModalOpen }: TopBarProps) {
+/**
+ * TopBar - Global header with three-zone grid layout
+ *
+ * Layout:
+ * - Left: Logo, product name, tagline
+ * - Center: Command bar (visually dominant, centered)
+ * - Right: Privacy badge, Theme toggle, Tool actions
+ *
+ * Design Goals:
+ * - Clear visual hierarchy
+ * - No overlaps at any desktop width (1024px+)
+ * - Consistent spacing
+ * - Professional developer console feel
+ */
+export function TopBar({ onCommandPaletteOpen, onPrivacyModalOpen, actions }: TopBarProps) {
   const { theme, toggleTheme, setTheme } = useTheme();
 
   return (
-    <header className={styles.topBar}>
-      {/* Logo */}
-      <div className={styles.logo}>
+    <header className={styles.header}>
+      {/* Left Zone: Logo */}
+      <div className={styles.leftZone}>
         <span className={styles.logoIcon}>{'{0}'}</span>
         <div className={styles.logoContent}>
           <span className={styles.logoText}>json0</span>
@@ -39,39 +40,34 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPriv
         </div>
       </div>
 
-      {/* Command Bar - Primary Navigation */}
-      <div className={styles.commandBarWrapper}>
+      {/* Center Zone: Command Bar */}
+      <div className={styles.centerZone}>
         <button
           className={styles.commandBar}
           onClick={onCommandPaletteOpen}
           aria-label="Open command palette"
         >
-          <span className={styles.commandIcon}>🔍</span>
-          <span className={styles.commandPlaceholder}>Type a command or search...</span>
-          <kbd className={styles.commandKbd}>⌘K</kbd>
+          <span className={styles.searchIcon}>🔍</span>
+          <span className={styles.placeholder}>Type a command or search...</span>
+          <kbd className={styles.shortcut}>
+            <span className={styles.shortcutText}>Ctrl+K</span>
+          </kbd>
         </button>
       </div>
 
-      {/* Desktop Tool Switcher */}
-      <nav className={styles.toolSwitcher}>
-        {tools.map((tool) => (
-          <button
-            key={tool.id}
-            className={currentTool === tool.id ? styles.toolActive : styles.tool}
-            onClick={() => onToolChange(tool.id)}
-            aria-label={`Switch to ${tool.label} tool`}
-          >
-            <span className={styles.toolIcon}>{tool.icon}</span>
-            <span className={styles.toolLabel}>{tool.label}</span>
-          </button>
-        ))}
-      </nav>
-
-      {/* Actions */}
-      <div className={styles.actions}>
-        {/* Desktop Privacy Badge */}
+      {/* Right Zone: Actions */}
+      <div className={styles.rightZone}>
+        {/* Privacy Badge - Desktop only */}
         <div className={styles.desktopOnly}>
-          <PrivacyBadge variant="full" onOpenModal={onPrivacyModalOpen} />
+          <button
+            className={styles.privacyBadge}
+            onClick={onPrivacyModalOpen}
+            title="Privacy information"
+            aria-label="View privacy information"
+          >
+            <span className={styles.lockIcon}>🔒</span>
+            <span className={styles.badgeText}>Runs locally in your browser</span>
+          </button>
         </div>
 
         {/* Mobile Privacy Badge */}
@@ -79,8 +75,8 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPriv
           <PrivacyBadge variant="compact" onOpenModal={onPrivacyModalOpen} />
         </div>
 
-        {/* Theme Selector - Desktop only */}
-        <div className={`${styles.themeSelector} ${styles.desktopOnly}`}>
+        {/* Theme Toggle - Desktop */}
+        <div className={`${styles.themeToggle} ${styles.desktopOnly}`}>
           <button
             className={theme === 'dark' ? styles.themeActive : styles.themeButton}
             onClick={() => setTheme('dark')}
@@ -112,12 +108,15 @@ export function TopBar({ currentTool, onToolChange, onCommandPaletteOpen, onPriv
           <button
             className={styles.iconButton}
             onClick={toggleTheme}
-            title={`Switch theme`}
+            title="Switch theme"
             aria-label="Switch theme"
           >
             <span>{theme === 'dark' ? '🌙' : theme === 'light' ? '☀️' : '💻'}</span>
           </button>
         </div>
+
+        {/* Tool-specific Actions (e.g., Share button) */}
+        {actions && <div className={styles.toolActions}>{actions}</div>}
       </div>
     </header>
   );

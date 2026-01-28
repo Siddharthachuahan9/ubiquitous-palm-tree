@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { TopBar, Tool } from './TopBar';
+import { TopBar } from './TopBar';
+import { ToolNavigation, Tool } from './ToolNavigation';
 import { RightSidebar } from './RightSidebar';
 import { ToolRouter } from './ToolRouter';
 import { CommandPalette } from './CommandPalette';
@@ -69,11 +70,16 @@ export function AppShell({ initialTool = 'diff' }: AppShellProps) {
 
   return (
     <div className={styles.shell}>
+      {/* Global Header */}
       <TopBar
-        currentTool={currentTool}
-        onToolChange={handleToolChange}
         onCommandPaletteOpen={handleCommandPaletteOpen}
         onPrivacyModalOpen={() => setPrivacyModalOpen(true)}
+      />
+
+      {/* Tool Navigation Row */}
+      <ToolNavigation
+        currentTool={currentTool}
+        onToolChange={handleToolChange}
       />
 
       <div className={styles.main}>
