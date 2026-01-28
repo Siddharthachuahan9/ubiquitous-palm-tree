@@ -36,13 +36,33 @@ export function XMLToJSONTool() {
   // Load shared state from URL on mount
   useEffect(() => {
     const sharedState = loadStateFromURL();
-    if (sharedState && sharedState.tool === 'xml-to-json') {
+
+    if (!sharedState) {
+      console.log('[XMLToJSON] No shared state found in URL');
+      return;
+    }
+
+    console.log('[XMLToJSON] Shared state loaded:', {
+      tool: sharedState.tool,
+      hasXmlInput: !!sharedState.data?.xmlInput,
+      xmlLength: sharedState.data?.xmlInput?.length || 0
+    });
+
+    if (sharedState.tool === 'xml-to-json') {
       const { xmlInput: sharedXml } = sharedState.data;
       if (sharedXml) {
+        console.log('[XMLToJSON] Restoring XML input and auto-converting...');
         setXmlInput(sharedXml);
         // Auto-convert on load
-        setTimeout(() => handleConvert(sharedXml), 100);
+        setTimeout(() => {
+          console.log('[XMLToJSON] Executing conversion...');
+          handleConvert(sharedXml);
+        }, 100);
+      } else {
+        console.warn('[XMLToJSON] Shared state has no xmlInput');
       }
+    } else {
+      console.warn('[XMLToJSON] Tool mismatch. Expected xml-to-json, got:', sharedState.tool);
     }
   }, [handleConvert]);
 
