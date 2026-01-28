@@ -38,6 +38,7 @@ export function generateWebApplicationSchema() {
       'UUID Generator',
       'IP Inspector',
       'Ping Tool',
+      'XML to JSON Converter',
     ],
     browserRequirements: 'Requires JavaScript. Requires HTML5.',
     softwareVersion: '1.0',
@@ -58,6 +59,7 @@ export function generateToolSchema(tool: Tool, title: string, description: strin
     ip: 'IP Inspector',
     hash: 'Hash Generator',
     uuid: 'UUID Generator',
+    'xml-to-json': 'XML to JSON Converter',
   };
 
   return {
@@ -129,6 +131,12 @@ function getToolFeatures(tool: Tool): string[] {
       'UUID v4 generation',
       'Bulk generation support',
       'Multiple formats',
+      'Privacy-first local processing',
+    ],
+    'xml-to-json': [
+      'Convert XML to JSON',
+      'DOMParser-based conversion',
+      'File upload support',
       'Privacy-first local processing',
     ],
   };

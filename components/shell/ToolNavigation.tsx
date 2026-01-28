@@ -2,7 +2,7 @@
 
 import styles from './ToolNavigation.module.css';
 
-export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt' | 'hash' | 'uuid';
+export type Tool = 'diff' | 'jsonpath' | 'validate' | 'ip' | 'ping' | 'base64' | 'jwt' | 'hash' | 'uuid' | 'xml-to-json';
 
 interface ToolNavigationProps {
   currentTool: Tool;
@@ -19,6 +19,7 @@ const tools: Array<{ id: Tool; label: string; icon: string }> = [
   { id: 'jwt', label: 'JWT', icon: '🔐' },
   { id: 'hash', label: 'Hash', icon: '🔒' },
   { id: 'uuid', label: 'UUID', icon: '🆔' },
+  { id: 'xml-to-json', label: 'XML→JSON', icon: '🔄' },
 ];
 
 /**

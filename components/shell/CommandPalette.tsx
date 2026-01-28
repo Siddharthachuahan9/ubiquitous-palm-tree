@@ -83,6 +83,13 @@ const commands: Command[] = [
     icon: '🆔',
     keywords: ['uuid', 'guid', 'unique', 'identifier', 'id', 'generate'],
   },
+  {
+    id: 'xml-to-json',
+    label: 'XML to JSON',
+    description: 'Convert XML into JSON locally in your browser',
+    icon: '🔄',
+    keywords: ['xml', 'json', 'convert', 'transform', 'parse', 'parser'],
+  },
 ];
 
 function fuzzyMatch(query: string, text: string): boolean {

@@ -67,6 +67,12 @@ export const TOOL_ROUTES: ToolRoute[] = [
     title: 'UUID Generator - Generate UUIDs Online | json0',
     description: 'Generate UUIDs (v4, v1-like, nil) instantly. Bulk generation supported. Privacy-first, runs locally in your browser.',
   },
+  {
+    slug: 'xml-to-json',
+    toolId: 'xml-to-json',
+    title: 'XML to JSON Converter - Convert XML Locally | json0',
+    description: 'Convert XML into JSON locally in your browser. No uploads. No tracking. Privacy-first.',
+  },
 ];
 
 /**

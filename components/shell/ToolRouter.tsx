@@ -9,6 +9,7 @@ import { JWTDecoder } from '@/components/tools/JWTDecoder';
 import { PingTool } from '@/components/tools/PingTool';
 import { HashGenerator } from '@/components/tools/HashGenerator';
 import { UUIDGenerator } from '@/components/tools/UUIDGenerator';
+import { XMLToJSONTool } from '@/components/tools/XMLToJSONTool';
 
 interface ToolRouterProps {
   currentTool: Tool;
@@ -43,6 +44,9 @@ export function ToolRouter({ currentTool }: ToolRouterProps) {
 
       case 'uuid':
         return <UUIDGenerator />;
+
+      case 'xml-to-json':
+        return <XMLToJSONTool />;
 
       default:
         return (
