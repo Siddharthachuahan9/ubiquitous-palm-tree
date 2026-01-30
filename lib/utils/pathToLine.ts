@@ -15,8 +15,8 @@ interface LineMapping {
 }
 
 // Performance thresholds
-const MAX_FILE_SIZE_FOR_MAPPING = 500 * 1024; // 500KB
-const MAX_PATH_COUNT = 10000; // Maximum paths to track
+const MAX_FILE_SIZE_FOR_MAPPING = 100 * 1024; // 100KB (lowered from 500KB)
+const MAX_PATH_COUNT = 5000; // Maximum paths to track (reduced for better perf)
 
 /**
  * Parse JSON and create a map of paths to line numbers

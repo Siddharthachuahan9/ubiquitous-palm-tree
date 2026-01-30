@@ -6,8 +6,8 @@ import type {
   ValidationResult,
 } from '@/types/studio';
 
-// Debug logging
-const DEBUG = true;
+// Debug logging - disabled for production
+const DEBUG = false;
 const log = (msg: string, data?: any) => {
   if (DEBUG) {
     const timestamp = performance.now().toFixed(2);

@@ -35,8 +35,8 @@ export function validateJSON(json: string): ValidationResult {
   const fileSize = json.length;
   const lineCount = json.split('\n').length;
 
-  // Skip expensive operations for large files (>5000 lines or >500KB)
-  const isLargeFile = lineCount > 5000 || fileSize > 500_000;
+  // Skip expensive operations for large files (>2000 lines or >100KB)
+  const isLargeFile = lineCount > 2000 || fileSize > 100_000;
 
   // Structural linting - skip for large files (expensive recursive traversal)
   if (!isLargeFile) {

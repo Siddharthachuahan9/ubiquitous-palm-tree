@@ -3,23 +3,44 @@ import type { DiffResult, DiffChange, JSONPatchOperation } from '@/types/studio'
 import { mapPathsToLines, findLineForPath, extractPathFromChange } from '@/lib/utils/pathToLine';
 
 // Performance thresholds
-const MAX_CHANGES_LIMIT = 50000; // Maximum changes to track before stopping
-const LARGE_FILE_THRESHOLD = 500 * 1024; // 500KB - use fast diff
-const VERY_LARGE_FILE_THRESHOLD = 2 * 1024 * 1024; // 2MB
+const MAX_CHANGES_LIMIT = 10000; // Maximum changes to track before stopping (reduced for better perf)
+const LARGE_FILE_THRESHOLD = 100 * 1024; // 100KB - use fast diff (lowered from 500KB)
+const VERY_LARGE_FILE_THRESHOLD = 500 * 1024; // 500KB - minimal processing
 
 /**
  * Fast diff implementation for large files
  * Uses simple object comparison instead of LCS algorithm
+ * Optimized for deeply nested structures like package-lock.json
  */
 function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additions: number; deletions: number; modifications: number } {
   const changes: DiffChange[] = [];
   let additions = 0;
   let deletions = 0;
   let modifications = 0;
+  let operationCount = 0;
+  const MAX_OPERATIONS = 100000; // Limit total operations to prevent freeze
 
-  function compare(a: any, b: any, path: string, lineA: number, lineB: number): void {
-    // Early exit if we've hit the limit
-    if (changes.length >= MAX_CHANGES_LIMIT) return;
+  // Cache for expensive JSON.stringify comparisons
+  const stringifyCache = new WeakMap<object, string>();
+
+  function safeStringify(obj: any): string {
+    if (obj === null || typeof obj !== 'object') {
+      return JSON.stringify(obj);
+    }
+    let cached = stringifyCache.get(obj);
+    if (!cached) {
+      cached = JSON.stringify(obj);
+      stringifyCache.set(obj, cached);
+    }
+    return cached;
+  }
+
+  function compare(a: any, b: any, path: string, lineA: number, lineB: number, depth: number): void {
+    operationCount++;
+    // Early exit if we've hit any limit
+    if (changes.length >= MAX_CHANGES_LIMIT || operationCount >= MAX_OPERATIONS || depth > 50) {
+      return;
+    }
 
     if (a === b) return;
 
@@ -33,7 +54,7 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
     // Arrays
     if (Array.isArray(a) && Array.isArray(b)) {
       const maxLen = Math.max(a.length, b.length);
-      for (let i = 0; i < maxLen && changes.length < MAX_CHANGES_LIMIT; i++) {
+      for (let i = 0; i < maxLen && changes.length < MAX_CHANGES_LIMIT && operationCount < MAX_OPERATIONS; i++) {
         const itemPath = `${path}[${i}]`;
         if (i >= a.length) {
           additions++;
@@ -41,10 +62,10 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
         } else if (i >= b.length) {
           deletions++;
           changes.push({ type: 'remove', path: itemPath, oldValue: a[i], lineA: lineA + i, lineB: 0 });
-        } else if (JSON.stringify(a[i]) !== JSON.stringify(b[i])) {
+        } else if (safeStringify(a[i]) !== safeStringify(b[i])) {
           // For nested objects/arrays, recurse
           if (typeof a[i] === 'object' && a[i] !== null && typeof b[i] === 'object' && b[i] !== null) {
-            compare(a[i], b[i], itemPath, lineA + i, lineB + i);
+            compare(a[i], b[i], itemPath, lineA + i, lineB + i, depth + 1);
           } else {
             modifications++;
             changes.push({ type: 'modify', path: itemPath, oldValue: a[i], newValue: b[i], lineA: lineA + i, lineB: lineB + i });
@@ -56,10 +77,21 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
 
     // Objects
     if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
-      const allKeys = new Set([...Object.keys(a), ...Object.keys(b)]);
+      const keysA = Object.keys(a);
+      const keysB = Object.keys(b);
+      const allKeys = new Set([...keysA, ...keysB]);
+
+      // For very large objects at root level, limit key processing
+      if (allKeys.size > 1000 && depth < 2) {
+        // Just report the object as modified without deep comparison
+        modifications++;
+        changes.push({ type: 'modify', path, oldValue: `[Object with ${keysA.length} keys]`, newValue: `[Object with ${keysB.length} keys]`, lineA, lineB });
+        return;
+      }
+
       let keyIndex = 0;
       for (const key of allKeys) {
-        if (changes.length >= MAX_CHANGES_LIMIT) break;
+        if (changes.length >= MAX_CHANGES_LIMIT || operationCount >= MAX_OPERATIONS) break;
         const keyPath = path === '$' ? `$.${key}` : `${path}.${key}`;
         if (!(key in a)) {
           additions++;
@@ -67,9 +99,9 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
         } else if (!(key in b)) {
           deletions++;
           changes.push({ type: 'remove', path: keyPath, oldValue: a[key], lineA: lineA + keyIndex, lineB: 0 });
-        } else if (JSON.stringify(a[key]) !== JSON.stringify(b[key])) {
+        } else if (safeStringify(a[key]) !== safeStringify(b[key])) {
           if (typeof a[key] === 'object' && a[key] !== null && typeof b[key] === 'object' && b[key] !== null) {
-            compare(a[key], b[key], keyPath, lineA + keyIndex, lineB + keyIndex);
+            compare(a[key], b[key], keyPath, lineA + keyIndex, lineB + keyIndex, depth + 1);
           } else {
             modifications++;
             changes.push({ type: 'modify', path: keyPath, oldValue: a[key], newValue: b[key], lineA: lineA + keyIndex, lineB: lineB + keyIndex });
@@ -87,7 +119,7 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
     }
   }
 
-  compare(objA, objB, '$', 0, 0);
+  compare(objA, objB, '$', 0, 0, 0);
   return { changes, additions, deletions, modifications };
 }
 
@@ -99,6 +131,34 @@ function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additio
  * - Limits total changes tracked to prevent memory issues
  * - Skips path-to-line mapping for files > 500KB
  */
+/**
+ * Count total keys/items in an object (shallow + one level deep)
+ */
+function countComplexity(obj: any): number {
+  if (obj === null || typeof obj !== 'object') return 1;
+
+  let count = 0;
+  if (Array.isArray(obj)) {
+    count = obj.length;
+    // Sample first few items for complexity
+    for (let i = 0; i < Math.min(5, obj.length); i++) {
+      if (typeof obj[i] === 'object' && obj[i] !== null) {
+        count += Object.keys(obj[i]).length;
+      }
+    }
+  } else {
+    const keys = Object.keys(obj);
+    count = keys.length;
+    // Check first level depth
+    for (const key of keys.slice(0, 10)) {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        count += Object.keys(obj[key]).length;
+      }
+    }
+  }
+  return count;
+}
+
 export function computeDiff(jsonA: string, jsonB: string): DiffResult {
   try {
     // Check total input size
@@ -110,8 +170,13 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     const objA = JSON.parse(jsonA);
     const objB = JSON.parse(jsonB);
 
-    // For large files, use our fast diff instead of json-diff-kit
-    if (isLargeFile) {
+    // Check object complexity (number of keys) - package-lock.json has thousands
+    const complexityA = countComplexity(objA);
+    const complexityB = countComplexity(objB);
+    const isComplex = complexityA > 500 || complexityB > 500;
+
+    // For large files OR complex objects, use our fast diff instead of json-diff-kit
+    if (isLargeFile || isComplex) {
       const result = computeFastDiff(objA, objB);
 
       // Generate JSON Patch

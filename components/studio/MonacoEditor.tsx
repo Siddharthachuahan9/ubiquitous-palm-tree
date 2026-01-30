@@ -30,7 +30,8 @@ const Editor = dynamic(
 );
 
 // Threshold for switching to textarea (characters)
-const LARGE_FILE_THRESHOLD = 50000; // 50KB
+// Lowered to 30KB to avoid Monaco freezing on deeply nested JSON
+const LARGE_FILE_THRESHOLD = 30000; // 30KB
 
 const loadingStyle: React.CSSProperties = {
   height: '100%',
