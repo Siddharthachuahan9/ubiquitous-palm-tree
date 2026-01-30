@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import styles from './EditorPanel.module.css';
 import type { Mode } from './StudioShell';
 import { MonacoEditor } from './MonacoEditor';
@@ -8,11 +8,23 @@ import { useStudioStore } from '@/lib/store';
 import { formatJSON } from '@/lib/utils/format';
 import { useEditorContext } from '@/lib/contexts/EditorContext';
 
+// Debug logging
+const DEBUG = true;
+const log = (msg: string, data?: any) => {
+  if (DEBUG) {
+    const timestamp = performance.now().toFixed(2);
+    console.log(`[EditorPanel ${timestamp}ms] ${msg}`, data !== undefined ? data : '');
+  }
+};
+
 interface EditorPanelProps {
   mode: Mode;
 }
 
 export function EditorPanel({ mode }: EditorPanelProps) {
+  const renderCount = useRef(0);
+  renderCount.current++;
+  log('RENDER', { count: renderCount.current, mode });
   const {
     jsonA,
     jsonB,

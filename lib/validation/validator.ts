@@ -31,41 +31,58 @@ export function validateJSON(json: string): ValidationResult {
     };
   }
 
-  // Structural linting
-  const lintErrors = performStructuralLinting(parsedObject);
-  errors.push(...lintErrors);
-
-  // Calculate metrics
+  // Calculate metrics first (lightweight)
   const fileSize = json.length;
-  const depth = calculateDepth(parsedObject);
-  const nodeCount = countNodes(parsedObject);
+  const lineCount = json.split('\n').length;
+
+  // Skip expensive operations for large files (>5000 lines or >500KB)
+  const isLargeFile = lineCount > 5000 || fileSize > 500_000;
+
+  // Structural linting - skip for large files (expensive recursive traversal)
+  if (!isLargeFile) {
+    const lintErrors = performStructuralLinting(parsedObject);
+    errors.push(...lintErrors);
+  } else {
+    errors.push({
+      line: 0,
+      column: 0,
+      message: 'Structural linting skipped for large files to maintain performance.',
+      severity: 'info',
+    });
+  }
+
+  // Calculate depth and node count (skip for very large files)
+  const depth = isLargeFile ? 0 : calculateDepth(parsedObject);
+  const nodeCount = isLargeFile ? 0 : countNodes(parsedObject);
 
   // Performance warnings
-  if (fileSize > 5_000_000) {
+  if (fileSize > 1_000_000) {
     errors.push({
       line: 0,
       column: 0,
-      message: `Large file size (${formatBytes(fileSize)}). Performance may be affected.`,
+      message: `Large file size (${formatBytes(fileSize)}). Performance optimizations enabled.`,
       severity: 'warning',
     });
   }
 
-  if (depth > 50) {
-    errors.push({
-      line: 0,
-      column: 0,
-      message: `Deep nesting detected (${depth} levels). This may impact performance.`,
-      severity: 'warning',
-    });
-  }
+  if (!isLargeFile) {
+    if (depth > 50) {
+      errors.push({
+        line: 0,
+        column: 0,
+        message: `Deep nesting detected (${depth} levels). This may impact performance.`,
+        severity: 'warning',
+      });
+    }
 
-  if (nodeCount > 100_000) {
-    errors.push({
-      line: 0,
-      column: 0,
-      message: `Large number of nodes (${nodeCount.toLocaleString()}). Consider splitting the data.`,
-      severity: 'warning',
-    });
+    if (nodeCount > 100_000) {
+      errors.push({
+        line: 0,
+        column: 0,
+        message: `Large number of nodes (${nodeCount.toLocaleString()}). Consider splitting the data.`,
+        severity: 'warning',
+      });
+    }
   }
 
   return {

@@ -6,6 +6,15 @@ import type {
   ValidationResult,
 } from '@/types/studio';
 
+// Debug logging
+const DEBUG = true;
+const log = (msg: string, data?: any) => {
+  if (DEBUG) {
+    const timestamp = performance.now().toFixed(2);
+    console.log(`[Store ${timestamp}ms] ${msg}`, data !== undefined ? data : '');
+  }
+};
+
 export const useStudioStore = create<StudioState>((set, get) => ({
   // Mode state
   mode: 'diff',
@@ -16,23 +25,29 @@ export const useStudioStore = create<StudioState>((set, get) => ({
   jsonB: '',
   jsonSource: '',
   setJsonA: (value) => {
-    set({ jsonA: value, error: null });
-    // Auto-calculate file size
+    log('setJsonA called', { length: value.length });
+    // Batch all updates into a single set() call to prevent multiple re-renders
     const state = get();
     const totalSize = value.length + state.jsonB.length + state.jsonSource.length;
-    set({ fileSize: totalSize });
+    log('setJsonA - calling set()');
+    set({ jsonA: value, error: null, fileSize: totalSize });
+    log('setJsonA - set() complete');
   },
   setJsonB: (value) => {
-    set({ jsonB: value, error: null });
+    log('setJsonB called', { length: value.length });
     const state = get();
     const totalSize = state.jsonA.length + value.length + state.jsonSource.length;
-    set({ fileSize: totalSize });
+    log('setJsonB - calling set()');
+    set({ jsonB: value, error: null, fileSize: totalSize });
+    log('setJsonB - set() complete');
   },
   setJsonSource: (value) => {
-    set({ jsonSource: value, error: null });
+    log('setJsonSource called', { length: value.length });
     const state = get();
     const totalSize = state.jsonA.length + state.jsonB.length + value.length;
-    set({ fileSize: totalSize });
+    log('setJsonSource - calling set()');
+    set({ jsonSource: value, error: null, fileSize: totalSize });
+    log('setJsonSource - set() complete');
   },
 
   // JSONPath query

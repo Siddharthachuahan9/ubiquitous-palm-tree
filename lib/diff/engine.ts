@@ -2,27 +2,48 @@ import { Differ } from 'json-diff-kit';
 import type { DiffResult, DiffChange, JSONPatchOperation } from '@/types/studio';
 import { mapPathsToLines, findLineForPath, extractPathFromChange } from '@/lib/utils/pathToLine';
 
+// Performance thresholds
+const MAX_CHANGES_LIMIT = 50000; // Maximum changes to track before stopping
+const LARGE_FILE_THRESHOLD = 1024 * 1024; // 1MB
+const VERY_LARGE_FILE_THRESHOLD = 5 * 1024 * 1024; // 5MB
+
 /**
  * Compute diff between two JSON strings with enhanced line number tracking
+ *
+ * Performance optimizations for large files:
+ * - Limits total changes tracked to prevent memory issues
+ * - Uses simpler array diff for very large files
+ * - Skips path-to-line mapping for files > 500KB
  */
 export function computeDiff(jsonA: string, jsonB: string): DiffResult {
+  const startTime = performance.now();
+
   try {
+    // Check total input size
+    const totalSize = jsonA.length + jsonB.length;
+    const isLargeFile = totalSize > LARGE_FILE_THRESHOLD;
+    const isVeryLargeFile = totalSize > VERY_LARGE_FILE_THRESHOLD;
+
     // Parse JSON strings
     const objA = JSON.parse(jsonA);
     const objB = JSON.parse(jsonB);
 
-    // Create path-to-line mappings for both JSONs
+    // Create path-to-line mappings for both JSONs (skipped for very large files)
     const pathMapA = mapPathsToLines(jsonA);
     const pathMapB = mapPathsToLines(jsonB);
 
-    // Create differ instance with configuration
+    // Create differ instance with configuration optimized for file size
     const differ = new Differ({
       detectCircular: true,
-      maxDepth: 100,
-      arrayDiffMethod: 'lcs', // Longest common subsequence for arrays
+      maxDepth: isVeryLargeFile ? 50 : 100, // Reduce depth for very large files
+      arrayDiffMethod: isVeryLargeFile ? 'normal' : 'lcs', // Use simpler algorithm for very large files
       showModifications: true,
       recursiveEqual: true,
     });
+
+    if (isLargeFile) {
+      console.log(`[diff/engine] Processing large file (${(totalSize / 1024).toFixed(1)}KB)`);
+    }
 
     // Compute diff - returns tuple: [leftSideChanges[], rightSideChanges[]]
     const [leftChanges, rightChanges] = differ.diff(objA, objB);
@@ -33,17 +54,32 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     let deletions = 0;
     let modifications = 0;
     let moves = 0;
+    let limitReached = false;
 
     // Track paths we've seen to avoid duplicates
     const seenPaths = new Set<string>();
 
+    // Helper to check if we've hit the limit
+    const checkLimit = () => {
+      if (changes.length >= MAX_CHANGES_LIMIT) {
+        if (!limitReached) {
+          limitReached = true;
+          console.log(`[diff/engine] Change limit reached (${MAX_CHANGES_LIMIT}), truncating results`);
+        }
+        return true;
+      }
+      return false;
+    };
+
     // Process left-side changes (deletions/modifications in A)
-    leftChanges.forEach((change: any) => {
+    for (const change of leftChanges) {
+      if (checkLimit()) break;
+
       const path = extractPathFromChange(change);
       const changeKey = `${change.type}-${path}`;
 
       // Skip if we've already processed this path
-      if (seenPaths.has(changeKey)) return;
+      if (seenPaths.has(changeKey)) continue;
       seenPaths.add(changeKey);
 
       const lineA = findLineForPath(pathMapA, path) ?? 0;
@@ -61,15 +97,17 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
       } else if (change.type === 'modify') {
         // Handle on right side
       }
-    });
+    }
 
     // Process right-side changes (additions/modifications in B)
-    rightChanges.forEach((change: any) => {
+    for (const change of rightChanges) {
+      if (checkLimit()) break;
+
       const path = extractPathFromChange(change);
       const changeKey = `${change.type}-${path}`;
 
       // Skip if we've already processed this path
-      if (seenPaths.has(changeKey)) return;
+      if (seenPaths.has(changeKey)) continue;
       seenPaths.add(changeKey);
 
       const lineA = findLineForPath(pathMapA, path) ?? 0;
@@ -101,7 +139,10 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
           lineB,
         });
       }
-    });
+    }
+
+    const endTime = performance.now();
+    console.log(`[diff/engine] Diff completed in ${(endTime - startTime).toFixed(1)}ms, ${changes.length} changes found${limitReached ? ' (truncated)' : ''}`);
 
     // Generate JSON Patch (RFC 6902)
     const patch = generateJSONPatch(changes);

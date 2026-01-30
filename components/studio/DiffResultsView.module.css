@@ -71,6 +71,36 @@
   flex: 1;
   overflow-y: auto;
   padding: var(--space-4);
+  min-height: 0; /* Important for flex virtualization */
+}
+
+/* Performance warning for large diffs */
+.performanceWarning {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+  background: rgba(255, 200, 0, 0.1);
+  border: 1px solid rgba(255, 200, 0, 0.3);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-warning);
+}
+
+.performanceWarning p {
+  margin: 0;
+}
+
+.warningIcon {
+  font-size: var(--text-base);
+}
+
+/* Virtualized list container */
+.virtualizedList {
+  flex: 1;
+  min-height: 0;
 }
 
 /* Changes list for visual mode */
@@ -78,6 +108,29 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+/* No changes found state */
+.noChanges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--color-silver);
+}
+
+.noChangesIcon {
+  font-size: var(--text-4xl);
+  color: var(--color-success);
+  margin-bottom: var(--space-3);
+}
+
+.noChanges p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
 }
 
 .change {

@@ -1,13 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import type { OnMount } from '@monaco-editor/react';
+import type { OnMount, OnChange, BeforeMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
 import { registerDarkIndustrialTheme } from '@/lib/monaco-theme';
 import { loader } from '@monaco-editor/react';
 
-// Configure Monaco to use CDN workers (more reliable on Vercel)
+// Configure Monaco to use CDN workers
 if (typeof window !== 'undefined') {
   loader.config({
     paths: {
@@ -16,29 +16,58 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Dynamic import with SSR disabled - critical for Next.js 14 + Vercel
+// Dynamic import with SSR disabled
 const Editor = dynamic(
   () => import('@monaco-editor/react').then((mod) => mod.default),
   {
     ssr: false,
     loading: () => (
-      <div
-        style={{
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#1a1a1e',
-          color: '#88889a',
-          fontFamily: 'JetBrains Mono, monospace',
-          fontSize: '13px',
-        }}
-      >
+      <div style={loadingStyle}>
         Loading editor...
       </div>
     )
   }
 );
+
+// Threshold for switching to textarea (characters)
+const LARGE_FILE_THRESHOLD = 50000; // 50KB
+
+const loadingStyle: React.CSSProperties = {
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: '#1a1a1e',
+  color: '#88889a',
+  fontFamily: 'JetBrains Mono, monospace',
+  fontSize: '13px',
+};
+
+const textareaStyle: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+  background: '#1a1a1e',
+  color: '#c9c9d8',
+  border: 'none',
+  outline: 'none',
+  resize: 'none',
+  fontFamily: 'JetBrains Mono, Consolas, monospace',
+  fontSize: '13px',
+  lineHeight: '1.6',
+  padding: '12px',
+  boxSizing: 'border-box',
+};
+
+const infoBarStyle: React.CSSProperties = {
+  background: '#2a2a2e',
+  color: '#88889a',
+  padding: '4px 12px',
+  fontSize: '11px',
+  borderBottom: '1px solid #3a3a3e',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};
 
 interface MonacoEditorProps {
   value: string;
@@ -59,122 +88,235 @@ export function MonacoEditor({
   placeholder,
   editorRef: externalEditorRef,
 }: MonacoEditorProps) {
+  // ALL HOOKS MUST BE AT THE TOP - before any conditional returns
   const internalEditorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const editorRef = externalEditorRef || internalEditorRef;
+  const monacoRef = useRef<typeof import('monaco-editor') | null>(null);
+  const lastValueRef = useRef<string>(value);
+  const isInternalChange = useRef(false);
+  const [mounted, setMounted] = useState(false);
+  const [useTextarea, setUseTextarea] = useState(value.length > LARGE_FILE_THRESHOLD);
 
-  const handleEditorDidMount: OnMount = (editor, monaco) => {
+  // Check if content becomes large
+  useEffect(() => {
+    const shouldUseTextarea = value.length > LARGE_FILE_THRESHOLD;
+    if (shouldUseTextarea !== useTextarea) {
+      setUseTextarea(shouldUseTextarea);
+    }
+  }, [value.length, useTextarea]);
+
+  // Handle textarea changes
+  const handleTextareaChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    if (onChange) {
+      onChange(newValue);
+    }
+  }, [onChange]);
+
+  // Switch to Monaco editor manually
+  const switchToMonaco = useCallback(() => {
+    setUseTextarea(false);
+  }, []);
+
+  // Handle external value changes (format, clear, etc.)
+  useEffect(() => {
+    const editor = editorRef.current;
+    if (!editor || !mounted || useTextarea) return;
+
+    if (isInternalChange.current) {
+      isInternalChange.current = false;
+      return;
+    }
+
+    if (value === lastValueRef.current) return;
+
+    lastValueRef.current = value;
+    requestAnimationFrame(() => {
+      if (editor && editor.getModel()) {
+        editor.setValue(value);
+      }
+    });
+  }, [value, mounted, editorRef, useTextarea]);
+
+  // Before mount - configure Monaco globally
+  const handleBeforeMount: BeforeMount = useCallback((monaco) => {
+    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+      validate: false,
+      allowComments: false,
+      schemas: [],
+      enableSchemaRequest: false,
+    });
+  }, []);
+
+  // On mount
+  const handleEditorDidMount: OnMount = useCallback((editor, monaco) => {
     editorRef.current = editor;
+    monacoRef.current = monaco;
+    lastValueRef.current = value;
+    setMounted(true);
 
-    // Register and apply Dark Industrial theme
     registerDarkIndustrialTheme(monaco);
     monaco.editor.setTheme('dark-industrial');
 
-    // Show placeholder if empty
     if (!value && placeholder) {
       editor.setValue(placeholder);
-      editor.setSelection(new monaco.Selection(1, 1, 1, 1));
     }
 
-    // Configure JSON language features
-    if (language === 'json') {
-      monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-        validate: true,
-        allowComments: false,
-        schemas: [],
-        enableSchemaRequest: false,
-      });
-    }
-  };
+    // Check content size on paste
+    editor.onDidPaste(() => {
+      const model = editor.getModel();
+      if (model) {
+        const newValue = model.getValue();
+        if (newValue.length > LARGE_FILE_THRESHOLD) {
+          setUseTextarea(true);
+        }
+      }
+    });
+  }, [editorRef, value, placeholder]);
 
-  const handleChange = (value: string | undefined) => {
-    if (onChange) {
-      onChange(value || '');
+  // Handle changes
+  const handleChange: OnChange = useCallback((newValue) => {
+    if (!onChange) return;
+
+    const val = newValue || '';
+    lastValueRef.current = val;
+    isInternalChange.current = true;
+
+    if (val.length > LARGE_FILE_THRESHOLD) {
+      setUseTextarea(true);
     }
-  };
+
+    onChange(val);
+  }, [onChange]);
+
+  // Intercept paste at DOM level BEFORE Monaco processes it
+  const handlePasteCapture = useCallback((e: React.ClipboardEvent) => {
+    const pastedText = e.clipboardData?.getData('text') || '';
+
+    if (pastedText.length > LARGE_FILE_THRESHOLD) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (onChange) {
+        onChange(pastedText);
+      }
+      setUseTextarea(true);
+    }
+  }, [onChange]);
+
+  // Memoize options
+  const editorOptions = useMemo((): editor.IStandaloneEditorConstructionOptions => ({
+    readOnly,
+    automaticLayout: true,
+    formatOnPaste: false,
+    formatOnType: false,
+    autoClosingBrackets: 'never',
+    autoClosingQuotes: 'never',
+    autoSurround: 'never',
+    autoIndent: 'none',
+    minimap: { enabled: false },
+    fontFamily: 'JetBrains Mono, Consolas, monospace',
+    fontSize: 13,
+    fontLigatures: false,
+    lineHeight: 1.6,
+    lineNumbers: 'on',
+    lineNumbersMinChars: 3,
+    glyphMargin: false,
+    folding: false,
+    scrollBeyondLastLine: false,
+    smoothScrolling: false,
+    scrollbar: {
+      vertical: 'visible',
+      horizontal: 'visible',
+      verticalScrollbarSize: 12,
+      horizontalScrollbarSize: 12,
+      useShadows: false,
+    },
+    wordWrap: 'on',
+    wrappingStrategy: 'simple',
+    renderLineHighlight: 'none',
+    renderWhitespace: 'none',
+    renderControlCharacters: false,
+    guides: { indentation: false },
+    renderValidationDecorations: 'off',
+    cursorBlinking: 'solid',
+    cursorSmoothCaretAnimation: 'off',
+    cursorStyle: 'line',
+    matchBrackets: 'never',
+    bracketPairColorization: { enabled: false },
+    quickSuggestions: false,
+    suggestOnTriggerCharacters: false,
+    acceptSuggestionOnEnter: 'off',
+    tabCompletion: 'off',
+    wordBasedSuggestions: 'off',
+    parameterHints: { enabled: false },
+    hover: { enabled: false },
+    links: false,
+    colorDecorators: false,
+    maxTokenizationLineLength: 500,
+    stopRenderingLineAfter: 1000,
+    largeFileOptimizations: true,
+    selectionClipboard: false,
+    tabSize: 2,
+    insertSpaces: true,
+    detectIndentation: false,
+    accessibilitySupport: 'off',
+    'semanticHighlighting.enabled': false,
+    stickyScroll: { enabled: false },
+  }), [readOnly]);
+
+  // RENDER - conditional rendering AFTER all hooks
+  if (useTextarea) {
+    const lineCount = value.split('\n').length;
+    const sizeKB = (value.length / 1024).toFixed(1);
+
+    return (
+      <div style={{ height, display: 'flex', flexDirection: 'column' }}>
+        <div style={infoBarStyle}>
+          <span>Large file mode ({lineCount.toLocaleString()} lines, {sizeKB} KB)</span>
+          <button
+            onClick={switchToMonaco}
+            style={{
+              background: '#3a3a3e',
+              border: 'none',
+              color: '#c9c9d8',
+              padding: '2px 8px',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '11px',
+            }}
+          >
+            Switch to Monaco (may be slow)
+          </button>
+        </div>
+        <textarea
+          style={textareaStyle}
+          value={value}
+          onChange={handleTextareaChange}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          spellCheck={false}
+        />
+      </div>
+    );
+  }
 
   return (
-    <Editor
-      height={height}
-      language={language}
-      value={value}
-      onChange={handleChange}
-      onMount={handleEditorDidMount}
-      theme="dark-industrial"
-      options={{
-        // Editor behavior
-        readOnly,
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
-        wordWrap: 'on',
-        automaticLayout: true,
-
-        // Typography - JetBrains Mono from Dark Industrial theme
-        fontFamily: 'JetBrains Mono, Consolas, monospace',
-        fontSize: 13,
-        fontLigatures: true,
-        lineHeight: 1.6,
-
-        // Line numbers and gutter
-        lineNumbers: 'on',
-        lineNumbersMinChars: 3,
-        glyphMargin: false,
-        folding: true,
-
-        // Scrollbar
-        scrollbar: {
-          vertical: 'visible',
-          horizontal: 'visible',
-          verticalScrollbarSize: 12,
-          horizontalScrollbarSize: 12,
-        },
-
-        // Rendering
-        renderLineHighlight: 'line',
-        renderWhitespace: 'selection',
-        cursorBlinking: 'smooth',
-        cursorSmoothCaretAnimation: 'on',
-
-        // Bracket matching
-        matchBrackets: 'always',
-        bracketPairColorization: {
-          enabled: true,
-        },
-
-        // Suggestions
-        quickSuggestions: {
-          other: true,
-          comments: false,
-          strings: false,
-        },
-        suggestOnTriggerCharacters: true,
-        acceptSuggestionOnEnter: 'on',
-        tabCompletion: 'on',
-
-        // Format on paste/type
-        formatOnPaste: true,
-        formatOnType: true,
-
-        // Indentation
-        tabSize: 2,
-        insertSpaces: true,
-        detectIndentation: true,
-      }}
-      loading={
-        <div
-          style={{
-            height,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#1a1a1e',
-            color: '#88889a',
-            fontFamily: 'JetBrains Mono, monospace',
-            fontSize: '13px',
-          }}
-        >
-          Loading editor...
-        </div>
-      }
-    />
+    <div
+      style={{ height, width: '100%' }}
+      onPasteCapture={handlePasteCapture}
+    >
+      <Editor
+        height="100%"
+        language={language}
+        defaultValue={value}
+        onChange={handleChange}
+        beforeMount={handleBeforeMount}
+        onMount={handleEditorDidMount}
+        theme="dark-industrial"
+        options={editorOptions}
+        loading={<div style={loadingStyle}>Loading editor...</div>}
+      />
+    </div>
   );
 }
