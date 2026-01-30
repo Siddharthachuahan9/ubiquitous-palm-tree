@@ -4,20 +4,102 @@ import { mapPathsToLines, findLineForPath, extractPathFromChange } from '@/lib/u
 
 // Performance thresholds
 const MAX_CHANGES_LIMIT = 50000; // Maximum changes to track before stopping
-const LARGE_FILE_THRESHOLD = 1024 * 1024; // 1MB
-const VERY_LARGE_FILE_THRESHOLD = 5 * 1024 * 1024; // 5MB
+const LARGE_FILE_THRESHOLD = 500 * 1024; // 500KB - use fast diff
+const VERY_LARGE_FILE_THRESHOLD = 2 * 1024 * 1024; // 2MB
+
+/**
+ * Fast diff implementation for large files
+ * Uses simple object comparison instead of LCS algorithm
+ */
+function computeFastDiff(objA: any, objB: any): { changes: DiffChange[]; additions: number; deletions: number; modifications: number } {
+  const changes: DiffChange[] = [];
+  let additions = 0;
+  let deletions = 0;
+  let modifications = 0;
+
+  function compare(a: any, b: any, path: string, lineA: number, lineB: number): void {
+    // Early exit if we've hit the limit
+    if (changes.length >= MAX_CHANGES_LIMIT) return;
+
+    if (a === b) return;
+
+    // Type mismatch
+    if (typeof a !== typeof b || (a === null) !== (b === null)) {
+      modifications++;
+      changes.push({ type: 'modify', path, oldValue: a, newValue: b, lineA, lineB });
+      return;
+    }
+
+    // Arrays
+    if (Array.isArray(a) && Array.isArray(b)) {
+      const maxLen = Math.max(a.length, b.length);
+      for (let i = 0; i < maxLen && changes.length < MAX_CHANGES_LIMIT; i++) {
+        const itemPath = `${path}[${i}]`;
+        if (i >= a.length) {
+          additions++;
+          changes.push({ type: 'add', path: itemPath, newValue: b[i], lineA: 0, lineB: lineB + i });
+        } else if (i >= b.length) {
+          deletions++;
+          changes.push({ type: 'remove', path: itemPath, oldValue: a[i], lineA: lineA + i, lineB: 0 });
+        } else if (JSON.stringify(a[i]) !== JSON.stringify(b[i])) {
+          // For nested objects/arrays, recurse
+          if (typeof a[i] === 'object' && a[i] !== null && typeof b[i] === 'object' && b[i] !== null) {
+            compare(a[i], b[i], itemPath, lineA + i, lineB + i);
+          } else {
+            modifications++;
+            changes.push({ type: 'modify', path: itemPath, oldValue: a[i], newValue: b[i], lineA: lineA + i, lineB: lineB + i });
+          }
+        }
+      }
+      return;
+    }
+
+    // Objects
+    if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+      const allKeys = new Set([...Object.keys(a), ...Object.keys(b)]);
+      let keyIndex = 0;
+      for (const key of allKeys) {
+        if (changes.length >= MAX_CHANGES_LIMIT) break;
+        const keyPath = path === '$' ? `$.${key}` : `${path}.${key}`;
+        if (!(key in a)) {
+          additions++;
+          changes.push({ type: 'add', path: keyPath, newValue: b[key], lineA: 0, lineB: lineB + keyIndex });
+        } else if (!(key in b)) {
+          deletions++;
+          changes.push({ type: 'remove', path: keyPath, oldValue: a[key], lineA: lineA + keyIndex, lineB: 0 });
+        } else if (JSON.stringify(a[key]) !== JSON.stringify(b[key])) {
+          if (typeof a[key] === 'object' && a[key] !== null && typeof b[key] === 'object' && b[key] !== null) {
+            compare(a[key], b[key], keyPath, lineA + keyIndex, lineB + keyIndex);
+          } else {
+            modifications++;
+            changes.push({ type: 'modify', path: keyPath, oldValue: a[key], newValue: b[key], lineA: lineA + keyIndex, lineB: lineB + keyIndex });
+          }
+        }
+        keyIndex++;
+      }
+      return;
+    }
+
+    // Primitives
+    if (a !== b) {
+      modifications++;
+      changes.push({ type: 'modify', path, oldValue: a, newValue: b, lineA, lineB });
+    }
+  }
+
+  compare(objA, objB, '$', 0, 0);
+  return { changes, additions, deletions, modifications };
+}
 
 /**
  * Compute diff between two JSON strings with enhanced line number tracking
  *
  * Performance optimizations for large files:
+ * - Uses fast custom diff for files > 500KB (avoids slow LCS algorithm)
  * - Limits total changes tracked to prevent memory issues
- * - Uses simpler array diff for very large files
  * - Skips path-to-line mapping for files > 500KB
  */
 export function computeDiff(jsonA: string, jsonB: string): DiffResult {
-  const startTime = performance.now();
-
   try {
     // Check total input size
     const totalSize = jsonA.length + jsonB.length;
@@ -28,22 +110,36 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     const objA = JSON.parse(jsonA);
     const objB = JSON.parse(jsonB);
 
-    // Create path-to-line mappings for both JSONs (skipped for very large files)
+    // For large files, use our fast diff instead of json-diff-kit
+    if (isLargeFile) {
+      const result = computeFastDiff(objA, objB);
+
+      // Generate JSON Patch
+      const patch = generateJSONPatch(result.changes);
+
+      return {
+        additions: result.additions,
+        deletions: result.deletions,
+        modifications: result.modifications,
+        moves: 0,
+        changes: result.changes,
+        patch,
+      };
+    }
+
+    // For smaller files, use json-diff-kit with full features
+    // Create path-to-line mappings for both JSONs
     const pathMapA = mapPathsToLines(jsonA);
     const pathMapB = mapPathsToLines(jsonB);
 
-    // Create differ instance with configuration optimized for file size
+    // Create differ instance with configuration
     const differ = new Differ({
       detectCircular: true,
-      maxDepth: isVeryLargeFile ? 50 : 100, // Reduce depth for very large files
-      arrayDiffMethod: isVeryLargeFile ? 'normal' : 'lcs', // Use simpler algorithm for very large files
+      maxDepth: 100,
+      arrayDiffMethod: 'lcs', // Use LCS only for smaller files
       showModifications: true,
       recursiveEqual: true,
     });
-
-    if (isLargeFile) {
-      console.log(`[diff/engine] Processing large file (${(totalSize / 1024).toFixed(1)}KB)`);
-    }
 
     // Compute diff - returns tuple: [leftSideChanges[], rightSideChanges[]]
     const [leftChanges, rightChanges] = differ.diff(objA, objB);
@@ -62,10 +158,7 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
     // Helper to check if we've hit the limit
     const checkLimit = () => {
       if (changes.length >= MAX_CHANGES_LIMIT) {
-        if (!limitReached) {
-          limitReached = true;
-          console.log(`[diff/engine] Change limit reached (${MAX_CHANGES_LIMIT}), truncating results`);
-        }
+        limitReached = true;
         return true;
       }
       return false;
@@ -140,9 +233,6 @@ export function computeDiff(jsonA: string, jsonB: string): DiffResult {
         });
       }
     }
-
-    const endTime = performance.now();
-    console.log(`[diff/engine] Diff completed in ${(endTime - startTime).toFixed(1)}ms, ${changes.length} changes found${limitReached ? ' (truncated)' : ''}`);
 
     // Generate JSON Patch (RFC 6902)
     const patch = generateJSONPatch(changes);

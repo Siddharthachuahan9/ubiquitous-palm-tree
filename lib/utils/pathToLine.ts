@@ -29,7 +29,6 @@ export function mapPathsToLines(jsonString: string): Map<string, LineMapping> {
 
   // Skip path mapping for very large files
   if (jsonString.length > MAX_FILE_SIZE_FOR_MAPPING) {
-    console.log(`[pathToLine] Skipping path mapping for large file (${(jsonString.length / 1024).toFixed(1)}KB)`);
     return pathMap;
   }
 
@@ -88,10 +87,6 @@ export function mapPathsToLines(jsonString: string): Map<string, LineMapping> {
     }
 
     traverse(obj, '$', 0);
-
-    if (pathCount >= MAX_PATH_COUNT) {
-      console.log(`[pathToLine] Path limit reached (${MAX_PATH_COUNT}), some paths may not be mapped`);
-    }
 
     return pathMap;
   } catch (error) {
