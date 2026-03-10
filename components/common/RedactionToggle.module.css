@@ -10,31 +10,32 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  background: var(--surface-panel);
+  background: transparent;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Inter', var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .toggle:hover {
-  background: var(--surface-hover);
+  background: var(--surface-elevated);
   border-color: var(--border-strong);
-  transform: translateY(-1px);
+  color: var(--text-primary);
 }
 
 .toggle.enabled {
-  background: var(--brand-500);
-  border-color: var(--brand-600);
-  color: var(--text-on-brand);
+  background: #3B82F6;
+  border-color: #3B82F6;
+  color: #ffffff;
 }
 
 .toggle.enabled:hover {
-  background: var(--brand-600);
+  background: #2563EB;
+  border-color: #2563EB;
 }
 
 .icon {
@@ -53,10 +54,10 @@
   min-width: 20px;
   height: 20px;
   padding: 0 var(--space-1);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-sm);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .infoButton {
@@ -65,18 +66,18 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: var(--surface-panel);
+  background: transparent;
   border: 1px solid var(--border-default);
   border-radius: 50%;
   color: var(--text-tertiary);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .infoButton:hover {
-  background: var(--surface-hover);
+  background: var(--surface-elevated);
   color: var(--text-primary);
   border-color: var(--border-strong);
 }
@@ -87,10 +88,10 @@
   top: calc(100% + var(--space-2));
   right: 0;
   width: 320px;
-  background: var(--surface-primary);
+  background: var(--surface-panel);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.4);
   z-index: 100;
   overflow: hidden;
 }
@@ -100,15 +101,15 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4) var(--space-5);
-  background: var(--surface-secondary);
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .infoHeader h4 {
   margin: 0;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
+  font-family: 'Inter', var(--font-body);
 }
 
 .closeButton {
@@ -127,7 +128,7 @@
 }
 
 .closeButton:hover {
-  background: var(--surface-hover);
+  background: var(--surface-elevated);
   color: var(--text-primary);
 }
 
@@ -148,7 +149,7 @@
   margin: 0;
   padding: var(--space-4) var(--space-5);
   background: var(--surface-secondary);
-  border-top: 1px solid var(--border-default);
+  border-top: 1px solid var(--border-subtle);
   font-size: 12px;
   color: var(--text-tertiary);
   line-height: 1.5;

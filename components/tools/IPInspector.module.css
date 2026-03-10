@@ -33,12 +33,15 @@
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
+  font-family: var(--font-body);
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.5;
+  font-family: var(--font-body);
 }
 
 .inputGroup {
@@ -48,26 +51,29 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
 }
 
 .input {
   padding: var(--space-4);
   background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 14px;
-  transition: all var(--duration-fast) var(--ease-smooth);
+  transition: border-color var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-fast) var(--ease-smooth);
 }
 
 .input:focus {
   outline: none;
   border-color: var(--brand-500);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .input::placeholder {
@@ -81,11 +87,11 @@
 
 .primaryButton {
   flex: 1;
-  padding: var(--space-4) var(--space-6);
-  background: var(--interactive-primary);
+  padding: var(--space-3) var(--space-6);
+  background: var(--brand-600);
   border: none;
   border-radius: var(--radius-md);
-  color: var(--text-on-brand);
+  color: #ffffff;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
@@ -94,9 +100,9 @@
 }
 
 .primaryButton:hover {
-  background: var(--brand-600);
+  background: var(--brand-500);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), 0 0 20px rgba(59, 130, 246, 0.15);
 }
 
 .primaryButton:active {
@@ -105,8 +111,8 @@
 }
 
 .secondaryButton {
-  padding: var(--space-4) var(--space-6);
-  background: var(--surface-secondary);
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   color: var(--text-primary);
@@ -127,8 +133,8 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4);
-  background: rgba(248, 113, 113, 0.1);
-  border: 1px solid var(--status-error);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: var(--radius-md);
 }
 
@@ -140,6 +146,7 @@
 .errorText {
   font-size: 14px;
   color: var(--status-error);
+  font-family: var(--font-body);
 }
 
 /* Results Panel */
@@ -147,9 +154,10 @@
   display: flex;
   flex-direction: column;
   background: var(--surface-panel);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-xs);
 }
 
 .results {
@@ -166,9 +174,11 @@
 }
 
 .resultTitle {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
 }
 
 .badge {
@@ -177,15 +187,17 @@
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
 }
 
 .badgepublic {
-  background: rgba(52, 211, 153, 0.15);
+  background: rgba(52, 211, 153, 0.12);
   color: var(--status-success);
 }
 
 .badgeprivate {
-  background: rgba(96, 165, 250, 0.15);
+  background: rgba(96, 165, 250, 0.12);
   color: var(--status-info);
 }
 
@@ -194,7 +206,7 @@
 .badgelink-local,
 .badgemulticast,
 .badgespecial {
-  background: rgba(251, 191, 36, 0.15);
+  background: rgba(251, 191, 36, 0.12);
   color: var(--status-warning);
 }
 
@@ -211,24 +223,28 @@
 }
 
 .resultLabel {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .resultValue {
   font-size: 14px;
   color: var(--text-primary);
   word-break: break-all;
+  font-family: var(--font-body);
 }
 
 .resultValue code {
   font-family: var(--font-mono);
   padding: var(--space-1) var(--space-2);
   background: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
+  font-size: 13px;
 }
 
 .explanation {
@@ -242,17 +258,19 @@
 }
 
 .explanationLabel {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .explanationText {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
+  font-family: var(--font-body);
 }
 
 .warning {
@@ -260,8 +278,8 @@
   align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-4);
-  background: rgba(251, 191, 36, 0.1);
-  border: 1px solid var(--status-warning);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
   border-radius: var(--radius-md);
 }
 
@@ -271,9 +289,10 @@
 }
 
 .warningText {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--status-warning);
   line-height: 1.6;
+  font-family: var(--font-body);
 }
 
 /* Empty State */
@@ -288,24 +307,26 @@
 }
 
 .emptyIcon {
-  font-size: 64px;
-  opacity: 0.3;
+  font-size: 56px;
+  opacity: 0.2;
   margin-bottom: var(--space-4);
 }
 
 .emptyTitle {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: var(--space-2);
+  font-family: var(--font-body);
 }
 
 .emptyText {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   line-height: 1.6;
-  max-width: 320px;
+  max-width: 360px;
   margin-bottom: var(--space-6);
+  font-family: var(--font-body);
 }
 
 .examples {
@@ -316,19 +337,20 @@
 }
 
 .examplesTitle {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .exampleButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
   font-size: 13px;
   cursor: pointer;
@@ -337,7 +359,8 @@
 
 .exampleButton:hover {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
   transform: translateX(4px);
 }
 

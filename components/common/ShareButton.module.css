@@ -3,28 +3,25 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
-  background: var(--brand-500);
-  border: 1px solid var(--brand-600);
+  background: transparent;
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  color: white;
-  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-family: 'Inter', var(--font-body);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
-  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2);
 }
 
 .shareButton:hover {
-  background: var(--brand-600);
-  border-color: var(--brand-700);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  background: var(--surface-elevated);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 .shareButton:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.2);
+  background: var(--surface-secondary);
 }
 
 /* Warning Modal */
@@ -35,7 +32,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,10 +41,10 @@
 }
 
 .warningModal {
-  background: var(--surface-primary);
+  background: var(--surface-panel);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.4);
   max-width: 520px;
   width: 100%;
   overflow: hidden;
@@ -57,32 +54,32 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-6) var(--space-6);
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
-  border-bottom: 1px solid var(--border-default);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .warningIcon {
   font-size: 32px;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0.9;
 }
 
 .warningHeader h3 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--text-primary);
+  font-family: 'Inter', var(--font-body);
 }
 
 .warningContent {
-  padding: var(--space-6) var(--space-6);
+  padding: var(--space-6);
 }
 
 .warningContent p {
   margin: 0 0 var(--space-5) 0;
   line-height: 1.6;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
@@ -91,23 +88,23 @@
 }
 
 .warningTip {
-  padding: var(--space-5);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+  padding: var(--space-4);
+  background: rgba(59, 130, 246, 0.06);
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--brand-500);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.12);
 }
 
 .warningTip strong {
-  color: var(--brand-500);
-  font-size: 16px;
+  color: #3B82F6;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .warningActions {
   display: flex;
   gap: var(--space-3);
   padding: var(--space-5) var(--space-6);
-  border-top: 1px solid var(--border-default);
+  border-top: 1px solid var(--border-subtle);
   justify-content: flex-end;
 }
 
@@ -115,32 +112,34 @@
 .confirmButton {
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
+  font-family: 'Inter', var(--font-body);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .cancelButton {
-  background: var(--surface-panel);
+  background: transparent;
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
 }
 
 .cancelButton:hover {
-  background: var(--surface-hover);
+  background: var(--surface-elevated);
+  border-color: var(--border-strong);
   color: var(--text-primary);
 }
 
 .confirmButton {
-  background: var(--interactive-primary);
-  border: 1px solid var(--brand-600);
-  color: var(--text-on-brand);
+  background: #3B82F6;
+  border: 1px solid #3B82F6;
+  color: #ffffff;
 }
 
 .confirmButton:hover {
-  background: var(--brand-600);
+  background: #2563EB;
+  border-color: #2563EB;
 }
 
 /* Mobile responsive */

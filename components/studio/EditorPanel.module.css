@@ -1,4 +1,4 @@
-/* EditorPanel - Center workspace */
+/* EditorPanel - Modern workspace */
 
 .panel {
   display: flex;
@@ -10,22 +10,23 @@
 /* Diff mode - split view */
 .diffMode {
   display: grid;
-  grid-template-columns: 1fr 2px 1fr;
+  grid-template-columns: 1fr 1px 1fr;
   flex: 1;
   overflow: hidden;
 }
 
 .divider {
-  background: var(--color-iron);
+  background: var(--border-default);
   position: relative;
   cursor: col-resize;
+  transition: background var(--duration-fast) var(--ease-out);
 }
 
 .divider:hover {
-  background: var(--color-silver);
+  background: var(--brand-500);
 }
 
-/* JSONPath mode - query + editor */
+/* JSONPath mode */
 .jsonpathMode {
   display: flex;
   flex-direction: column;
@@ -34,40 +35,38 @@
 }
 
 .querySection {
-  border-bottom: 1px solid var(--color-iron);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .queryInput {
-  padding: var(--space-4);
-  background: var(--color-abyss);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-panel);
 }
 
 .queryField {
   width: 100%;
-  padding: 14px 16px;
-  background: rgba(36, 36, 41, 0.6);
-  border: 2px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  color: var(--color-success);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--brand-400);
   font-family: var(--font-mono);
-  font-size: 15px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: var(--blur-light);
+  font-size: 14px;
+  transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .queryField:focus {
-  border-color: var(--color-success);
+  border-color: var(--brand-500);
   outline: none;
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12), var(--shadow-lg);
-  background: rgba(36, 36, 41, 0.9);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: var(--surface-secondary);
 }
 
 .queryField::placeholder {
-  color: var(--color-zinc);
+  color: var(--text-tertiary);
 }
 
-/* Validate mode - single editor */
+/* Validate mode */
 .validateMode {
   display: flex;
   flex-direction: column;
@@ -84,16 +83,19 @@
 }
 
 .editorHeader {
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-abyss);
-  border-bottom: 1px solid var(--color-iron);
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-secondary);
+  border-bottom: 1px solid var(--border-default);
+  min-height: 32px;
 }
 
 .editorLabel {
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: 11px;
   font-weight: 600;
-  color: var(--color-silver);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
@@ -104,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-shadow);
+  background: var(--surface-secondary);
 }
 
 .placeholderContent {
@@ -114,24 +116,24 @@
 }
 
 .placeholderIcon {
-  font-size: 4rem;
+  font-size: 3rem;
   display: block;
   margin-bottom: var(--space-4);
-  color: var(--color-iron);
+  opacity: 0.15;
 }
 
 .placeholderText {
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: 600;
-  color: var(--color-silver);
+  color: var(--text-secondary);
   margin-bottom: var(--space-2);
 }
 
 .placeholderHint {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--color-zinc);
+  color: var(--text-tertiary);
 }
 
 /* Action bar */
@@ -139,73 +141,72 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-4);
-  background: var(--color-abyss);
-  border-top: 1px solid var(--color-iron);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-panel);
+  border-top: 1px solid var(--border-default);
 }
 
 .primaryButton {
-  padding: 12px 28px;
-  background: var(--gradient-success);
+  padding: var(--space-2) var(--space-5);
+  background: var(--brand-600);
   border: none;
-  border-radius: var(--radius-lg);
-  color: #0a0a0a;
+  border-radius: var(--radius-md);
+  color: white;
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: var(--shadow-success), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all var(--duration-fast) var(--ease-out);
+  box-shadow: var(--shadow-brand);
 }
 
 .primaryButton:hover {
-  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px) scale(1.02);
+  background: var(--brand-500);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
 }
 
 .primaryButton:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition-duration: 0.1s;
+  transition-duration: 0.08s;
 }
 
 .primaryButton:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
 .secondaryButton {
-  padding: var(--space-3) var(--space-4);
-  background: var(--glass-light);
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  color: var(--color-silver);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-family: var(--font-body);
   font-size: var(--text-sm);
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .secondaryButton:hover {
-  background: var(--glass-medium);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: var(--color-chrome);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 .secondaryButton:active {
   transform: scale(0.98);
-  transition-duration: 0.1s;
+  transition-duration: 0.08s;
 }
 
-/* Responsive - Tablet */
+/* Responsive */
 @media (max-width: 900px) {
   .diffMode {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 2px 1fr;
+    grid-template-rows: 1fr 1px 1fr;
   }
 
   .divider {
@@ -213,45 +214,35 @@
   }
 }
 
-/* Responsive - Mobile */
 @media (max-width: 768px) {
-  /* Query input - larger touch target */
   .queryField {
-    padding: var(--space-4) var(--space-4); /* 16px vertical */
-    min-height: 48px;
-    font-size: var(--text-base);
+    padding: var(--space-3);
+    min-height: 44px;
+    font-size: var(--text-sm);
   }
 
-  /* Primary button - touch-friendly */
   .primaryButton {
-    min-height: 48px;
-    padding: var(--space-4) var(--space-6);
-    font-size: var(--text-base);
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
   }
 
-  /* Secondary button - touch-friendly */
   .secondaryButton {
-    min-height: 48px;
-    padding: var(--space-4) var(--space-5);
-    font-size: var(--text-base);
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
   }
 
-  /* Larger divider for mobile dragging */
   .diffMode {
-    grid-template-rows: 1fr 8px 1fr;
+    grid-template-rows: 1fr 4px 1fr;
   }
 
   .divider {
-    width: 8px; /* Increase from 2px */
-    background: var(--color-steel);
-    touch-action: none;
+    background: var(--surface-elevated);
   }
 
-  /* Action buttons full-width on mobile */
   .actionBar {
     flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-4);
+    gap: var(--space-2);
+    padding: var(--space-3);
   }
 
   .actionBar button {
@@ -259,27 +250,8 @@
   }
 }
 
-/* Responsive - Small Mobile */
 @media (max-width: 480px) {
-  /* Reduce editor heights on small phones */
   .diffMode {
-    grid-template-rows: minmax(200px, 1fr) 8px minmax(200px, 1fr);
-  }
-
-  .placeholderContent {
-    padding: var(--space-6);
-    max-width: 100%;
-  }
-
-  .placeholderIcon {
-    font-size: 3rem;
-  }
-
-  .placeholderText {
-    font-size: var(--text-base);
-  }
-
-  .placeholderHint {
-    font-size: var(--text-xs);
+    grid-template-rows: minmax(200px, 1fr) 4px minmax(200px, 1fr);
   }
 }

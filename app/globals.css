@@ -1,4 +1,4 @@
-/* Global Styles - json0.dev */
+/* Global Styles - json0.dev Premium SaaS */
 
 @import '../styles/tokens.css';
 @import '../styles/variables.css';
@@ -7,7 +7,7 @@
 @import '../styles/themes/dark-industrial.css';
 
 /* ========================================
-   CSS RESET - Modern, minimal
+   CSS RESET
    ======================================== */
 
 *,
@@ -21,22 +21,28 @@
 html {
   font-size: 16px;
   height: 100%;
+  color-scheme: dark;
 }
 
 body {
   height: 100%;
-  overflow: hidden; /* Studio takes full viewport */
+  overflow: hidden;
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
 }
 
 #__next {
   height: 100%;
 }
 
-/* Mobile - allow scrolling if needed */
 @media (max-width: 768px) {
   body {
     overflow: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -63,6 +69,7 @@ button {
   padding: 0;
   font: inherit;
   color: inherit;
+  cursor: pointer;
 }
 
 /* ========================================
@@ -93,6 +100,45 @@ svg {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   SELECTION
+   ======================================== */
+
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--text-primary);
 }
 
 /* ========================================
@@ -127,21 +173,10 @@ table {
    LAYOUT UTILITIES
    ======================================== */
 
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
 
 .gap-1 { gap: var(--space-1); }
 .gap-2 { gap: var(--space-2); }
@@ -153,10 +188,6 @@ table {
 /* ========================================
    MONACO EDITOR OVERRIDES
    ======================================== */
-
-.monaco-editor {
-  /* Will be customized via Monaco API */
-}
 
 .monaco-editor .margin {
   background: var(--color-abyss) !important;
@@ -170,14 +201,12 @@ table {
    DIFF HIGHLIGHT ANIMATIONS
    ======================================== */
 
-/* Highlight line when navigating to diff changes */
 .diff-highlight-line {
   background-color: rgba(251, 191, 36, 0.15) !important;
   border-left: 3px solid var(--color-warning) !important;
   animation: diffHighlightFade 1s ease-out forwards;
 }
 
-/* Glyph margin indicator */
 .diff-highlight-glyph {
   background-color: var(--color-warning) !important;
   width: 4px !important;
@@ -186,7 +215,6 @@ table {
   animation: diffGlyphFade 1s ease-out forwards;
 }
 
-/* Fade out animation for highlight */
 @keyframes diffHighlightFade {
   0% {
     background-color: rgba(251, 191, 36, 0.25);
@@ -198,7 +226,6 @@ table {
   }
 }
 
-/* Fade out animation for glyph */
 @keyframes diffGlyphFade {
   0% {
     background-color: var(--color-warning);

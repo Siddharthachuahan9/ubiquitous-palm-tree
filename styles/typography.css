@@ -1,18 +1,11 @@
-/* Typography System - Dark Industrial */
+/* Typography System - Premium SaaS */
 
 /* ========================================
    FONT FACE DECLARATIONS
-   Note: Fonts will be self-hosted for performance
    ======================================== */
 
-/* Space Grotesk - Display/Headers */
-@font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/space-grotesk/SpaceGrotesk-Variable.woff2') format('woff2-variations');
-  font-weight: 300 700;
-  font-display: swap;
-  font-style: normal;
-}
+/* Inter - Display & Body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* JetBrains Mono - Code */
 @font-face {
@@ -21,10 +14,18 @@
   font-weight: 400 700;
   font-display: swap;
   font-style: normal;
-  font-feature-settings: 'liga' 1, 'calt' 1; /* Enable ligatures */
+  font-feature-settings: 'liga' 1, 'calt' 1;
 }
 
-/* Manrope - Body */
+/* Fallbacks */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk/SpaceGrotesk-Variable.woff2') format('woff2-variations');
+  font-weight: 300 700;
+  font-display: swap;
+  font-style: normal;
+}
+
 @font-face {
   font-family: 'Manrope';
   src: url('/fonts/manrope/Manrope-Variable.woff2') format('woff2-variations');
@@ -38,9 +39,23 @@
    ======================================== */
 
 :root {
-  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', Consolas, monospace;
-  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+/* ========================================
+   BASE TYPOGRAPHY
+   ======================================== */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* ========================================
@@ -49,81 +64,82 @@
 
 .heading-display {
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  font-size: var(--text-5xl);
   font-weight: 700;
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: -0.04em;
   line-height: var(--leading-tight);
-  color: var(--color-chrome);
+  color: var(--text-primary);
 }
 
 .heading-xl {
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   font-weight: 700;
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: -0.03em;
   line-height: var(--leading-tight);
-  color: var(--color-chrome);
+  color: var(--text-primary);
 }
 
 .heading-lg {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
   font-weight: 600;
   letter-spacing: var(--tracking-tight);
-  line-height: var(--leading-tight);
-  color: var(--color-platinum);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
 }
 
 .heading-base {
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: 600;
-  line-height: var(--leading-tight);
-  color: var(--color-platinum);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
 }
 
 .body-base {
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-base);
-  color: var(--color-platinum);
+  color: var(--text-primary);
 }
 
 .body-sm {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   line-height: var(--leading-base);
-  color: var(--color-silver);
+  color: var(--text-secondary);
 }
 
 .label {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
+  font-size: var(--text-xs);
+  font-weight: 500;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--color-silver);
+  color: var(--text-tertiary);
 }
 
 .code-block {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   line-height: var(--leading-code);
-  color: var(--color-platinum);
+  color: var(--text-primary);
 }
 
 .code-inline {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  padding: var(--space-1) var(--space-2);
-  background: var(--color-steel);
-  border-radius: 2px;
-  color: var(--color-success);
+  padding: 2px 6px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--brand-400);
 }
 
 .metadata {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   line-height: var(--leading-base);
-  color: var(--color-zinc);
+  color: var(--text-tertiary);
 }

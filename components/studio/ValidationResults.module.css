@@ -8,22 +8,22 @@
 
 .summary {
   padding: var(--space-4);
-  border-bottom: 1px solid var(--color-iron);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .status {
-  font-family: var(--font-display);
+  font-family: 'Inter', var(--font-display);
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: var(--space-4);
 }
 
 .status[data-valid='true'] {
-  color: var(--color-success);
+  color: #22C55E;
 }
 
 .status[data-valid='false'] {
-  color: var(--color-error);
+  color: #EF4444;
 }
 
 .metrics {
@@ -39,18 +39,18 @@
 }
 
 .metricLabel {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-zinc);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
 }
 
 .metricValue {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', var(--font-mono);
   font-size: var(--text-base);
   font-weight: 600;
-  color: var(--color-platinum);
+  color: var(--text-primary);
 }
 
 .issues {
@@ -69,24 +69,24 @@
 }
 
 .sectionHeader {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', var(--font-mono);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   padding: var(--space-2) 0;
 }
 
 .sectionHeader[data-severity='error'] {
-  color: var(--color-error);
+  color: #EF4444;
 }
 
 .sectionHeader[data-severity='warning'] {
-  color: var(--color-warning);
+  color: #F59E0B;
 }
 
 .sectionHeader[data-severity='info'] {
-  color: var(--color-info);
+  color: #3B82F6;
 }
 
 .issuesList {
@@ -96,33 +96,34 @@
 }
 
 .issue {
-  padding: var(--space-3);
-  background: var(--color-steel);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-secondary);
   border-left: 3px solid;
+  border-radius: var(--radius-sm);
 }
 
 .issue[data-severity='error'] {
-  border-color: var(--color-error);
+  border-color: #EF4444;
 }
 
 .issue[data-severity='warning'] {
-  border-color: var(--color-warning);
+  border-color: #F59E0B;
 }
 
 .issue[data-severity='info'] {
-  border-color: var(--color-info);
+  border-color: #3B82F6;
 }
 
 .issueLocation {
-  font-family: var(--font-mono);
+  font-family: 'JetBrains Mono', var(--font-mono);
   font-size: var(--text-xs);
-  color: var(--color-zinc);
+  color: var(--text-tertiary);
   margin-bottom: var(--space-1);
 }
 
 .issueMessage {
-  font-family: var(--font-body);
+  font-family: 'Inter', var(--font-body);
   font-size: var(--text-sm);
-  color: var(--color-platinum);
+  color: var(--text-primary);
   line-height: var(--leading-base);
 }

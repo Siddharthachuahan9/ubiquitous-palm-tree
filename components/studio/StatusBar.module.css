@@ -5,12 +5,12 @@
   align-items: center;
   justify-content: space-between;
   height: var(--statusbar-height);
-  background: var(--color-abyss);
-  border-top: 1px solid var(--color-iron);
+  background: var(--surface-panel);
+  border-top: 1px solid var(--border-default);
   padding: 0 var(--space-4);
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-zinc);
+  font-size: 11px;
+  color: var(--text-tertiary);
   z-index: var(--z-panel);
 }
 
@@ -28,7 +28,8 @@
 }
 
 .separator {
-  color: var(--color-iron);
+  color: var(--border-default);
+  opacity: 0.5;
 }
 
 .icon {
@@ -43,47 +44,43 @@
 }
 
 .statusIndicator[data-status='ready'] {
-  background: var(--color-success);
+  background: var(--status-success);
 }
 
 .statusIndicator[data-status='error'] {
-  background: var(--color-error);
+  background: var(--status-error);
 }
 
 .statusIndicator[data-status='warning'] {
-  background: var(--color-warning);
+  background: var(--status-warning);
 }
 
 .statusIndicator[data-status='processing'] {
-  background: var(--color-info);
+  background: var(--status-info);
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* Credit line */
 .credit {
-  font-size: var(--text-2xs);
-  color: var(--color-slate);
+  font-size: 10px;
+  color: var(--text-tertiary);
   font-weight: 400;
-  opacity: 0.6;
+  opacity: 0.5;
   transition: opacity var(--duration-fast) var(--ease-smooth);
 }
 
 .credit:hover {
   opacity: 1;
-  color: var(--color-platinum);
+  color: var(--text-secondary);
 }
 
-/* Responsive - Tablet */
 @media (max-width: 768px) {
   .statusBar {
-    font-size: var(--text-xs);
     padding: 0 var(--space-3);
     flex-wrap: wrap;
-    min-height: 36px;
+    min-height: 32px;
     height: auto;
   }
 
-  /* Hide less important items */
   .cursorPosition,
   .encoding {
     display: none;
@@ -93,35 +90,27 @@
     display: none;
   }
 
-  /* Priority: validation, file size, processing time */
   .item {
-    margin: var(--space-1) var(--space-2);
+    margin: 2px var(--space-2);
   }
 }
 
-/* Responsive - Small Mobile */
 @media (max-width: 480px) {
-  /* Only show critical info on small phones */
   .statusBar {
     justify-content: center;
     font-size: 10px;
   }
 
   .fileSize {
-    display: none; /* Hide file size on very small screens */
+    display: none;
   }
 
-  /* Hide credit on very small screens */
   .credit {
     display: none;
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }

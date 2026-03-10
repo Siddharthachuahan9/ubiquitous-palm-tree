@@ -1,20 +1,21 @@
-/* TopBar - Three-zone grid layout */
-
-/* ========================================
-   HEADER - CSS Grid Layout
-   ======================================== */
+/* TopBar - Premium SaaS Navbar */
 
 .header {
-  display: grid;
-  grid-template-columns: minmax(auto, 280px) 1fr minmax(auto, 400px);
-  grid-template-areas: 'left center right';
+  display: flex;
   align-items: center;
-  gap: 32px;
-  min-height: 64px;
-  padding: 0 20px;
-  background: var(--surface-panel);
+  gap: var(--space-4);
+  height: var(--topbar-height);
+  padding: 0 var(--space-5);
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-default);
   z-index: 100;
+  position: relative;
+}
+
+[data-theme="light"] .header {
+  background: rgba(255, 255, 255, 0.85);
 }
 
 /* ========================================
@@ -22,46 +23,46 @@
    ======================================== */
 
 .leftZone {
-  grid-area: left;
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .logoIcon {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   font-family: var(--font-mono);
-  color: var(--brand-500);
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 .logoContent {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: baseline;
+  gap: var(--space-2);
 }
 
 .logoText {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
 .logoTagline {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-tertiary);
   font-weight: 400;
-  letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--border-default);
 }
 
 /* ========================================
@@ -69,10 +70,11 @@
    ======================================== */
 
 .centerZone {
-  grid-area: center;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 0;
 }
 
 .commandBar {
@@ -80,13 +82,12 @@
   align-items: center;
   gap: var(--space-3);
   width: 100%;
-  min-width: 320px;
-  max-width: 560px;
-  padding: var(--space-3) var(--space-4);
+  max-width: 480px;
+  padding: 7px var(--space-3);
   background: var(--surface-elevated);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  border-radius: var(--radius-lg);
+  color: var(--text-tertiary);
   font-family: var(--font-body);
   font-size: var(--text-sm);
   cursor: pointer;
@@ -94,21 +95,20 @@
 }
 
 .commandBar:hover {
-  background: var(--surface-page);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-sm);
+  background: var(--surface-hover);
 }
 
 .commandBar:focus {
   outline: none;
-  border-color: var(--border-focus);
+  border-color: var(--brand-500);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .searchIcon {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
-  opacity: 0.6;
+  opacity: 0.5;
   flex-shrink: 0;
 }
 
@@ -120,22 +120,21 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 13px;
 }
 
 .shortcut {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 4px 8px;
-  background: var(--surface-panel);
-  border: 1px solid var(--border-subtle);
-  border-radius: 4px;
+  padding: 3px 6px;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-tertiary);
   line-height: 1;
-  box-shadow: var(--shadow-xs);
   flex-shrink: 0;
 }
 
@@ -148,25 +147,23 @@
    ======================================== */
 
 .rightZone {
-  grid-area: right;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  flex-shrink: 0;
 }
 
-/* Privacy Badge */
 .privacyBadge {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: var(--surface-elevated);
-  border: 1px solid var(--border-default);
-  border-radius: 20px; /* Pill shape */
-  color: var(--text-secondary);
+  padding: 5px var(--space-3);
+  background: rgba(34, 197, 94, 0.06);
+  border: 1px solid rgba(34, 197, 94, 0.12);
+  border-radius: var(--radius-full);
+  color: #34D399;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-out);
@@ -174,32 +171,29 @@
 }
 
 .privacyBadge:hover {
-  background: var(--surface-page);
-  border-color: var(--border-strong);
-  color: var(--text-primary);
+  background: rgba(34, 197, 94, 0.10);
+  border-color: rgba(34, 197, 94, 0.2);
 }
 
 .privacyBadge:focus-visible {
-  outline: 2px solid var(--border-focus);
+  outline: 2px solid #34D399;
   outline-offset: 2px;
 }
 
 .lockIcon {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1;
-  opacity: 0.8;
 }
 
 .badgeText {
   line-height: 1;
 }
 
-/* Theme Toggle */
 .themeToggle {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1);
+  gap: 2px;
+  padding: 3px;
   background: var(--surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
@@ -210,87 +204,74 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: transparent;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  color: var(--text-secondary);
-  font-size: 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  font-size: 14px;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .themeButton:hover {
-  background: var(--surface-panel);
-  color: var(--text-primary);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
 }
 
 .themeActive {
-  background: var(--interactive-default);
-  color: var(--text-inverse);
-  border-color: var(--interactive-default);
+  background: var(--brand-500);
+  color: white;
   box-shadow: var(--shadow-xs);
 }
 
 .themeActive:hover {
-  background: var(--interactive-hover);
+  background: var(--brand-400);
 }
 
-/* Tool Actions */
 .toolActions {
   display: flex;
   align-items: center;
   gap: var(--space-2);
 }
 
-/* Icon Button (Mobile) */
 .iconButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: var(--surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-out);
 }
 
 .iconButton:hover {
-  background: var(--surface-page);
-  color: var(--text-primary);
+  background: var(--surface-hover);
   border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 /* ========================================
-   RESPONSIVE - Tablet (768px - 1024px)
+   RESPONSIVE
    ======================================== */
 
 @media (max-width: 1024px) {
-  .header {
-    grid-template-columns: minmax(auto, 200px) 1fr minmax(auto, 300px);
-    gap: 24px;
-    padding: 0 16px;
-  }
-
-  .commandBar {
-    min-width: 240px;
-    max-width: 400px;
-  }
-
   .badgeText {
-    display: none; /* Hide text, show icon only */
+    display: none;
   }
 
   .privacyBadge {
-    padding: var(--space-2);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    padding: 5px;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    justify-content: center;
   }
 }
 
@@ -300,20 +281,15 @@
   }
 }
 
-/* ========================================
-   RESPONSIVE - Mobile (<768px)
-   ======================================== */
-
 @media (max-width: 768px) {
   .header {
-    grid-template-columns: auto 1fr auto;
     gap: var(--space-3);
-    min-height: 56px;
     padding: 0 var(--space-3);
+    height: 48px;
   }
 
   .logoText {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .logoTagline {
@@ -321,13 +297,12 @@
   }
 
   .commandBar {
-    min-width: 120px;
     max-width: none;
-    padding: var(--space-2) var(--space-3);
+    padding: 6px var(--space-3);
   }
 
   .placeholder {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .shortcut {
@@ -335,7 +310,7 @@
   }
 
   .rightZone {
-    gap: var(--space-2);
+    gap: var(--space-1);
   }
 }
 
@@ -362,12 +337,12 @@
 }
 
 /* ========================================
-   FOCUS STATES - Accessibility
+   FOCUS STATES
    ======================================== */
 
 .themeButton:focus-visible,
 .iconButton:focus-visible {
-  outline: 2px solid var(--border-focus);
+  outline: 2px solid var(--brand-500);
   outline-offset: 2px;
   z-index: 1;
 }
