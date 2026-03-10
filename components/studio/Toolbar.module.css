@@ -1,23 +1,21 @@
-/* Toolbar - Top action bar */
+/* Toolbar - Modern action bar */
 
 .toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: var(--toolbar-height);
-  background: rgba(18, 18, 20, 0.8);
-  backdrop-filter: var(--blur-medium);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-panel);
+  border-bottom: 1px solid var(--border-default);
   padding: 0 var(--space-4);
   z-index: var(--z-panel);
-  box-shadow: var(--shadow-sm);
 }
 
 .left,
 .right {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 /* Logo */
@@ -28,12 +26,15 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--text-lg);
-  color: var(--color-chrome);
+  color: var(--text-primary);
 }
 
 .logoIcon {
-  font-size: var(--text-2xl);
-  color: var(--color-success);
+  font-size: var(--text-xl);
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logoContent {
@@ -49,8 +50,8 @@
 }
 
 .logoTagline {
-  font-size: var(--text-2xs);
-  color: var(--color-silver);
+  font-size: 10px;
+  color: var(--text-tertiary);
   font-weight: 400;
   letter-spacing: var(--tracking-wide);
   line-height: 1;
@@ -59,55 +60,56 @@
 /* Mode tabs */
 .modeTabs {
   display: flex;
-  gap: var(--space-2);
+  gap: 2px;
+  background: var(--surface-elevated);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
 }
 
 .tab,
 .tabActive {
-  padding: var(--space-2) var(--space-4);
+  padding: 5px var(--space-3);
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-silver);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
   background: transparent;
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .tab:hover {
-  color: var(--color-platinum);
-  background: var(--glass-light);
-  transform: translateY(-1px);
+  color: var(--text-secondary);
+  background: var(--surface-hover);
 }
 
 .tabActive {
-  color: #0a0a0a;
-  background: var(--gradient-success);
-  box-shadow: var(--shadow-success);
+  color: var(--text-primary);
+  background: var(--surface-panel);
+  box-shadow: var(--shadow-xs);
 }
 
 .tabActive:hover {
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.35);
+  background: var(--surface-panel);
 }
 
 /* Icon buttons */
 .iconButton,
 .commandButton {
   padding: var(--space-2);
-  background: var(--glass-light);
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  color: var(--color-silver);
+  color: var(--text-tertiary);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 36px;
-  height: 36px;
+  transition: all var(--duration-fast) var(--ease-out);
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,17 +117,15 @@
 
 .iconButton:hover,
 .commandButton:hover {
-  background: var(--glass-medium);
-  color: var(--color-chrome);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
 }
 
 .iconButton:active,
 .commandButton:active {
-  transform: translateY(0) scale(0.96);
-  transition-duration: 0.1s;
+  transform: scale(0.96);
+  transition-duration: 0.08s;
 }
 
 .commandButton {
@@ -133,14 +133,14 @@
   padding: var(--space-2) var(--space-3);
 }
 
-/* Responsive - Tablet */
+/* Responsive */
 @media (max-width: 900px) {
   .logoTagline {
     display: none;
   }
 
   .toolbar {
-    padding: 0 var(--space-2);
+    padding: 0 var(--space-3);
   }
 
   .left,
@@ -149,73 +149,49 @@
   }
 }
 
-/* Responsive - Mobile */
 @media (max-width: 768px) {
   .toolbar {
-    padding: var(--space-2);
+    padding: var(--space-2) var(--space-3);
     height: auto;
-    min-height: 56px; /* Taller on mobile for touch */
+    min-height: 48px;
     flex-wrap: wrap;
   }
 
-  /* Touch-friendly icon buttons */
   .iconButton,
   .commandButton {
-    min-width: var(--touch-target-min);
-    min-height: var(--touch-target-min);
-    width: var(--touch-target-min);
-    height: var(--touch-target-min);
-    padding: var(--space-3);
+    min-width: 40px;
+    min-height: 40px;
   }
 
   .commandButton {
     width: auto;
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-3);
   }
 
-  /* Touch-friendly tabs */
   .tab,
   .tabActive {
-    min-height: var(--touch-target-min);
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--text-base);
+    min-height: 36px;
+    padding: var(--space-2) var(--space-3);
   }
 
-  /* Hide share and command palette on mobile */
   .shareButton,
   .commandButton {
     display: none;
   }
 }
 
-/* Responsive - Small Mobile */
 @media (max-width: 480px) {
-  .toolbar {
-    padding: var(--space-2) var(--space-3);
-  }
-
-  .left,
-  .right {
-    gap: var(--space-2);
-  }
-
   .logoText {
-    display: block;
     font-size: var(--text-sm);
   }
 
-  .logoTagline {
-    display: none;
-  }
-
-  /* Smaller tabs on very small screens */
   .tab,
   .tabActive {
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--text-sm);
+    padding: var(--space-2);
+    font-size: 12px;
   }
 
   .modeTabs {
-    gap: var(--space-1);
+    gap: 1px;
   }
 }

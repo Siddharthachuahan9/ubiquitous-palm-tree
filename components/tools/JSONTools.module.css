@@ -1,4 +1,4 @@
-/* JSON Tools Wrapper */
+/* JSON Tools Wrapper - Modern two-panel layout */
 
 .container {
   display: flex;
@@ -7,20 +7,21 @@
   overflow: hidden;
 }
 
-/* Toolbar - Panel toggles and actions */
+/* Toolbar */
 .toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  background: var(--surface-secondary);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-panel);
   border-bottom: 1px solid var(--border-default);
+  min-height: var(--toolbar-height);
 }
 
 .panelToggles {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   align-items: center;
 }
 
@@ -34,20 +35,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--surface-panel);
+  width: 32px;
+  height: 32px;
+  background: transparent;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
+  color: var(--text-tertiary);
 }
 
 .panelToggle:hover {
   background: var(--surface-hover);
   border-color: var(--border-strong);
-  transform: translateY(-1px);
+  color: var(--text-secondary);
 }
 
 /* Main Content */
@@ -58,15 +60,17 @@
 }
 
 .leftPanel {
-  width: 280px;
+  width: 260px;
   background: var(--surface-panel);
   border-right: 1px solid var(--border-default);
   overflow-y: auto;
+  flex-shrink: 0;
 }
 
 .centerPanel {
   flex: 1;
   overflow: hidden;
+  min-width: 0;
 }
 
 .rightPanel {
@@ -74,12 +78,13 @@
   background: var(--surface-panel);
   border-left: 1px solid var(--border-default);
   overflow-y: auto;
+  flex-shrink: 0;
 }
 
-/* Responsive - Tablet */
-@media (max-width: 900px) {
+/* Responsive */
+@media (max-width: 1200px) {
   .leftPanel {
-    width: 240px;
+    width: 220px;
   }
 
   .rightPanel {
@@ -87,28 +92,33 @@
   }
 }
 
-/* Responsive - Mobile */
+@media (max-width: 900px) {
+  .leftPanel {
+    display: none;
+  }
+
+  .rightPanel {
+    width: 260px;
+  }
+}
+
 @media (max-width: 768px) {
   .toolbar {
     padding: var(--space-2) var(--space-3);
   }
 
-  .leftPanel,
   .rightPanel {
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 0;
     width: 100%;
     max-width: 320px;
     z-index: 100;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
   }
 
   .leftPanel {
-    left: 0;
-  }
-
-  .rightPanel {
-    right: 0;
+    display: none;
   }
 }

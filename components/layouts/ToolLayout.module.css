@@ -15,11 +15,11 @@
 
 .workspace {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 50/50 split on desktop */
+  grid-template-columns: 1fr 1fr;
   gap: 0;
   flex: 1;
   overflow: hidden;
-  min-height: 0; /* Allow flex children to shrink */
+  min-height: 0;
 }
 
 .leftPanel,
@@ -35,7 +35,7 @@
 }
 
 /* ========================================
-   PANEL - Individual panel structure
+   PANEL
    ======================================== */
 
 .panel {
@@ -50,17 +50,17 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-5);
   border-bottom: 1px solid var(--border-default);
-  background: var(--surface-elevated);
+  background: var(--surface-secondary);
   flex-shrink: 0;
 }
 
 .panelTitle {
   font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -73,24 +73,24 @@
 .panelContent {
   flex: 1;
   overflow: auto;
-  padding: var(--space-6);
-  min-height: 0; /* Allow scrolling */
+  padding: var(--space-5);
+  min-height: 0;
 }
 
 /* ========================================
-   RESPONSIVE - Mobile
+   RESPONSIVE
    ======================================== */
 
 @media (max-width: 900px) {
   .workspace {
-    grid-template-columns: 1fr; /* Single column on mobile */
-    grid-template-rows: auto auto; /* Stack panels vertically */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
   }
 
   .leftPanel {
     border-right: none;
     border-bottom: 1px solid var(--border-default);
-    max-height: 50vh; /* Limit height on mobile to see both panels */
+    max-height: 50vh;
   }
 
   .rightPanel {
@@ -98,7 +98,7 @@
   }
 
   .panelContent {
-    padding: var(--space-4); /* Reduced padding on mobile */
+    padding: var(--space-4);
   }
 }
 
@@ -108,15 +108,11 @@
   }
 
   .panelTitle {
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
   }
 }
 
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
-
 .panelContent:focus {
-  outline: 2px solid var(--border-focus);
+  outline: 2px solid var(--brand-500);
   outline-offset: -2px;
 }

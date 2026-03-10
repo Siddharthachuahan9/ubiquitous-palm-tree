@@ -35,6 +35,8 @@
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
+  font-family: var(--font-body);
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
@@ -42,6 +44,7 @@
   color: var(--text-secondary);
   line-height: 1.5;
   margin-top: var(--space-1);
+  font-family: var(--font-body);
 }
 
 .fileInput {
@@ -50,12 +53,13 @@
 
 .uploadButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
@@ -63,17 +67,19 @@
 
 .uploadButton:hover {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
 }
 
 .clearButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
@@ -81,26 +87,28 @@
 
 .clearButton:hover {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
 }
 
 .convertButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--interactive-primary);
+  background: var(--brand-600);
   border: none;
-  border-radius: var(--radius-sm);
-  color: var(--text-on-brand);
+  border-radius: var(--radius-md);
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
 }
 
 .convertButton:hover {
-  background: var(--brand-600);
+  background: var(--brand-500);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm), 0 0 16px rgba(59, 130, 246, 0.12);
 }
 
 .convertButton:active {
@@ -110,12 +118,13 @@
 
 .copyButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
@@ -123,7 +132,8 @@
 
 .copyButton:hover:not(:disabled) {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
 }
 
 .copyButton:disabled {
@@ -139,9 +149,11 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
 }
 
 .textarea {
@@ -149,20 +161,21 @@
   min-height: 400px;
   padding: var(--space-4);
   background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.6;
   resize: vertical;
-  transition: all var(--duration-fast) var(--ease-smooth);
+  transition: border-color var(--duration-fast) var(--ease-smooth),
+              box-shadow var(--duration-fast) var(--ease-smooth);
 }
 
 .textarea:focus {
   outline: none;
   border-color: var(--brand-500);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .textarea::placeholder {
@@ -170,12 +183,12 @@
 }
 
 .textareaError {
-  border-color: var(--status-error);
+  border-color: rgba(239, 68, 68, 0.5);
 }
 
 .textareaError:focus {
-  border-color: var(--status-error);
-  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.1);
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .error {
@@ -183,8 +196,8 @@
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4);
-  background: rgba(248, 113, 113, 0.1);
-  border: 1px solid var(--status-error);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: var(--radius-md);
 }
 
@@ -197,6 +210,7 @@
   font-size: 14px;
   color: var(--status-error);
   line-height: 1.5;
+  font-family: var(--font-body);
 }
 
 .privacyNotice {
@@ -205,7 +219,8 @@
   gap: var(--space-2);
   padding: var(--space-3);
   background: var(--surface-secondary);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .privacyIcon {
@@ -216,6 +231,7 @@
 .privacyText {
   font-size: 13px;
   color: var(--text-secondary);
+  font-family: var(--font-body);
 }
 
 /* Output Panel */
@@ -223,9 +239,10 @@
   display: flex;
   flex-direction: column;
   background: var(--surface-panel);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-xs);
 }
 
 .results {
@@ -243,26 +260,30 @@
 }
 
 .resultTitle {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
 }
 
 .copyButtonInline {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .copyButtonInline:hover {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
 }
 
 .outputBox {
@@ -276,11 +297,11 @@
   min-height: 400px;
   padding: var(--space-4);
   background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.6;
   resize: vertical;
 }
@@ -288,6 +309,7 @@
 .outputText:focus {
   outline: none;
   border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .metadata {
@@ -295,6 +317,7 @@
   gap: var(--space-6);
   padding: var(--space-4);
   background: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
 }
 
@@ -305,11 +328,12 @@
 }
 
 .metadataLabel {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .metadataValue {
@@ -331,24 +355,26 @@
 }
 
 .emptyIcon {
-  font-size: 64px;
-  opacity: 0.3;
+  font-size: 56px;
+  opacity: 0.2;
   margin-bottom: var(--space-4);
 }
 
 .emptyTitle {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: var(--space-2);
+  font-family: var(--font-body);
 }
 
 .emptyText {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
   line-height: 1.6;
-  max-width: 320px;
+  max-width: 360px;
   margin-bottom: var(--space-6);
+  font-family: var(--font-body);
 }
 
 .examples {
@@ -359,27 +385,30 @@
 }
 
 .examplesTitle {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  font-family: var(--font-body);
 }
 
 .exampleButton {
   padding: var(--space-2) var(--space-4);
-  background: var(--surface-secondary);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   font-size: 13px;
+  font-family: var(--font-body);
   cursor: pointer;
   transition: all var(--duration-fast) var(--ease-smooth);
 }
 
 .exampleButton:hover {
   background: var(--surface-hover);
-  border-color: var(--border-strong);
+  border-color: var(--border-default);
+  color: var(--text-primary);
   transform: translateX(4px);
 }
 
