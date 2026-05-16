@@ -137,7 +137,10 @@ export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
           <div className={styles.section}>
             {!sessionEnabled ? (
               <div className={styles.emptyState}>
-                <span className={styles.emptyIcon}>🔒</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}>
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
                 <p className={styles.emptyTitle}>History disabled</p>
                 <p className={styles.emptyText}>
                   Enable session storage in the Session tab to track your activity history
@@ -145,7 +148,10 @@ export function RightSidebar({ isOpen, onClose }: RightSidebarProps) {
               </div>
             ) : history.length === 0 ? (
               <div className={styles.emptyState}>
-                <span className={styles.emptyIcon}>🕒</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}>
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
                 <p className={styles.emptyTitle}>No history yet</p>
                 <p className={styles.emptyText}>
                   Your recent activities will appear here as you use tools

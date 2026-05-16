@@ -9,10 +9,10 @@ interface CreditLineProps {
 export function CreditLine({ onOpenPrivacyModal }: CreditLineProps) {
   return (
     <div className={styles.container}>
-      <span className={styles.credit}>created by sidheart❤️</span>
+      <span className={styles.credit}>json0.dev</span>
       <span className={styles.separator}>·</span>
       <button className={styles.privacyLink} onClick={onOpenPrivacyModal}>
-        privacy first
+        Privacy
       </button>
     </div>
   );

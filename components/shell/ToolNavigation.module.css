@@ -1,4 +1,4 @@
-/* ToolNavigation - Modern pill-style tabs */
+/* ToolNavigation - Professional underline tab style */
 
 .navigation {
   width: 100%;
@@ -16,65 +16,74 @@
 
 .toolList {
   display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-5);
-  min-height: 44px;
+  align-items: stretch;
+  padding: 0 var(--space-4);
+  min-height: 40px;
   white-space: nowrap;
+  gap: 0;
 }
 
-/* Tool Tab */
+/* Tab base */
 .tool {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: 6px var(--space-3);
+  gap: 6px;
+  padding: 0 var(--space-3);
+  height: 40px;
   background: transparent;
   border: none;
-  border-radius: var(--radius-md);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   color: var(--text-tertiary);
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
   position: relative;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .tool:hover {
   color: var(--text-secondary);
-  background: var(--surface-hover);
 }
 
-/* Active Tool */
+/* Active Tab */
 .toolActive {
   color: var(--text-primary);
-  font-weight: 600;
-  background: var(--surface-elevated);
-  border: 1px solid var(--border-default);
+  border-bottom-color: var(--interactive-default);
 }
 
 .toolActive:hover {
-  background: var(--surface-elevated);
+  color: var(--text-primary);
 }
 
-/* Tool Icon */
+/* Icon */
 .toolIcon {
-  font-size: 14px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  opacity: 0.7;
 }
 
-/* Tool Label */
+.toolActive .toolIcon {
+  opacity: 1;
+}
+
+/* Label */
 .toolLabel {
   line-height: 1;
+  letter-spacing: -0.01em;
 }
 
-/* Focus State */
+/* Focus */
 .tool:focus-visible {
   outline: 2px solid var(--brand-500);
   outline-offset: -2px;
+  border-radius: 2px;
   z-index: 1;
 }
 
@@ -84,13 +93,13 @@
 
 @media (max-width: 900px) {
   .toolList {
-    padding: var(--space-2) var(--space-3);
-    gap: 2px;
+    padding: 0 var(--space-3);
   }
 
   .tool {
-    padding: 6px var(--space-2);
+    padding: 0 var(--space-2);
     font-size: 12px;
+    gap: 5px;
   }
 }
 
