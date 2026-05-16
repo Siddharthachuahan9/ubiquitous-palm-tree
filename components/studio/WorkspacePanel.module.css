@@ -1,113 +1,143 @@
-/* WorkspacePanel - Left sidebar */
+/* WorkspacePanel */
 
 .panel {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background: var(--surface-panel);
+  border-right: 1px solid var(--border-default);
 }
 
 .header {
-  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--space-4);
   border-bottom: 1px solid var(--border-default);
-  background: var(--surface-secondary);
+  flex-shrink: 0;
 }
 
 .title {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
+  font-size: 11px;
   font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .content {
   flex: 1;
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-3);
   overflow-y: auto;
-}
-
-.section {
-  margin-bottom: var(--space-6);
-}
-
-.section:last-child {
-  margin-bottom: 0;
-}
-
-.sectionTitle {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  margin-bottom: var(--space-2);
-  padding: 0 var(--space-1);
-}
-
-.button {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  width: 100%;
-  padding: var(--space-2) var(--space-3);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-smooth);
-  margin-bottom: 2px;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
-.button:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-default);
-  color: var(--text-primary);
-}
-
-.emptyState {
-  padding: var(--space-6) var(--space-4);
-  text-align: center;
-  color: var(--text-tertiary);
-  font-size: var(--text-sm);
-}
-
-.tips {
+/* Section */
+.section {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
 
-.tip {
-  font-family: var(--font-mono);
-  font-size: 11px;
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-tertiary);
-  line-height: var(--leading-base);
-  padding: 2px var(--space-1);
+  padding: 0 var(--space-2);
+  margin-bottom: 2px;
+  opacity: 0.6;
 }
 
-/* Privacy Notice */
-.privacyNotice {
+/* Action buttons */
+.actionBtn {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3);
-  background: rgba(34, 197, 94, 0.04);
-  border: 1px solid rgba(34, 197, 94, 0.1);
+  width: 100%;
+  padding: 7px var(--space-3);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-smooth),
+              color var(--duration-fast) var(--ease-smooth);
+  text-align: left;
 }
 
-.privacyIcon {
-  font-size: 14px;
+.actionBtn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.actionBtn:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: -2px;
+}
+
+/* Shortcuts */
+.shortcutList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.shortcutKeys {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.shortcutKeys kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.shortcutDesc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* Footer */
+.footer {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border-subtle);
   flex-shrink: 0;
 }
 
-.privacyText {
-  font-size: 12px;
+.credit {
+  font-size: 11px;
   color: var(--text-tertiary);
-  line-height: 1.4;
-  margin: 0;
+  opacity: 0.5;
+  transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.credit:hover {
+  opacity: 1;
 }
